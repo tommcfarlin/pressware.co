@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Now Playing on Spotify</title>
+    <style>
+        :root {
+            --spotify-green: #1DB954;
+            --dark-bg: #121212;
+            --card-bg: #181818;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 60px 24px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+            transition: color 0.15s ease;
+        }
+
+        .back:hover {
+            color: var(--text-primary);
+        }
+
+        .back svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--spotify-green);
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--spotify-green);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid #282828;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            Back to Now Playing on Spotify
+        </a>
+
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: January 16, 2026</p>
+
+        <div class="section">
+            <h2>The Short Version</h2>
+            <p>Now Playing on Spotify does not collect, store, or transmit any personal data. The app runs entirely on your Mac and communicates only with the Spotify desktop app installed on your computer.</p>
+        </div>
+
+        <div class="section">
+            <h2>Data Collection</h2>
+            <p>Now Playing on Spotify collects <strong>no data whatsoever</strong>. Specifically:</p>
+            <ul>
+                <li>No personal information</li>
+                <li>No usage analytics</li>
+                <li>No crash reports</li>
+                <li>No account information</li>
+                <li>No listening history</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>How the App Works</h2>
+            <p>The app uses macOS Automation (AppleScript) to ask the Spotify desktop app what track is currently playing. This communication happens entirely on your Mac between the two apps. No data leaves your computer.</p>
+            <p>When displaying album artwork in notifications, the app downloads the image directly from Spotify's servers. This is the same artwork URL that Spotify provides to all apps and does not involve any personal data.</p>
+        </div>
+
+        <div class="section">
+            <h2>Permissions</h2>
+            <p>The app requests two permissions:</p>
+            <ul>
+                <li><strong>Notifications</strong> — To show you track change alerts</li>
+                <li><strong>Automation (Spotify)</strong> — To read the currently playing track from Spotify</li>
+            </ul>
+            <p>These permissions are used solely for the app's core functionality and nothing else.</p>
+        </div>
+
+        <div class="section">
+            <h2>Third-Party Services</h2>
+            <p>Now Playing on Spotify does not integrate with any third-party analytics, advertising, or tracking services.</p>
+        </div>
+
+        <div class="section">
+            <h2>Changes to This Policy</h2>
+            <p>If this privacy policy changes, the updated version will be posted here with a new "last updated" date.</p>
+        </div>
+
+        <div class="section">
+            <h2>Contact</h2>
+            <p>Questions about this privacy policy? Email <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Pressware, LLC · <a href="https://tommcfarlin.com">Tom McFarlin</a></p>
+        </footer>
+    </div>
+</body>
+</html>

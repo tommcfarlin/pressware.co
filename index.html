@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pressware – Indie Software by Tom McFarlin</title>
+    <meta name="description" content="Indie software studio building useful apps for macOS and iOS.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e5d52b'><path d='M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z'/></svg>">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --text: #f5f5f5;
+            --text-muted: #888;
+            --accent: #e5d52b;
+            --accent-hover: #f0e040;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        main {
+            flex: 1;
+            padding: 80px 24px 48px;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .brand {
+            margin-bottom: 64px;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            fill: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .brand h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .brand .tagline {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .apps {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .app {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+            padding: 16px;
+            margin: -16px;
+            border-radius: 12px;
+            transition: background 0.15s ease;
+        }
+
+        .app:hover {
+            background: var(--surface);
+        }
+
+        .app-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .app-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .app-icon.spotify {
+            background: #1DB954;
+        }
+
+        .app-icon.spotify svg {
+            fill: #000;
+        }
+
+        .app-icon.shelflife {
+            background: #6366f1;
+        }
+
+        .app-icon.shelflife svg {
+            fill: #fff;
+        }
+
+        .app-icon.tunelink {
+            background: #3b82f6;
+        }
+
+        .app-icon.tunelink svg {
+            fill: #fff;
+        }
+
+        .app-icon.wciw {
+            background: #ec4899;
+        }
+
+        .app-icon.wciw svg {
+            fill: #fff;
+        }
+
+        .app-info h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .app-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            padding: 32px 24px;
+            border-top: 1px solid #1a1a1a;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        .footer-sep {
+            margin: 0 8px;
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 48px 20px 32px;
+            }
+
+            .brand {
+                margin-bottom: 48px;
+            }
+
+            .brand h1 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header class="brand">
+            <svg class="brand-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+            </svg>
+            <h1>Pressware</h1>
+            <p class="tagline">Indie Software by Tom McFarlin</p>
+        </header>
+
+        <section>
+            <h2 class="section-title">Apps</h2>
+            <div class="apps">
+                <a href="https://tommcfarlin.github.io/now-playing-on-spotify/" class="app">
+                    <div class="app-icon spotify">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                        </svg>
+                    </div>
+                    <div class="app-info">
+                        <h2>Now Playing</h2>
+                        <p>The notifications Spotify should've shipped.</p>
+                    </div>
+                </a>
+
+                <a href="/apps/shelflife/" class="app">
+                    <div class="app-icon shelflife">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                        </svg>
+                    </div>
+                    <div class="app-info">
+                        <h2>Shelf Life</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </a>
+
+                <a href="https://tunelink.tommcfarlin.com" class="app">
+                    <div class="app-icon tunelink">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+                        </svg>
+                    </div>
+                    <div class="app-info">
+                        <h2>TuneLink</h2>
+                        <p>Convert music links between Spotify and Apple Music.</p>
+                    </div>
+                </a>
+
+                <a href="https://wciw.tommcfarlin.com" class="app">
+                    <div class="app-icon wciw">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/>
+                        </svg>
+                    </div>
+                    <div class="app-info">
+                        <h2>Where Can I Watch?</h2>
+                        <p>Find which streaming services have your favorite movies and shows.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>&copy; 2026 Pressware, LLC</span>
+        <span class="footer-sep">·</span>
+        <a href="https://tommcfarlin.com">Tom McFarlin</a>
+        <span class="footer-sep">·</span>
+        <a href="mailto:tom@pressware.co">tom@pressware.co</a>
+    </footer>
+</body>
+</html>

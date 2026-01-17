@@ -106,6 +106,14 @@
             background: var(--surface);
         }
 
+        .app.disabled {
+            cursor: default;
+        }
+
+        .app.disabled:hover {
+            background: transparent;
+        }
+
         .app-icon {
             width: 56px;
             height: 56px;
@@ -239,7 +247,7 @@
                     </div>
                 </a>
 
-                <a href="/apps/shelflife/" class="app">
+                <div class="app disabled">
                     <div class="app-icon shelflife">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
@@ -250,7 +258,7 @@
                         <p>Track your reading backlog, discover what to read next, and know when it's time to let go.</p>
                         <span class="app-badge">iOS App · Coming Soon</span>
                     </div>
-                </a>
+                </div>
 
                 <a href="https://tunelink.tommcfarlin.com" class="app">
                     <div class="app-icon tunelink">

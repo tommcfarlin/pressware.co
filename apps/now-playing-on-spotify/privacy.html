@@ -96,6 +96,12 @@
             margin-bottom: 8px;
         }
 
+        ol {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
         a {
             color: var(--spotify-green);
             text-decoration: none;
@@ -105,20 +111,55 @@
             text-decoration: underline;
         }
 
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #282828;
+            color: var(--text-secondary);
+        }
+
+        .summary-table th {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .summary-table tr:last-child th,
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+
         footer {
             margin-top: 64px;
             padding-top: 32px;
             border-top: 1px solid #282828;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: var(--text-secondary);
             font-size: 0.85rem;
         }
 
         footer a {
             color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.15s ease;
         }
 
         footer a:hover {
             color: var(--text-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
         }
 
         .home-link {
@@ -149,6 +190,12 @@
                 top: 12px;
                 left: 12px;
             }
+
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -167,58 +214,126 @@
         </a>
 
         <h1>Privacy Policy</h1>
-        <p class="updated">Last updated: January 16, 2026</p>
+        <p class="updated">Last updated: January 24, 2026</p>
 
         <div class="section">
-            <h2>The Short Version</h2>
-            <p>Now Playing on Spotify does not collect, store, or transmit any personal data. The app runs entirely on your Mac and communicates only with the Spotify desktop app installed on your computer.</p>
+            <h2>Overview</h2>
+            <p>Now Playing on Spotify ("the App") is a macOS menu bar application developed by Tom McFarlin ("we," "us," or "our"). This privacy policy explains how the App handles your information.</p>
+            <p><strong>The short version: We don't collect any data. Period.</strong></p>
         </div>
 
         <div class="section">
-            <h2>Data Collection</h2>
-            <p>Now Playing on Spotify collects <strong>no data whatsoever</strong>. Specifically:</p>
-            <ul>
-                <li>No personal information</li>
-                <li>No usage analytics</li>
-                <li>No crash reports</li>
-                <li>No account information</li>
-                <li>No listening history</li>
-            </ul>
+            <h2>Information We Collect</h2>
+            <p><strong>None.</strong> The App does not collect, store, transmit, or share any personal information or usage data.</p>
         </div>
 
         <div class="section">
             <h2>How the App Works</h2>
-            <p>The app uses macOS Automation (AppleScript) to ask the Spotify desktop app what track is currently playing. This communication happens entirely on your Mac between the two apps. No data leaves your computer.</p>
-            <p>When displaying album artwork in notifications, the app downloads the image directly from Spotify's servers. This is the same artwork URL that Spotify provides to all apps and does not involve any personal data.</p>
+            <p>The App operates entirely on your device and performs the following functions:</p>
+            <ul>
+                <li><strong>Reads current track information from Spotify</strong> — The App uses AppleScript to communicate with the Spotify desktop application on your Mac to retrieve the currently playing track name, artist, and album artwork URL.</li>
+                <li><strong>Displays native macOS notifications</strong> — When a track changes, the App shows a notification using Apple's built-in notification system.</li>
+                <li><strong>Downloads album artwork</strong> — The App downloads album artwork from Spotify's public CDN servers to display in notifications. These requests are made directly to Spotify's servers and do not pass through any servers we operate.</li>
+                <li><strong>Stores your notification preference</strong> — The App saves your preference for whether notifications are enabled or disabled. This preference is stored locally on your device using macOS's standard UserDefaults system and is never transmitted anywhere.</li>
+            </ul>
         </div>
 
         <div class="section">
-            <h2>Permissions</h2>
-            <p>The app requests two permissions:</p>
+            <h2>Data Storage</h2>
+            <p>The only data stored by the App is:</p>
             <ul>
-                <li><strong>Notifications</strong> — To show you track change alerts</li>
-                <li><strong>Automation (Spotify)</strong> — To read the currently playing track from Spotify</li>
+                <li><strong>Notification preference</strong> — A simple on/off setting stored locally on your device</li>
+                <li><strong>Temporary artwork files</strong> — Album artwork images are temporarily cached in your system's temporary directory for notification display and are automatically cleaned up by macOS</li>
             </ul>
-            <p>These permissions are used solely for the app's core functionality and nothing else.</p>
+            <p>No data is stored on external servers. No accounts are created. No analytics are collected.</p>
         </div>
 
         <div class="section">
             <h2>Third-Party Services</h2>
-            <p>Now Playing on Spotify does not integrate with any third-party analytics, advertising, or tracking services.</p>
+            <p>The App does not integrate with any third-party analytics, advertising, or tracking services.</p>
+            <p>The App communicates only with:</p>
+            <ol>
+                <li><strong>The Spotify desktop application</strong> — Locally on your Mac, to read track information</li>
+                <li><strong>Spotify's CDN servers</strong> — To download album artwork images for notifications</li>
+            </ol>
+            <p>We have no access to these communications and do not operate any servers that process your data.</p>
         </div>
 
         <div class="section">
-            <h2>Changes to This Policy</h2>
-            <p>If this privacy policy changes, the updated version will be posted here with a new "last updated" date.</p>
+            <h2>Network Usage</h2>
+            <p>The App requires network access solely to download album artwork from Spotify's servers. No other network requests are made. The App does not:</p>
+            <ul>
+                <li>Send any data to our servers (we don't operate any)</li>
+                <li>Track your listening history</li>
+                <li>Record which songs you play</li>
+                <li>Share any information with third parties</li>
+            </ul>
         </div>
 
         <div class="section">
-            <h2>Contact</h2>
-            <p>Questions about this privacy policy? Email <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
+            <h2>Children's Privacy</h2>
+            <p>The App does not collect any personal information from anyone, including children under 13 years of age.</p>
+        </div>
+
+        <div class="section">
+            <h2>Changes to This Privacy Policy</h2>
+            <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated revision date. Since we don't collect any data, changes would likely only clarify our practices or reflect changes in legal requirements.</p>
+        </div>
+
+        <div class="section">
+            <h2>Your Rights</h2>
+            <p>Since we don't collect any personal data, there is no personal data to access, correct, or delete. Your notification preference is stored only on your device and can be changed at any time within the App.</p>
+        </div>
+
+        <div class="section">
+            <h2>Contact Us</h2>
+            <p>If you have any questions about this privacy policy or the App's practices, please contact us at <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
+        </div>
+
+        <div class="section">
+            <h2>Summary</h2>
+            <table class="summary-table">
+                <tr>
+                    <th>Question</th>
+                    <th>Answer</th>
+                </tr>
+                <tr>
+                    <td>Do you collect personal data?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you track usage?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you use analytics?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you show ads?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you share data with third parties?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you have access to my Spotify account?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>What data is stored?</td>
+                    <td>Only your notification on/off preference, locally on your device</td>
+                </tr>
+            </table>
         </div>
 
         <footer>
-            <p>&copy; 2026 Pressware, LLC · <a href="https://tommcfarlin.com">Tom McFarlin</a></p>
+            <span>&copy; 2026 Pressware, LLC · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>
+            <div class="footer-links">
+                <a href="terms.html">Terms</a>
+                <a href="mailto:support@pressware.co">Contact</a>
+            </div>
         </footer>
     </div>
 </body>

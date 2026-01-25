@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - Now Playing on Spotify</title>
+    <style>
+        :root {
+            --spotify-green: #1DB954;
+            --dark-bg: #121212;
+            --card-bg: #181818;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 60px 24px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+            transition: color 0.15s ease;
+        }
+
+        .back:hover {
+            color: var(--text-primary);
+        }
+
+        .back svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--spotify-green);
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--spotify-green);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .legal-caps {
+            text-transform: uppercase;
+        }
+
+        footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid #282828;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            transition: opacity 0.15s ease;
+        }
+
+        .home-link:hover {
+            opacity: 1;
+        }
+
+        .home-link svg {
+            width: 24px;
+            height: 24px;
+            fill: #e5d52b;
+        }
+
+        @media (max-width: 480px) {
+            .home-link {
+                top: 12px;
+                left: 12px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="home-link" title="Pressware">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+        </svg>
+    </a>
+    <div class="container">
+        <a href="index.html" class="back">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            Back to Now Playing on Spotify
+        </a>
+
+        <h1>Terms and Conditions</h1>
+        <p class="updated">Last updated: January 24, 2026</p>
+
+        <div class="section">
+            <h2>Agreement to Terms</h2>
+            <p>By downloading, installing, or using Now Playing on Spotify ("the App"), you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, do not use the App.</p>
+        </div>
+
+        <div class="section">
+            <h2>Description of Service</h2>
+            <p>Now Playing on Spotify is a macOS menu bar application that displays notifications when tracks change in the Spotify desktop application. The App is developed by Tom McFarlin ("we," "us," or "our").</p>
+        </div>
+
+        <div class="section">
+            <h2>Requirements</h2>
+            <p>To use the App, you need:</p>
+            <ul>
+                <li>A Mac running macOS 13.0 (Ventura) or later</li>
+                <li>The Spotify desktop application installed</li>
+                <li>An active Spotify account (free or premium)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>License Grant</h2>
+            <p>Subject to these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to download, install, and use the App for your personal, non-commercial purposes on devices you own or control.</p>
+        </div>
+
+        <div class="section">
+            <h2>Restrictions</h2>
+            <p>You agree not to:</p>
+            <ul>
+                <li>Copy, modify, or distribute the App</li>
+                <li>Reverse engineer, decompile, or disassemble the App</li>
+                <li>Rent, lease, lend, sell, or sublicense the App</li>
+                <li>Use the App for any unlawful purpose</li>
+                <li>Remove any proprietary notices from the App</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Intellectual Property</h2>
+            <p>The App and its original content, features, and functionality are owned by Tom McFarlin and are protected by copyright, trademark, and other intellectual property laws.</p>
+        </div>
+
+        <div class="section">
+            <h2>Third-Party Services</h2>
+            <p>The App interacts with Spotify's desktop application and services. Your use of Spotify is governed by Spotify's own terms of service and privacy policy. We are not affiliated with, endorsed by, or sponsored by Spotify AB.</p>
+            <p><strong>Spotify® is a registered trademark of Spotify AB.</strong></p>
+            <p>We are not responsible for:</p>
+            <ul>
+                <li>The availability or functionality of Spotify's services</li>
+                <li>Changes to Spotify that may affect the App's functionality</li>
+                <li>Any issues arising from your use of Spotify</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Disclaimer of Warranties</h2>
+            <p class="legal-caps">The App is provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+            <p>We do not warrant that:</p>
+            <ul>
+                <li>The App will function uninterrupted or error-free</li>
+                <li>Defects will be corrected</li>
+                <li>The App will be compatible with future versions of macOS or Spotify</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Limitation of Liability</h2>
+            <p class="legal-caps">To the maximum extent permitted by applicable law, in no event shall Tom McFarlin be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from:</p>
+            <ul>
+                <li>Your use or inability to use the App</li>
+                <li>Any unauthorized access to or alteration of your data</li>
+                <li>Any third-party conduct related to the App</li>
+                <li>Any other matter relating to the App</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Indemnification</h2>
+            <p>You agree to indemnify, defend, and hold harmless Tom McFarlin from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorney's fees, arising out of or in any way connected with your use of the App or violation of these Terms.</p>
+        </div>
+
+        <div class="section">
+            <h2>Changes to the App</h2>
+            <p>We reserve the right to modify, suspend, or discontinue the App at any time without notice. We shall not be liable to you or any third party for any modification, suspension, or discontinuation of the App.</p>
+        </div>
+
+        <div class="section">
+            <h2>Changes to These Terms</h2>
+            <p>We may revise these Terms from time to time. The most current version will always be available within the App or on our website. By continuing to use the App after revisions become effective, you agree to be bound by the revised Terms.</p>
+        </div>
+
+        <div class="section">
+            <h2>Termination</h2>
+            <p>We may terminate or suspend your access to the App immediately, without prior notice, for any reason, including if you breach these Terms. Upon termination, your right to use the App will immediately cease.</p>
+        </div>
+
+        <div class="section">
+            <h2>Governing Law</h2>
+            <p>These Terms shall be governed by and construed in accordance with the laws of the United States and the State of Georgia, without regard to its conflict of law provisions.</p>
+        </div>
+
+        <div class="section">
+            <h2>Severability</h2>
+            <p>If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law, and the remaining provisions will continue in full force and effect.</p>
+        </div>
+
+        <div class="section">
+            <h2>Entire Agreement</h2>
+            <p>These Terms constitute the entire agreement between you and Tom McFarlin regarding the App and supersede all prior agreements and understandings.</p>
+        </div>
+
+        <div class="section">
+            <h2>Contact Us</h2>
+            <p>If you have any questions about these Terms, please contact us at <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
+        </div>
+
+        <footer>
+            <span>&copy; 2026 Pressware, LLC · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="mailto:support@pressware.co">Contact</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

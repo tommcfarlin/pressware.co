@@ -120,53 +120,19 @@
             text-decoration: underline;
         }
 
-        .cta {
+        .app-store-badge {
             display: inline-block;
-            background: var(--text-primary);
-            color: var(--dark-bg);
-            padding: 14px 32px;
-            border-radius: 500px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            transition: transform 0.15s ease, opacity 0.15s ease;
         }
 
-        .cta:hover {
+        .app-store-badge:hover {
             transform: scale(1.04);
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+            opacity: 0.9;
         }
 
-        .cta-container {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-
-        .cta.disabled {
-            background: #535353;
-            color: var(--text-secondary);
-            cursor: default;
-            position: relative;
-        }
-
-        .cta.disabled:hover {
-            transform: none;
-            box-shadow: none;
-            background: #636363;
-        }
-
-        .coming-soon {
-            background: var(--card-bg);
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 6px 16px;
-            border-radius: 0 0 12px 12px;
-            margin-top: -2px;
+        .app-store-badge img {
+            height: 40px;
+            width: auto;
         }
 
         footer {
@@ -301,10 +267,9 @@
 
         <p class="requirements">Requires macOS 13.0+ and <a href="https://www.spotify.com/download/" target="_blank" rel="noopener">Spotify desktop app</a></p>
 
-        <div class="cta-container">
-            <a href="#" class="cta disabled">Download on the Mac App Store</a>
-            <span class="coming-soon">Coming soon</span>
-        </div>
+        <a href="https://apps.apple.com/us/app/now-playing-notify/id6758255928?mt=12" class="app-store-badge" target="_blank" rel="noopener">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-mac-app-store.svg" alt="Download on the Mac App Store">
+        </a>
 
         <footer>
             <span>&copy; 2026 Pressware, LLC · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>

@@ -37,9 +37,14 @@ Point the apex domain to GitHub Pages IP addresses:
 /
 ├── index.html                    # Homepage
 ├── apps/
-│   └── shelflife/
-│       ├── privacy.html          # Privacy Policy
-│       └── terms.html            # Terms of Service
+│   ├── now-playing-notify/
+│   │   ├── index.html            # Landing page
+│   │   ├── privacy.html          # Privacy Policy
+│   │   └── terms.html            # Terms of Service
+│   └── shelf-life/
+│       ├── index.html            # Landing page
+│       ├── privacy-policy.html   # Privacy Policy
+│       └── terms-and-conditions.html  # Terms of Service
 ├── CNAME                         # GitHub Pages custom domain
 └── README.md
 ```
@@ -47,5 +52,7 @@ Point the apex domain to GitHub Pages IP addresses:
 ## Links
 
 - **Homepage:** https://pressware.co
-- **Shelf Life Privacy:** https://pressware.co/apps/shelflife/privacy.html
-- **Shelf Life Terms:** https://pressware.co/apps/shelflife/terms.html
+- **Shelf Life:** https://pressware.co/apps/shelf-life/
+- **Shelf Life Privacy:** https://pressware.co/apps/shelf-life/privacy-policy.html
+- **Shelf Life Terms:** https://pressware.co/apps/shelf-life/terms-and-conditions.html
+- **Now Playing Notify:** https://pressware.co/apps/now-playing-notify/

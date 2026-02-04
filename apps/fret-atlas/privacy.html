@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Fret Atlas</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%236366f1'/><path d='M19.59 3H4.41C3.63 3 3 3.63 3 4.41v15.18C3 20.37 3.63 21 4.41 21h15.18c.78 0 1.41-.63 1.41-1.41V4.41C21 3.63 20.37 3 19.59 3zM7 7h2v10H7V7zm4 0h2v10h-2V7zm4 0h2v10h-2V7z' fill='%23fff' fill-opacity='0.9'/></svg>">
+    <style>
+        :root {
+            --accent-indigo: #6366f1;
+            --dark-bg: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a3a3a3;
+            --border: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 60px 24px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+            transition: color 0.15s ease;
+        }
+
+        .back:hover {
+            color: var(--text-primary);
+        }
+
+        .back svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--accent-indigo);
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--accent-indigo);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .summary-table th {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .summary-table tr:last-child th,
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            transition: opacity 0.15s ease;
+        }
+
+        .home-link:hover {
+            opacity: 1;
+        }
+
+        .home-link svg {
+            width: 24px;
+            height: 24px;
+            fill: #e5d52b;
+        }
+
+        @media (max-width: 480px) {
+            .home-link {
+                top: 12px;
+                left: 12px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="home-link" title="Pressware">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+        </svg>
+    </a>
+    <div class="container">
+        <a href="index.html" class="back">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            Back to Fret Atlas
+        </a>
+
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: February 3, 2026</p>
+
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Fret Atlas ("the App") is an iOS application developed by Tom McFarlin ("we," "us," or "our"). This privacy policy explains how the App handles your information.</p>
+            <p><strong>The short version: We collect no personal data and never sell your information.</strong></p>
+        </div>
+
+        <div class="section">
+            <h2>Information We Collect</h2>
+            <p>The App collects and stores the following information locally on your device:</p>
+            <ul>
+                <li><strong>Your favorite chords</strong> — Chords you've saved for quick access</li>
+                <li><strong>Your saved progressions</strong> — Custom chord progressions you've created</li>
+                <li><strong>App preferences</strong> — Settings like left-handed mode</li>
+            </ul>
+            <p>This data is stored locally using Apple's standard storage systems and is not transmitted to any server.</p>
+        </div>
+
+        <div class="section">
+            <h2>No Network Usage</h2>
+            <p>The App operates entirely offline. It does not:</p>
+            <ul>
+                <li>Connect to the internet</li>
+                <li>Send any data to external servers</li>
+                <li>Use any third-party APIs or services</li>
+                <li>Require an internet connection to function</li>
+            </ul>
+            <p>All chord data, scales, and music theory content is bundled within the App itself.</p>
+        </div>
+
+        <div class="section">
+            <h2>Data We Do Not Collect</h2>
+            <p>The App does not collect:</p>
+            <ul>
+                <li>Your name, email, or contact information</li>
+                <li>Your location</li>
+                <li>Device identifiers or advertising IDs</li>
+                <li>Usage analytics or behavioral data</li>
+                <li>Any personal information whatsoever</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>No Third-Party Services</h2>
+            <p>The App does not use any third-party services, including:</p>
+            <ul>
+                <li>Analytics services</li>
+                <li>Advertising networks</li>
+                <li>Crash reporting tools</li>
+                <li>Social media integrations</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Children's Privacy</h2>
+            <p>The App does not collect any personal information from anyone, including children under 13 years of age. Since the App collects no data and requires no account creation, it is suitable for users of all ages.</p>
+        </div>
+
+        <div class="section">
+            <h2>Data Retention and Deletion</h2>
+            <p>All data is stored locally on your device. You can delete all App data by:</p>
+            <ul>
+                <li>Deleting the App from your device</li>
+                <li>Clearing favorites and saved progressions within the App</li>
+            </ul>
+            <p>Since no data is transmitted to external servers, there is no server-side data to delete.</p>
+        </div>
+
+        <div class="section">
+            <h2>Changes to This Privacy Policy</h2>
+            <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated revision date. Continued use of the App after changes constitutes acceptance of the updated policy.</p>
+        </div>
+
+        <div class="section">
+            <h2>Your Rights</h2>
+            <p>Since all data is stored locally on your device, you have full control over it. You can view, modify, or delete your data at any time through the App's interface or by removing the App.</p>
+        </div>
+
+        <div class="section">
+            <h2>Contact Us</h2>
+            <p>If you have any questions about this privacy policy or the App's practices, please contact us at <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
+        </div>
+
+        <div class="section">
+            <h2>Summary</h2>
+            <table class="summary-table">
+                <tr>
+                    <th>Question</th>
+                    <th>Answer</th>
+                </tr>
+                <tr>
+                    <td>Do you collect personal data?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you track usage?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you use analytics?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you show ads?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you share data with third parties?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Does the app require internet?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Where is my data stored?</td>
+                    <td>Locally on your device only</td>
+                </tr>
+                <tr>
+                    <td>Can I delete my data?</td>
+                    <td>Yes, by removing the App or clearing data in settings</td>
+                </tr>
+            </table>
+        </div>
+
+        <footer>
+            <span>&copy; 2026 Pressware, LLC</span>
+            <div class="footer-links">
+                <a href="terms.html">Terms</a>
+                <a href="mailto:support@pressware.co">Contact</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

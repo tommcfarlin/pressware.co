@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Session Stash</title>
+    <style>
+        :root {
+            --accent: #9B2335;
+            --dark-bg: #121212;
+            --card-bg: #181818;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+                         'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 24px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 640px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 48px;
+        }
+
+        .content {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            padding-left: 20px;
+            font-size: 0.95rem;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid #282828;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            transition: opacity 0.15s ease;
+        }
+
+        .home-link:hover {
+            opacity: 1;
+        }
+
+        .home-link svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent);
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .home-link {
+                top: 12px;
+                left: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+        </svg>
+    </a>
+
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: February 2026</p>
+
+        <div class="content">
+            <h2>Overview</h2>
+            <p>Session Stash is designed with privacy as a core principle. The extension operates entirely within your browser and does not collect, transmit, or store any personal data externally.</p>
+
+            <h2>Data Collection</h2>
+            <p>Session Stash does not collect any data. Specifically:</p>
+            <ul>
+                <li>No browsing history is transmitted</li>
+                <li>No tab URLs or titles are sent to external servers</li>
+                <li>No analytics or tracking code is included</li>
+                <li>No personal information is gathered</li>
+            </ul>
+
+            <h2>Local Storage</h2>
+            <p>The extension uses your browser's local storage solely to remember the timestamp of your last save. This is used for the duplicate detection feature and never leaves your device.</p>
+
+            <h2>Permissions</h2>
+            <p>Session Stash requires the following browser permissions:</p>
+            <ul>
+                <li><strong>Tabs</strong> - To read URLs and titles of open tabs for saving</li>
+                <li><strong>Bookmarks</strong> - To create folders and save your tabs as bookmarks</li>
+                <li><strong>Notifications</strong> - To confirm when tabs have been saved</li>
+                <li><strong>Storage</strong> - To store the last save timestamp locally</li>
+            </ul>
+
+            <h2>Third Parties</h2>
+            <p>Session Stash does not share any data with third parties because no data is collected in the first place.</p>
+
+            <h2>Contact</h2>
+            <p>If you have questions about this privacy policy, please contact <a href="mailto:tom@pressware.co">tom@pressware.co</a>.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div>&copy; 2026 Pressware, LLC &middot; <a href="https://tommcfarlin.com">Tom McFarlin</a></div>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="mailto:tom@pressware.co">Contact</a>
+        </div>
+    </footer>
+</body>
+</html>

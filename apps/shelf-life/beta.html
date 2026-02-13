@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelf Life Beta</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Join the Shelf Life beta. Help us test a new iOS app for tracking your reading backlog.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%236366f1'/><path d='M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z' fill='%23fff'/></svg>">
+    <style>
+        :root {
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --bg: #ffffff;
+            --surface: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-tertiary: #86868b;
+            --border: #d2d2d7;
+            --nav-bg: rgba(255, 255, 255, 0.72);
+            --green: #34c759;
+            --orange: #ff9500;
+            --purple: #af52de;
+            --blue: #007aff;
+            --gray: #8e8e93;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-brand svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Main content */
+        main {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero */
+        .hero {
+            padding-top: 100px;
+            padding-bottom: 64px;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 96px;
+            height: 96px;
+            background: var(--accent);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
+        }
+
+        .hero-icon svg {
+            width: 48px;
+            height: 48px;
+            fill: #fff;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 12px;
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .hero .subtitle {
+            font-size: 1rem;
+            color: var(--text-tertiary);
+        }
+
+        .beta-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        /* Sections */
+        section {
+            padding: 56px 0;
+        }
+
+        section + section {
+            border-top: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        /* Feature cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 28px 24px;
+        }
+
+        .feature-card .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .feature-card .feature-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: #fff;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        .icon-blue { background: var(--blue); }
+        .icon-green { background: var(--green); }
+        .icon-purple { background: var(--purple); }
+        .icon-orange { background: var(--orange); }
+        .icon-gray { background: var(--gray); }
+
+        /* Screenshots */
+        .screenshots {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 8px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .screenshot {
+            flex-shrink: 0;
+            width: 200px;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            display: block;
+            transition: opacity 0.15s ease;
+        }
+
+        .screenshot:hover img {
+            opacity: 0.85;
+        }
+
+        /* Lightbox */
+        .lightbox-toggle {
+            display: none;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            cursor: pointer;
+        }
+
+        .lightbox img {
+            max-height: 90vh;
+            max-width: 90vw;
+            border-radius: 20px;
+            box-shadow: 0 16px 64px rgba(0, 0, 0, 0.4);
+            transform: scale(0.92);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .lightbox-toggle:checked + .lightbox {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-toggle:checked + .lightbox img {
+            transform: scale(1);
+        }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 32px;
+            align-items: flex-start;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .step-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .step-content .note {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            background: var(--surface);
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        /* Sign up */
+        .signup-box {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+        }
+
+        .signup-box h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .signup-box p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            max-width: 440px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .signup-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 12px;
+            transition: background 0.15s ease;
+        }
+
+        .signup-button:hover {
+            background: var(--accent-light);
+        }
+
+        .signup-button svg {
+            width: 18px;
+            height: 18px;
+            fill: #fff;
+        }
+
+        .signup-note {
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Highlights */
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 32px 24px 48px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero {
+                padding-top: 80px;
+                padding-bottom: 48px;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .signup-box {
+                padding: 32px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#top" class="nav-brand">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                </svg>
+                Shelf Life
+            </a>
+            <ul class="nav-links">
+                <li><a href="#what-is-it">What Is It?</a></li>
+                <li><a href="#install">Install the Beta</a></li>
+                <li><a href="#signup">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- Hero -->
+        <div class="hero" id="top">
+            <span class="beta-badge">Beta</span>
+            <div class="hero-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                </svg>
+            </div>
+            <h1>Shelf Life</h1>
+            <p class="tagline">Track your reading backlog. Discover what to read next.</p>
+            <p class="subtitle">We're looking for at least 12 readers to help test the app before launch.</p>
+        </div>
+
+        <!-- What Is It? -->
+        <section id="what-is-it">
+            <h2 class="section-title">What Is It?</h2>
+            <p class="section-subtitle">Shelf Life helps you organize your books, track what you're reading, and figure out what to pick up next.</p>
+
+            <div class="features-grid">
+                <!-- Build Your TBR — matches onboarding page 1 (books.vertical.fill, blue) -->
+                <div class="feature-card">
+                    <div class="feature-icon icon-blue">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"/>
+                        </svg>
+                    </div>
+                    <h3>Build Your TBR</h3>
+                    <p>Add books by scanning a barcode, pasting an Amazon link, or entering details manually. Your To Be Read pile, finally organized.</p>
+                </div>
+
+                <!-- Stay Fresh — matches onboarding page 2 (leaf.fill, green) -->
+                <div class="feature-card">
+                    <div class="feature-icon icon-green">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.8 2.8C16 2.09 13.86 2 12 2c-1.86 0-4 .09-5.8.8C3.53 3.84 2 6.05 2 8.86V22h2v-4h7v4h2v-4h7v4h2V8.86c0-2.81-1.53-5.02-4.2-6.06zM7 14H5V8.86c0-1.67.92-3.07 2-3.86v9zm5 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm7 0h-2V5c1.08.79 2 2.19 2 3.86V14z"/>
+                        </svg>
+                    </div>
+                    <h3>Stay Fresh</h3>
+                    <p>Books go from <strong>Fresh</strong> to <strong>Dusty</strong> to <strong>Expired</strong>. No more letting your TBR collect dust forever.</p>
+                </div>
+
+                <!-- For You — matches onboarding page 4 (sparkles, purple) -->
+                <div class="feature-card">
+                    <div class="feature-icon icon-purple">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/>
+                        </svg>
+                    </div>
+                    <h3>For You</h3>
+                    <p>Stuck in a slump? Get personalized picks based on your mood -- quick reads, deep dives, or surprise me.</p>
+                </div>
+
+                <!-- Sell Your Shelf — matches onboarding page 5 (dollarsign, orange) -->
+                <div class="feature-card">
+                    <div class="feature-icon icon-orange">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                        </svg>
+                    </div>
+                    <h3>Sell Your Shelf</h3>
+                    <p>Done with a book? Get instant resale quotes or generate QR codes for quick in-person sales. It's OK to <strong>DNF</strong>.</p>
+                </div>
+            </div>
+
+            <!-- Screenshots -->
+            <div class="screenshots">
+                <label for="lb-shelf" class="screenshot"><img src="screenshots/01-shelf.png" alt="Your bookshelf with freshness badges and filters"></label>
+                <label for="lb-details" class="screenshot"><img src="screenshots/02-details.png" alt="Book detail view with progress tracking"></label>
+                <label for="lb-foryou" class="screenshot"><img src="screenshots/03-for-you.png" alt="For You tab with personalized reading recommendations"></label>
+            </div>
+
+            <!-- Lightboxes -->
+            <input type="checkbox" class="lightbox-toggle" id="lb-shelf">
+            <label class="lightbox" for="lb-shelf"><img src="screenshots/01-shelf.png" alt="Your bookshelf with freshness badges and filters"></label>
+
+            <input type="checkbox" class="lightbox-toggle" id="lb-details">
+            <label class="lightbox" for="lb-details"><img src="screenshots/02-details.png" alt="Book detail view with progress tracking"></label>
+
+            <input type="checkbox" class="lightbox-toggle" id="lb-foryou">
+            <label class="lightbox" for="lb-foryou"><img src="screenshots/03-for-you.png" alt="For You tab with personalized reading recommendations"></label>
+        </section>
+
+        <!-- Install the Beta -->
+        <section id="install">
+            <h2 class="section-title">Install the Beta</h2>
+            <p class="section-subtitle">After you sign up, I'll send you an email invitation from Apple. Here's what to do when you get it.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Open the email on your iPhone</h3>
+                        <p>You'll receive an email from Apple with the subject "You're invited to test Shelf Life." Open it on the iPhone you want to test with.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Tap "View in TestFlight"</h3>
+                        <p>This opens Apple's TestFlight app. If you don't have it installed, you'll be taken to the App Store first.</p>
+                        <span class="note">TestFlight is a free app made by Apple for testing apps before they launch.</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Install TestFlight (if needed)</h3>
+                        <p>If the App Store opens, tap "Get" to install TestFlight. It's free and takes about 30 seconds. Then go back to the email and tap the link again.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Accept the invitation</h3>
+                        <p>In TestFlight, tap "Accept" next to Shelf Life, then tap "Install." The app will download and appear on your home screen.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Open Shelf Life and add your first book</h3>
+                        <p>Tap the app to open it. You'll see a short walkthrough, then you can start adding books. Try scanning a barcode, pasting an Amazon link, or adding one manually.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sign Up -->
+        <section id="signup">
+            <div class="signup-box">
+                <h3>Join the Beta</h3>
+                <p>We're looking for at least 12 readers who buy more books than they read and want a better way to manage their shelf. If that's you, send us your name and email and we'll get you set up.</p>
+                <a href="mailto:support@pressware.co?subject=Shelf%20Life%20Beta%20-%20Sign%20Me%20Up&body=Hi!%20I'd%20like%20to%20join%20the%20Shelf%20Life%20beta.%0A%0AName%3A%20%0AEmail%20(for%20TestFlight%20invite)%3A%20%0AApprox.%20how%20many%20unread%20books%20do%20you%20own%3F%20" class="signup-button">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    Email Us to Join
+                </a>
+                <p class="signup-note">Requires an iPhone running iOS 17 or later.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <span>&copy; 2026 <a href="https://pressware.co">Pressware, LLC</a></span>
+        <a href="https://pressware.co">pressware.co</a>
+    </footer>
+
+</body>
+</html>

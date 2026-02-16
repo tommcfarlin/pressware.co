@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - BurnRate</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23CC785C'/><path d='M13.5 2.5s.56 2 .56 3.6c0 1.54-1.01 2.8-2.56 2.8s-2.72-1.26-2.72-2.8l.02-.27C7.16 7.38 6.25 9.72 6.25 12.25c0 3.31 2.69 6 6 6s6-2.69 6-6c0-4.04-1.94-7.65-4.75-9.75zM11.36 16.5c-1.34 0-2.42-1.05-2.42-2.36 0-1.21.79-2.07 2.11-2.34 1.33-.27 2.7-.91 3.47-1.94.29.97.44 1.99.44 3.03 0 1.99-1.61 3.61-3.6 3.61z' fill='%23fff'/></svg>">
+    <style>
+        :root {
+            --accent: #CC785C;
+            --dark-bg: #121212;
+            --card-bg: #181818;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 60px 24px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+            transition: color 0.15s ease;
+        }
+
+        .back:hover {
+            color: var(--text-primary);
+        }
+
+        .back svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #282828;
+            color: var(--text-secondary);
+        }
+
+        .summary-table th {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .summary-table tr:last-child th,
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid #282828;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            transition: opacity 0.15s ease;
+        }
+
+        .home-link:hover {
+            opacity: 1;
+        }
+
+        .home-link svg {
+            width: 24px;
+            height: 24px;
+            fill: #e5d52b;
+        }
+
+        @media (max-width: 480px) {
+            .home-link {
+                top: 12px;
+                left: 12px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="home-link" title="Pressware">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+    <div class="container">
+        <a href="index.html" class="back">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            Back to BurnRate
+        </a>
+
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: February 16, 2026</p>
+
+        <div class="section">
+            <h2>Overview</h2>
+            <p>BurnRate ("the App") is a macOS menu bar application developed by Tom McFarlin ("we," "us," or "our"). This privacy policy explains how the App handles your information.</p>
+            <p><strong>The short version: We don't collect any data. Period.</strong></p>
+        </div>
+
+        <div class="section">
+            <h2>Information We Collect</h2>
+            <p><strong>None.</strong> The App does not collect, store, transmit, or share any personal information or usage data.</p>
+        </div>
+
+        <div class="section">
+            <h2>How the App Works</h2>
+            <p>The App operates entirely on your device and performs the following functions:</p>
+            <ul>
+                <li><strong>Reads local Claude Code session data</strong> — The App reads session files from your local Claude Code data directory (<code>~/.claude/</code>) to calculate token usage, message counts, and session information.</li>
+                <li><strong>Displays usage in the menu bar</strong> — The App shows token usage statistics, per-model breakdowns, and session counts in a native macOS menu bar popover.</li>
+                <li><strong>All processing is local</strong> — All calculations and data parsing happen on your machine. No data is sent anywhere.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Data Storage</h2>
+            <p>The App does not store any data of its own. It reads existing Claude Code session files on your machine in real time. No data is copied, cached, or persisted by BurnRate.</p>
+            <p>No data is stored on external servers. No accounts are created. No analytics are collected.</p>
+        </div>
+
+        <div class="section">
+            <h2>Network Usage</h2>
+            <p>The App makes <strong>no network requests whatsoever</strong>. BurnRate does not:</p>
+            <ul>
+                <li>Send any data to our servers (we don't operate any)</li>
+                <li>Connect to any external services</li>
+                <li>Include any analytics or telemetry</li>
+                <li>Phone home or check for updates over the network</li>
+                <li>Share any information with third parties</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Third-Party Services</h2>
+            <p>The App does not integrate with any third-party analytics, advertising, or tracking services. The App reads only local files created by Claude Code on your machine.</p>
+        </div>
+
+        <div class="section">
+            <h2>Children's Privacy</h2>
+            <p>The App does not collect any personal information from anyone, including children under 13 years of age.</p>
+        </div>
+
+        <div class="section">
+            <h2>Changes to This Privacy Policy</h2>
+            <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated revision date. Since we don't collect any data, changes would likely only clarify our practices or reflect changes in legal requirements.</p>
+        </div>
+
+        <div class="section">
+            <h2>Your Rights</h2>
+            <p>Since we don't collect any personal data, there is no personal data to access, correct, or delete. The App reads only existing local files and does not create or modify any data.</p>
+        </div>
+
+        <div class="section">
+            <h2>Contact Us</h2>
+            <p>If you have any questions about this privacy policy or the App's practices, please contact us at <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
+        </div>
+
+        <div class="section">
+            <h2>Summary</h2>
+            <table class="summary-table">
+                <tr>
+                    <th>Question</th>
+                    <th>Answer</th>
+                </tr>
+                <tr>
+                    <td>Do you collect personal data?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you track usage?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you use analytics?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you make network requests?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Do you share data with third parties?</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>What data does the App access?</td>
+                    <td>Only local Claude Code session files on your machine</td>
+                </tr>
+                <tr>
+                    <td>What data does the App store?</td>
+                    <td>None</td>
+                </tr>
+            </table>
+        </div>
+
+        <footer>
+            <span>&copy; 2026 Pressware, LLC · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>
+            <div class="footer-links">
+                <a href="terms.html">Terms</a>
+                <a href="mailto:support@pressware.co">Contact</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

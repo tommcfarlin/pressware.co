@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Ban Beta</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Join the Shadow Ban beta. Help us test a Gmail add-on that silently moves unwanted emails out of your inbox.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%234A4A4A'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z' fill='%23fff'/></svg>">
+    <style>
+        :root {
+            --accent: #4A4A4A;
+            --accent-light: #5a5a5a;
+            --bg: #ffffff;
+            --surface: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-tertiary: #86868b;
+            --border: #d2d2d7;
+            --nav-bg: rgba(255, 255, 255, 0.72);
+            --green: #34c759;
+            --orange: #ff9500;
+            --purple: #af52de;
+            --blue: #007aff;
+            --gray: #8e8e93;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-brand svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Main content */
+        main {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero */
+        .hero {
+            padding-top: 100px;
+            padding-bottom: 64px;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 96px;
+            height: 96px;
+            background: var(--accent);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            box-shadow: 0 4px 20px rgba(74, 74, 74, 0.25);
+        }
+
+        .hero-icon svg {
+            width: 48px;
+            height: 48px;
+            fill: #fff;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 12px;
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .hero .subtitle {
+            font-size: 1rem;
+            color: var(--text-tertiary);
+        }
+
+        .beta-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        /* Sections */
+        section {
+            padding: 56px 0;
+        }
+
+        section + section {
+            border-top: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        /* Feature cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 28px 24px;
+        }
+
+        .feature-card .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .feature-card .feature-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: #fff;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        .icon-blue { background: var(--blue); }
+        .icon-green { background: var(--green); }
+        .icon-purple { background: var(--purple); }
+        .icon-orange { background: var(--orange); }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 32px;
+            align-items: flex-start;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .step-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .step-content .note {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            background: var(--surface);
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        /* Sign up */
+        .signup-box {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+        }
+
+        .signup-box h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .signup-box p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            max-width: 440px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .signup-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 12px;
+            transition: background 0.15s ease;
+        }
+
+        .signup-button:hover {
+            background: var(--accent-light);
+        }
+
+        .signup-button svg {
+            width: 18px;
+            height: 18px;
+            fill: #fff;
+        }
+
+        .signup-note {
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Footer */
+        footer {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 32px 24px 48px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero {
+                padding-top: 80px;
+                padding-bottom: 48px;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .signup-box {
+                padding: 32px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#top" class="nav-brand">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/>
+                </svg>
+                Shadow Ban
+            </a>
+            <ul class="nav-links">
+                <li><a href="#what-is-it">What Is It?</a></li>
+                <li><a href="#install">How to Install</a></li>
+                <li><a href="#signup">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- Hero -->
+        <div class="hero" id="top">
+            <span class="beta-badge">Beta</span>
+            <div class="hero-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/>
+                </svg>
+            </div>
+            <h1>Shadow Ban</h1>
+            <p class="tagline">Clean up your inbox, quietly.</p>
+            <p class="subtitle">We're looking for 10 Gmail users to help test before launch.</p>
+        </div>
+
+        <!-- What Is It? -->
+        <section id="what-is-it">
+            <h2 class="section-title">What Is It?</h2>
+            <p class="section-subtitle">Shadow Ban is a Gmail add-on that silently moves emails from specific senders out of your inbox. No awkward unsubscribe. No sender notification. Just peace and quiet.</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon icon-blue">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3>One-Tap Ban</h3>
+                    <p>Open any email, tap ban. That sender's messages silently move out of your inbox.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon icon-green">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
+                        </svg>
+                    </div>
+                    <h3>Automatic Filters</h3>
+                    <p>Gmail filters are created behind the scenes. Future emails skip your inbox automatically.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon icon-purple">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
+                        </svg>
+                    </div>
+                    <h3>Unban Anytime</h3>
+                    <p>Changed your mind? Unban restores their messages right back to your inbox.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon icon-orange">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-3.5-6.2l-1.78 1.78-1.06-1.06-1.42 1.42 2.48 2.48 3.2-3.2-1.42-1.42z"/>
+                        </svg>
+                    </div>
+                    <h3>No Sender Notification</h3>
+                    <p>Unlike unsubscribe, the sender has no idea. No awkward "you've been removed" emails.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Install -->
+        <section id="install">
+            <h2 class="section-title">How to Install</h2>
+            <p class="section-subtitle">After you sign up, we'll send you a direct link to install the add-on. Here's how it works.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Sign up by emailing us</h3>
+                        <p>Use the sign-up link below to send us a quick email. We'll add you to the beta list.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>We'll send you a direct install link</h3>
+                        <p>You'll receive a link to install the Shadow Ban Gmail add-on from the Google Workspace Marketplace.</p>
+                        <span class="note">The add-on is unlisted during beta, so you need the direct link to find it.</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Authorize Shadow Ban with your Gmail account</h3>
+                        <p>Click the link and grant the add-on permission to manage your filters and labels. All actions stay within your own Gmail account.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Open any email in Gmail</h3>
+                        <p>Once installed, open any email and you'll see Shadow Ban in the sidebar on the right side of Gmail.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Tap "Ban" on any sender you want to silence</h3>
+                        <p>That's it. Their current and future emails will be moved out of your inbox and into the "Unsubscribe" label, silently.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sign Up -->
+        <section id="signup">
+            <div class="signup-box">
+                <h3>Join the Beta</h3>
+                <p>We're looking for 10 Gmail users who are tired of unwanted emails cluttering their inbox. If that's you, send us your name and email and we'll get you set up.</p>
+                <a href="mailto:support@pressware.co?subject=Shadow%20Ban%20Beta%20-%20Sign%20Me%20Up&body=Hi!%20I'd%20like%20to%20join%20the%20Shadow%20Ban%20beta.%0A%0AName%3A%20%0AEmail%20(Gmail%20account)%3A%20" class="signup-button">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    Email Me to Join
+                </a>
+                <p class="signup-note">Requires a Gmail account (personal or Workspace).</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <span>&copy; 2026 <a href="https://pressware.co">Pressware, LLC</a></span>
+        <a href="https://pressware.co">pressware.co</a>
+    </footer>
+
+</body>
+</html>

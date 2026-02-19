@@ -209,6 +209,25 @@
             color: #22c55e;
         }
 
+        .app-badge-link {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.15s ease;
+        }
+
+        .app-badge-link.available {
+            color: #22c55e;
+        }
+
+        .app-badge-link:hover {
+            text-decoration: underline;
+        }
+
+        .app-badge-sep {
+            color: #666;
+            margin: 0 2px;
+        }
+
         footer {
             padding: 32px 24px;
             border-top: 1px solid #1a1a1a;
@@ -311,7 +330,7 @@
                     </div>
                 </a>
 
-                <a href="https://wciw.tommcfarlin.com" class="app">
+                <div class="app">
                     <div class="app-icon wciw">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/>
@@ -320,9 +339,9 @@
                     <div class="app-info">
                         <h2>Where Can I Watch?</h2>
                         <p>Find which streaming services have your favorite movies and shows.</p>
-                        <span class="app-badge"><span class="available">Web App · Available</span> | iOS App · Coming Soon</span>
+                        <span class="app-badge"><a href="https://wciw.tommcfarlin.com" class="app-badge-link available">Web App · Available</a> <span class="app-badge-sep">|</span> <a href="/apps/where-can-i-watch/" class="app-badge-link available">iOS App · Available</a></span>
                     </div>
-                </a>
+                </div>
 
                 <a href="/apps/session-stash/" class="app">
                     <div class="app-icon sessionstash">

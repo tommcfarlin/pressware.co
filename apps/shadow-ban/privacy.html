@@ -204,6 +204,16 @@
             <h2>Data Retention and Deletion</h2>
             <p>Shadow Ban stores only the list of banned sender email addresses within your Google account's PropertiesService. This data persists as long as the add-on is installed. When you unban a sender, their address is immediately removed from the stored list. If you uninstall Shadow Ban, all stored data is deleted along with the add-on. You may request deletion of your data at any time by contacting <a href="mailto:tom@pressware.co">tom@pressware.co</a>.</p>
 
+            <h2>Data Protection</h2>
+            <p>Shadow Ban is designed to protect your data through the following mechanisms:</p>
+            <ul>
+                <li>All communication between the add-on and Gmail occurs over Google's secure, encrypted infrastructure (HTTPS/TLS)</li>
+                <li>No data is transmitted to or stored on external servers — the add-on runs entirely within Google's Apps Script environment</li>
+                <li>Stored data (banned sender addresses) is held in Google's PropertiesService, which is encrypted at rest and accessible only to your Google account</li>
+                <li>The add-on requests only the minimum scopes necessary to provide its functionality</li>
+                <li>No email content is read, stored, or cached — only sender addresses and email headers are accessed during active use</li>
+            </ul>
+
             <h2>Third Parties</h2>
             <p>Shadow Ban does not share any data with third parties. The add-on communicates only with Gmail's own APIs within your account. No Google user data is transferred to or processed by external services.</p>
 

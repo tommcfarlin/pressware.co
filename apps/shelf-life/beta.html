@@ -379,18 +379,72 @@
             margin-right: auto;
         }
 
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 440px;
+            margin: 0 auto 8px;
+            text-align: left;
+        }
+
+        .signup-form .name-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .signup-form label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .signup-form .field {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .signup-form input {
+            font-family: inherit;
+            font-size: 0.95rem;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .signup-form input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .signup-form input::placeholder {
+            color: var(--text-tertiary);
+        }
+
         .signup-button {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             background: var(--accent);
             color: #fff;
-            text-decoration: none;
+            font-family: inherit;
             font-size: 1rem;
             font-weight: 600;
             padding: 14px 32px;
+            border: none;
             border-radius: 12px;
+            cursor: pointer;
             transition: background 0.15s ease;
+            width: 100%;
+            margin-top: 4px;
         }
 
         .signup-button:hover {
@@ -407,6 +461,41 @@
             margin-top: 16px;
             font-size: 0.8rem;
             color: var(--text-tertiary);
+        }
+
+        .signup-success {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .signup-success .check-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .signup-success .check-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+        .signup-success h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .signup-success p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0;
         }
 
         /* Highlights */
@@ -478,6 +567,10 @@
             .signup-box {
                 padding: 32px 20px;
             }
+
+            .signup-form .name-row {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -494,8 +587,8 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#what-is-it">What Is It?</a></li>
-                <li><a href="#install">Install the Beta</a></li>
                 <li><a href="#signup">Sign Up</a></li>
+                <li><a href="#install">What Happens Next</a></li>
             </ul>
         </div>
     </nav>
@@ -512,7 +605,7 @@
             </div>
             <h1>Shelf Life</h1>
             <p class="tagline">Track your reading backlog. Discover what to read next.</p>
-            <p class="subtitle">We're looking for at least 12 readers to help test the app before launch.</p>
+            <p class="subtitle">We're looking for a few readers to help test the app before launch.</p>
         </div>
 
         <!-- What Is It? -->
@@ -584,67 +677,92 @@
             <label class="lightbox" for="lb-foryou"><img src="screenshots/03-for-you.png" alt="For You tab with personalized reading recommendations"></label>
         </section>
 
-        <!-- Install the Beta -->
+        <!-- Sign Up -->
+        <section id="signup">
+            <div class="signup-box">
+                <h3>Join the Beta</h3>
+                <p>We're looking for a few readers who buy more books than they read and want a better way to manage their shelf. If that's you, send us your name and email and we'll get you set up.</p>
+                <form class="signup-form" id="signup-form" action="https://formspree.io/f/xpwzgkqj" method="POST">
+                    <div class="field">
+                        <label for="email">Email address *</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="name-row">
+                        <div class="field">
+                            <label for="first-name">First name</label>
+                            <input type="text" id="first-name" name="first-name" placeholder="First">
+                        </div>
+                        <div class="field">
+                            <label for="last-name">Last name</label>
+                            <input type="text" id="last-name" name="last-name" placeholder="Last">
+                        </div>
+                    </div>
+                    <button type="submit" class="signup-button">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                        Sign Up for the Beta
+                    </button>
+                </form>
+                <div class="signup-success" id="signup-success">
+                    <div class="check-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                    <h4>You're on the list!</h4>
+                    <p>We'll send you a TestFlight invite soon.</p>
+                </div>
+                <p class="signup-note">Requires an iPhone running iOS 17 or later.</p>
+            </div>
+        </section>
+
+        <!-- What Happens Next -->
         <section id="install">
-            <h2 class="section-title">Install the Beta</h2>
-            <p class="section-subtitle">After you sign up, I'll send you an email invitation from Apple. Here's what to do when you get it.</p>
+            <h2 class="section-title">What Happens Next</h2>
+            <p class="section-subtitle">You don't need to do anything technical right now. Once the beta is ready, I'll personally reach out with an invitation and walk you through every step. Here's a quick preview of what that looks like.</p>
 
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <h3>Open the email on your iPhone</h3>
-                        <p>You'll receive an email from Apple with the subject "You're invited to test Shelf Life." Open it on the iPhone you want to test with.</p>
+                        <h3>I'll send you an email</h3>
+                        <p>When the beta is ready, you'll get a personal email from me along with an invitation from Apple to install the app. No action needed until then.</p>
                     </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3>Tap "View in TestFlight"</h3>
-                        <p>This opens Apple's TestFlight app. If you don't have it installed, you'll be taken to the App Store first.</p>
-                        <span class="note">TestFlight is a free app made by Apple for testing apps before they launch.</span>
+                        <h3>Install a free app called TestFlight</h3>
+                        <p>TestFlight is Apple's official app for trying out apps before they launch. It's free and takes about 30 seconds to install from the App Store.</p>
+                        <span class="note">I'll include a direct link in your invitation email so you don't have to search for it.</span>
                     </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3>Install TestFlight (if needed)</h3>
-                        <p>If the App Store opens, tap "Get" to install TestFlight. It's free and takes about 30 seconds. Then go back to the email and tap the link again.</p>
+                        <h3>Tap one link to install Shelf Life</h3>
+                        <p>The invitation email has a single link. Tap it, and TestFlight will handle the rest. Shelf Life will appear on your home screen just like any other app.</p>
                     </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">4</div>
                     <div class="step-content">
-                        <h3>Accept the invitation</h3>
-                        <p>In TestFlight, tap "Accept" next to Shelf Life, then tap "Install." The app will download and appear on your home screen.</p>
+                        <h3>Open the app and start adding books</h3>
+                        <p>You'll see a short walkthrough when you first open the app, then you're ready to go. Scan a barcode, paste an Amazon link, or add a book manually.</p>
                     </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">5</div>
                     <div class="step-content">
-                        <h3>Open Shelf Life and add your first book</h3>
-                        <p>Tap the app to open it. You'll see a short walkthrough, then you can start adding books. Try scanning a barcode, pasting an Amazon link, or adding one manually.</p>
+                        <h3>Share your feedback</h3>
+                        <p>Use the app like you normally would and let me know what you think. I'll check in with you directly — no forms or surveys, just a conversation.</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Sign Up -->
-        <section id="signup">
-            <div class="signup-box">
-                <h3>Join the Beta</h3>
-                <p>We're looking for at least 12 readers who buy more books than they read and want a better way to manage their shelf. If that's you, send us your name and email and we'll get you set up.</p>
-                <a href="mailto:support@pressware.co?subject=Shelf%20Life%20Beta%20-%20Sign%20Me%20Up&body=Hi!%20I'd%20like%20to%20join%20the%20Shelf%20Life%20beta.%0A%0AName%3A%20%0AEmail%20(for%20TestFlight%20invite)%3A%20%0AApprox.%20how%20many%20unread%20books%20do%20you%20own%3F%20" class="signup-button">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                    Email Us to Join
-                </a>
-                <p class="signup-note">Requires an iPhone running iOS 17 or later.</p>
             </div>
         </section>
 
@@ -656,5 +774,22 @@
         <a href="https://pressware.co">pressware.co</a>
     </footer>
 
+    <script>
+        var form = document.getElementById('signup-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var data = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(function(response) {
+                if (response.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('signup-success').style.display = 'block';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

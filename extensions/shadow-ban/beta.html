@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shadow Ban Beta</title>
     <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="Join the Shadow Ban beta. Help us test a browser extension that silently moves unwanted emails out of your inbox.">
+    <meta name="description" content="Join the Shadow Ban beta. A Chrome extension that silently moves unwanted emails out of your Gmail inbox.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%234A4A4A'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z' fill='%23fff'/></svg>">
     <style>
         :root {
@@ -193,7 +193,36 @@
             border-radius: 8px;
         }
 
-        .signup-box {
+        .usage {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .usage h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .usage p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .usage p:last-child {
+            margin-bottom: 0;
+        }
+
+        .usage strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .download-box {
             background: var(--card-bg);
             border-radius: 16px;
             padding: 32px;
@@ -201,13 +230,13 @@
             margin-bottom: 32px;
         }
 
-        .signup-box h3 {
+        .download-box h3 {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 12px;
         }
 
-        .signup-box p {
+        .download-box p {
             font-size: 0.9rem;
             color: var(--text-secondary);
             margin-bottom: 24px;
@@ -216,7 +245,7 @@
             margin-right: auto;
         }
 
-        .signup-button {
+        .download-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -230,21 +259,49 @@
             transition: transform 0.15s ease, opacity 0.15s ease;
         }
 
-        .signup-button:hover {
+        .download-button:hover {
             transform: scale(1.04);
             opacity: 0.9;
         }
 
-        .signup-button svg {
+        .download-button svg {
             width: 20px;
             height: 20px;
             fill: #fff;
         }
 
-        .signup-note {
+        .download-note {
             margin-top: 16px;
             font-size: 0.8rem;
             color: var(--text-tertiary);
+        }
+
+        .feedback-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .feedback-box h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feedback-box p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .feedback-box a {
+            color: #e5d52b;
+            text-decoration: none;
+        }
+
+        .feedback-box a:hover {
+            text-decoration: underline;
         }
 
         footer {
@@ -336,17 +393,17 @@
         <span class="beta-badge">Beta</span>
         <h1>Shadow Ban</h1>
         <p class="tagline">Clean up your inbox, quietly.</p>
-        <p class="subtitle">We're looking for 10 Gmail users to help test before launch.</p>
+        <p class="subtitle">A Chrome extension that lets you ban unwanted email senders with one click. Their emails silently skip your inbox -- no unsubscribe emails, no sender notifications, no awkward moments.</p>
 
-        <p class="section-label">What Is It?</p>
+        <p class="section-label">What It Does</p>
         <div class="features">
             <div class="feature">
                 <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                 </svg>
                 <div>
-                    <h3>One-tap ban</h3>
-                    <p>Open any email, tap ban. That sender's messages silently move out of your inbox.</p>
+                    <h3>One-click ban</h3>
+                    <p>Select any emails in Gmail, click the ban icon in the toolbar. That sender's future emails will never appear in your inbox again.</p>
                 </div>
             </div>
 
@@ -355,8 +412,8 @@
                     <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
                 </svg>
                 <div>
-                    <h3>Automatic filters</h3>
-                    <p>Gmail filters are created behind the scenes. Future emails skip your inbox automatically.</p>
+                    <h3>Old emails cleaned up too</h3>
+                    <p>When you ban someone, Shadow Ban moves all their existing emails out of your inbox automatically. If you have thousands, it works through them in the background -- you can even close Gmail and it'll finish later.</p>
                 </div>
             </div>
 
@@ -365,8 +422,8 @@
                     <path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
                 </svg>
                 <div>
-                    <h3>Unban anytime</h3>
-                    <p>Changed your mind? Unban restores their messages right back to your inbox.</p>
+                    <h3>Nothing is deleted</h3>
+                    <p>Banned emails are moved to an "Unsubscribe" label in Gmail. You can find them there anytime. Changed your mind? Unban a sender and their emails come right back to your inbox.</p>
                 </div>
             </div>
 
@@ -375,8 +432,8 @@
                     <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-3.5-6.2l-1.78 1.78-1.06-1.06-1.42 1.42 2.48 2.48 3.2-3.2-1.42-1.42z"/>
                 </svg>
                 <div>
-                    <h3>No sender notification</h3>
-                    <p>Unlike unsubscribe, the sender has no idea. No awkward "you've been removed" emails.</p>
+                    <h3>The sender never knows</h3>
+                    <p>Unlike unsubscribe, the sender gets no notification. No "you've been removed" emails. They just quietly disappear from your inbox.</p>
                 </div>
             </div>
         </div>
@@ -386,55 +443,73 @@
             <div class="step">
                 <div class="step-number">1</div>
                 <div class="step-content">
-                    <h3>Sign up by emailing us</h3>
-                    <p>Use the sign-up link below to send us a quick email. We'll add you to the beta list.</p>
+                    <h3>Download the extension</h3>
+                    <p>Click the download button below to get the Shadow Ban zip file. Unzip it into a folder on your computer.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-number">2</div>
                 <div class="step-content">
-                    <h3>We'll send you a direct install link</h3>
-                    <p>You'll receive a link to install Shadow Ban from the Chrome Web Store.</p>
-                    <span class="note">The extension is unlisted during beta, so you need the direct link to find it.</span>
+                    <h3>Open Chrome's extensions page</h3>
+                    <p>Type <strong>chrome://extensions</strong> into Chrome's address bar and press Enter.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-content">
-                    <h3>Authorize Shadow Ban with your Gmail account</h3>
-                    <p>Grant the extension permission to manage your filters and labels. All actions stay within your own Gmail account.</p>
+                    <h3>Turn on Developer Mode</h3>
+                    <p>Find the <strong>Developer mode</strong> toggle in the top right corner of the page and turn it on.</p>
+                    <span class="note">This is safe and required for beta extensions that aren't on the Chrome Web Store yet.</span>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-number">4</div>
                 <div class="step-content">
-                    <h3>Open any email in Gmail</h3>
-                    <p>Once installed, open any email and you'll see Shadow Ban in the sidebar on the right side of Gmail.</p>
+                    <h3>Load the extension</h3>
+                    <p>Click <strong>Load unpacked</strong> and select the folder you unzipped in step 1. Shadow Ban will appear in your extensions list.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-number">5</div>
                 <div class="step-content">
-                    <h3>Tap "Ban" on any sender you want to silence</h3>
-                    <p>That's it. Their current and future emails will be moved out of your inbox and into the "Unsubscribe" label, silently.</p>
+                    <h3>Go to Gmail</h3>
+                    <p>Open Gmail in Chrome. The first time you select an email and click the ban icon, you'll see a Google permissions prompt. Approve it once and you're all set.</p>
+                    <span class="note">Shadow Ban needs permission to create filters and move emails within your Gmail account.</span>
                 </div>
             </div>
         </div>
 
-        <div class="signup-box">
-            <h3>Join the Beta</h3>
-            <p>We're looking for 10 Gmail users who are tired of unwanted emails cluttering their inbox. If that's you, send us your name and email and we'll get you set up.</p>
-            <a href="mailto:support@pressware.co?subject=Shadow%20Ban%20Beta%20-%20Sign%20Me%20Up&body=Hi!%20I'd%20like%20to%20join%20the%20Shadow%20Ban%20beta.%0A%0AName%3A%20%0AEmail%20(Gmail%20account)%3A%20" class="signup-button">
+        <p class="section-label">How to Use It</p>
+        <div class="usage">
+            <h3>Banning a sender</h3>
+            <p>In Gmail, select one or more emails using the checkboxes on the left. Click the <strong>ban icon</strong> (a circle with a slash) in the toolbar -- it's in the row with archive, spam, and delete. A banner at the bottom confirms the ban and shows cleanup progress.</p>
+
+            <h3>Managing your bans</h3>
+            <p>Click the <strong>Shadow Ban icon</strong> in Chrome's toolbar (top right of the browser -- you may need to click the puzzle piece icon to find it). This opens your dashboard where you can see everyone you've banned and unban them individually or in bulk.</p>
+
+            <h3>Unbanning a sender</h3>
+            <p>When you unban someone from the dashboard, their emails are moved back to your inbox. It's completely reversible.</p>
+        </div>
+
+        <div class="download-box">
+            <h3>Download Shadow Ban</h3>
+            <p>Get the beta extension and start cleaning up your inbox today.</p>
+            <a href="shadow-ban-beta.zip" class="download-button" download>
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                 </svg>
-                Email Me to Join
+                Download Beta
             </a>
-            <p class="signup-note">Requires a Gmail account (personal or Workspace).</p>
+            <p class="download-note">Requires Google Chrome and a Gmail account.</p>
+        </div>
+
+        <div class="feedback-box">
+            <h3>Found an issue or have feedback?</h3>
+            <p>Send an email to <a href="mailto:tom@tommcfarlin.com">tom@tommcfarlin.com</a> with what happened and we'll look into it.</p>
         </div>
 
         <footer>
@@ -442,7 +517,7 @@
             <div class="footer-links">
                 <a href="privacy.html">Privacy</a>
                 <a href="terms.html">Terms</a>
-                <a href="mailto:support@pressware.co">Contact</a>
+                <a href="mailto:tom@tommcfarlin.com">Contact</a>
             </div>
         </footer>
     </div>

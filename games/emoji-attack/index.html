@@ -263,6 +263,17 @@
     display: block;
     animation: nuke-icon-pop 0.8s ease-out forwards;
   }
+
+  #player-zone-line {
+    position: fixed;
+    top: 66%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent);
+    pointer-events: none;
+    z-index: 1;
+  }
 </style>
 </head>
 <body>
@@ -274,6 +285,7 @@
 </div>
 
 <div id="arena"></div>
+<div id="player-zone-line"></div>
 
 <div id="xp-bar-bg"><div id="xp-bar-fill"></div></div>
 <div id="score">0s</div>
@@ -332,7 +344,7 @@
 
   // ── State ─────────────────────────────────────────────────
   let running, paused, startTime, elapsedTime, lastFrame;
-  let playerX, playerY, targetX, targetY;
+  let playerX, playerY, targetX;
   let enemies, weapons, arrows;
   let level, xp, xpToLevel;
   let swordCount, bowCount;
@@ -347,6 +359,7 @@
   const PLAYER_SIZE   = 15;
   const EASE          = 0.08;
   const XP_PER_LEVEL  = 10; // seconds
+  const PLAYER_FIXED_Y_RATIO = 0.8;
 
   // ── Helpers ───────────────────────────────────────────────
   function createEl(emoji, className) {
@@ -400,9 +413,8 @@
     destroyedCount = 0;
 
     playerX = screenW() / 2;
-    playerY = screenH() / 2;
+    playerY = screenH() * PLAYER_FIXED_Y_RATIO;
     targetX = playerX;
-    targetY = playerY;
 
     playerEl = createEl('\u{1F6E1}\uFE0F');
     placeEntity(playerEl, playerX, playerY);
@@ -430,22 +442,18 @@
     el.style.top  = y + 'px';
   }
 
-  // ── Input ─────────────────────────────────────────────────
-  const TOUCH_OFFSET_Y = 80;
+  // ── Input (horizontal only) ──────────────────────────────
   let isTouching = false;
 
   arena.addEventListener('mousemove', e => {
     if (paused) return;
     targetX = e.clientX;
-    targetY = e.clientY;
   });
 
   function handleTouch(e) {
     e.preventDefault();
     if (paused) return;
-    const t = e.touches[0];
-    targetX = t.clientX;
-    targetY = Math.max(0, t.clientY - TOUCH_OFFSET_Y);
+    targetX = e.touches[0].clientX;
     isTouching = true;
   }
 
@@ -468,19 +476,26 @@
   }
 
   function spawnComet() {
-    const side = Math.floor(Math.random() * 4);
-    let x, y, vx, vy;
+    let x, y;
     const speed = (3 + Math.random() * 3) * globalSpeed;
+    const roll = Math.random();
 
-    if (side === 0)      { x = -30;            y = Math.random() * screenH(); } // left
-    else if (side === 1) { x = screenW() + 30; y = Math.random() * screenH(); } // right
-    else if (side === 2) { x = Math.random() * screenW(); y = -30; }            // top
-    else                 { x = Math.random() * screenW(); y = screenH() + 30; } // bottom
+    if (roll < 0.70) {        // 70% from top edge
+      x = Math.random() * screenW();
+      y = -30;
+    } else if (roll < 0.85) { // 15% from left edge
+      x = -30;
+      y = Math.random() * screenH() * 0.5;
+    } else {                   // 15% from right edge
+      x = screenW() + 30;
+      y = Math.random() * screenH() * 0.5;
+    }
 
-    const angle = Math.atan2(screenH() / 2 - y + (Math.random() - 0.5) * 400,
-                             screenW() / 2 - x + (Math.random() - 0.5) * 400);
-    vx = Math.cos(angle) * speed;
-    vy = Math.sin(angle) * speed;
+    // Aim toward player position with slight spread
+    const angle = Math.atan2(playerY - y + (Math.random() - 0.5) * 200,
+                             playerX - x + (Math.random() - 0.5) * 200);
+    const vx = Math.cos(angle) * speed;
+    const vy = Math.sin(angle) * speed;
 
     const el = createEl('\u2604\uFE0F');
     placeEntity(el, x, y);
@@ -488,12 +503,19 @@
   }
 
   function spawnVirus() {
-    const side = Math.floor(Math.random() * 4);
     let x, y;
-    if (side === 0)      { x = -30;            y = Math.random() * screenH(); }
-    else if (side === 1) { x = screenW() + 30; y = Math.random() * screenH(); }
-    else if (side === 2) { x = Math.random() * screenW(); y = -30; }
-    else                 { x = Math.random() * screenW(); y = screenH() + 30; }
+    const roll = Math.random();
+
+    if (roll < 0.60) {        // 60% from top edge
+      x = Math.random() * screenW();
+      y = -30;
+    } else if (roll < 0.80) { // 20% from left edge (upper half)
+      x = -30;
+      y = Math.random() * screenH() * 0.5;
+    } else {                   // 20% from right edge (upper half)
+      x = screenW() + 30;
+      y = Math.random() * screenH() * 0.5;
+    }
 
     const el = createEl('\u{1F47E}');
     placeEntity(el, x, y);
@@ -502,7 +524,8 @@
 
   function spawnExplosion() {
     const x = 60 + Math.random() * (screenW() - 120);
-    const y = 60 + Math.random() * (screenH() - 120);
+    const maxY = screenH() * 0.65;
+    const y = 60 + Math.random() * (maxY - 60);
     const el = createEl('\u{1F4A5}', 'pulse');
     placeEntity(el, x, y);
     const enemy = { type: 'explosion', el, x, y, vx: 0, vy: 0, size: 24, timer: 1.5 };
@@ -685,9 +708,9 @@
       nextNukeAt += 22;
     }
 
-    // ── Move Player ──
+    // ── Move Player (horizontal only) ──
     playerX += (targetX - playerX) * EASE;
-    playerY += (targetY - playerY) * EASE;
+    playerY = screenH() * PLAYER_FIXED_Y_RATIO;
     placeEntity(playerEl, playerX, playerY);
 
     // ── Update Enemies ──
@@ -695,9 +718,12 @@
       const e = enemies[i];
 
       if (e.type === 'virus') {
-        const angle = Math.atan2(playerY - e.y, playerX - e.x);
-        e.vx = Math.cos(angle) * e.speed;
-        e.vy = Math.sin(angle) * e.speed;
+        // Stop homing once the virus enters the player zone
+        if (e.y < screenH() * 0.66) {
+          const angle = Math.atan2(playerY - e.y, playerX - e.x);
+          e.vx = Math.cos(angle) * e.speed;
+          e.vy = Math.sin(angle) * e.speed;
+        }
       }
 
       if (e.type === 'explosion') {

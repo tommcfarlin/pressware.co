@@ -717,9 +717,10 @@
     for (let i = enemies.length - 1; i >= 0; i--) {
       const e = enemies[i];
 
-      if (e.type === 'virus') {
-        // Stop homing once the virus enters the player zone
-        if (e.y < screenH() * 0.66) {
+      if (e.type === 'virus' && !e.locked) {
+        if (e.y >= screenH() * 0.66) {
+          e.locked = true; // permanently stop homing
+        } else {
           const angle = Math.atan2(playerY - e.y, playerX - e.x);
           e.vx = Math.cos(angle) * e.speed;
           e.vy = Math.sin(angle) * e.speed;

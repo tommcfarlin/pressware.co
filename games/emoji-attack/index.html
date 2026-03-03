@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Emoji Bullet Hell</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #1a1a1a;
+    overflow: hidden;
+    font-family: system-ui, sans-serif;
+    color: #fff;
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    position: fixed;
+    inset: 0;
+  }
+
+  #arena {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    cursor: crosshair;
+    overflow: hidden;
+  }
+
+  @media (pointer: coarse) {
+    #arena { cursor: default; }
+  }
+
+  .entity {
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    font-size: 2rem;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  #xp-bar-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: #333;
+    z-index: 100;
+  }
+
+  #xp-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00e5ff, #76ff03);
+    transition: width 0.2s ease;
+  }
+
+  #score {
+    position: fixed;
+    top: 16px;
+    right: 24px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    z-index: 100;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #level-display {
+    position: fixed;
+    top: 16px;
+    left: 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    z-index: 100;
+    opacity: 0.7;
+  }
+
+  #stats {
+    position: fixed;
+    bottom: 16px;
+    left: 24px;
+    font-size: 0.85rem;
+    z-index: 100;
+    opacity: 0.6;
+    line-height: 1.6;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Name entry */
+  #name-screen {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: #1a1a1a;
+    z-index: 400;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #name-screen.hidden { display: none; }
+
+  #name-screen .prompt { font-size: 1.6rem; font-weight: 700; }
+
+  #name-input {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: 2px solid #555;
+    border-radius: 8px;
+    background: #2a2a2a;
+    color: #fff;
+    text-align: center;
+    outline: none;
+    width: 260px;
+  }
+
+  #name-input:focus { border-color: #76ff03; }
+
+  #start-btn {
+    padding: 12px 36px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: #76ff03;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  #start-btn:hover { background: #69e500; }
+
+  /* Leaderboard */
+  #leaderboard {
+    margin-top: 12px;
+    text-align: left;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    line-height: 1.8;
+  }
+
+  #leaderboard .lb-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    opacity: 1;
+  }
+
+  /* Upgrade overlay */
+  #upgrade-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+  }
+
+  #upgrade-overlay.active { display: flex; }
+
+  .upgrade-card {
+    background: #2a2a2a;
+    border: 2px solid #555;
+    border-radius: 16px;
+    padding: 32px 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+
+  .upgrade-card:hover {
+    border-color: #76ff03;
+    transform: scale(1.05);
+  }
+
+  .upgrade-card .icon { font-size: 3rem; }
+  .upgrade-card .label { margin-top: 12px; font-size: 1.1rem; font-weight: 600; }
+  .upgrade-card .desc { margin-top: 6px; font-size: 0.85rem; opacity: 0.6; }
+
+  /* Game over */
+  #game-over {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 300;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #game-over.active { display: flex; }
+
+  #game-over .skull { font-size: 5rem; }
+  #game-over .title { font-size: 2rem; font-weight: 700; }
+  #game-over .final-score { font-size: 1.3rem; opacity: 0.7; }
+
+  #restart-btn {
+    margin-top: 20px;
+    padding: 12px 36px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: #76ff03;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  #restart-btn:hover { background: #69e500; }
+
+  /* Pulsing animation for explosion warning */
+  @keyframes pulse-warning {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.6); opacity: 1; }
+  }
+
+  .pulse { animation: pulse-warning 0.5s ease-in-out infinite; }
+
+  @keyframes nuke-flash {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  #nuke-flash {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    z-index: 150;
+    pointer-events: none;
+  }
+
+  #nuke-flash.active {
+    display: block;
+    animation: nuke-flash 0.6s ease-out forwards;
+  }
+
+  #nuke-icon {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6rem;
+    z-index: 151;
+    pointer-events: none;
+  }
+
+  @keyframes nuke-icon-pop {
+    0%   { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+    50%  { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+  }
+
+  #nuke-icon.active {
+    display: block;
+    animation: nuke-icon-pop 0.8s ease-out forwards;
+  }
+</style>
+</head>
+<body>
+
+<div id="name-screen">
+  <div class="prompt">Enter Your Name</div>
+  <input id="name-input" type="text" maxlength="16" placeholder="Player" autocomplete="off" />
+  <button id="start-btn">Play</button>
+</div>
+
+<div id="arena"></div>
+
+<div id="xp-bar-bg"><div id="xp-bar-fill"></div></div>
+<div id="score">0s</div>
+<div id="level-display">Lv 1</div>
+<div id="stats">
+  <div>On screen: <span id="stat-onscreen">0</span></div>
+  <div>Destroyed: <span id="stat-destroyed">0</span></div>
+</div>
+
+<div id="upgrade-overlay">
+  <div class="upgrade-card" data-choice="sword">
+    <div class="icon">&#x2694;&#xFE0F;</div>
+    <div class="label">Sword</div>
+    <div class="desc">Orbiting blade destroys enemies on contact</div>
+  </div>
+  <div class="upgrade-card" data-choice="bow">
+    <div class="icon">&#x1F3F9;</div>
+    <div class="label">Bow</div>
+    <div class="desc">Auto-fires arrows at the nearest enemy</div>
+  </div>
+</div>
+
+<div id="nuke-flash"></div>
+<div id="nuke-icon">&#x2622;&#xFE0F;</div>
+
+<div id="game-over">
+  <div class="skull">&#x1F480;</div>
+  <div class="title">GAME OVER</div>
+  <div class="final-score" id="final-score">0s</div>
+  <div id="leaderboard"></div>
+  <button id="restart-btn">Play Again</button>
+</div>
+
+<script>
+(() => {
+  // ── Prevent all default touch behavior (iOS bounce, pull-to-refresh) ──
+  document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+  document.addEventListener('gesturestart', e => e.preventDefault());
+  document.addEventListener('gesturechange', e => e.preventDefault());
+
+  // ── DOM refs ──────────────────────────────────────────────
+  const arena        = document.getElementById('arena');
+  const xpBarFill    = document.getElementById('xp-bar-fill');
+  const scoreEl      = document.getElementById('score');
+  const levelEl      = document.getElementById('level-display');
+  const upgradeUI    = document.getElementById('upgrade-overlay');
+  const gameOverUI   = document.getElementById('game-over');
+  const finalScoreEl = document.getElementById('final-score');
+  const restartBtn   = document.getElementById('restart-btn');
+  const statOnscreen = document.getElementById('stat-onscreen');
+  const statDestroyed = document.getElementById('stat-destroyed');
+  const nameScreen   = document.getElementById('name-screen');
+  const nameInput    = document.getElementById('name-input');
+  const startBtn     = document.getElementById('start-btn');
+  const leaderboardEl = document.getElementById('leaderboard');
+
+  // ── State ─────────────────────────────────────────────────
+  let running, paused, startTime, elapsedTime, lastFrame;
+  let playerX, playerY, targetX, targetY;
+  let enemies, weapons, arrows;
+  let level, xp, xpToLevel;
+  let swordCount, bowCount;
+  let bowIndicators;
+  let spawnTimer, difficultyTimer;
+  let spawnInterval, globalSpeed;
+  let playerEl;
+  let nextNukeAt;
+  let destroyedCount;
+  let playerName = '';
+
+  const PLAYER_SIZE   = 15;
+  const EASE          = 0.08;
+  const XP_PER_LEVEL  = 10; // seconds
+
+  // ── Helpers ───────────────────────────────────────────────
+  function createEl(emoji, className) {
+    const el = document.createElement('span');
+    el.className = 'entity' + (className ? ' ' + className : '');
+    el.textContent = emoji;
+    arena.appendChild(el);
+    return el;
+  }
+
+  function removeEl(el) {
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+  }
+
+  function dist(ax, ay, bx, by) {
+    const dx = ax - bx, dy = ay - by;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function aabb(ax, ay, as, bx, by, bs) {
+    const aHalf = as / 2, bHalf = bs / 2;
+    return ax - aHalf < bx + bHalf &&
+           ax + aHalf > bx - bHalf &&
+           ay - aHalf < by + bHalf &&
+           ay + aHalf > by - bHalf;
+  }
+
+  function screenW() { return window.innerWidth; }
+  function screenH() { return window.innerHeight; }
+
+  // ── Init / Reset ──────────────────────────────────────────
+  function init() {
+    // Clear old entities
+    arena.innerHTML = '';
+    enemies  = [];
+    weapons  = [];
+    arrows   = [];
+
+    running  = true;
+    paused   = false;
+    level    = 1;
+    xp       = 0;
+    xpToLevel = XP_PER_LEVEL;
+    swordCount = 0;
+    bowCount   = 0;
+    bowIndicators = [];
+    spawnInterval  = 800;
+    globalSpeed    = 1;
+    elapsedTime    = 0;
+    nextNukeAt     = 22;
+    destroyedCount = 0;
+
+    playerX = screenW() / 2;
+    playerY = screenH() / 2;
+    targetX = playerX;
+    targetY = playerY;
+
+    playerEl = createEl('\u{1F6E1}\uFE0F');
+    placeEntity(playerEl, playerX, playerY);
+
+    startTime = null;
+    lastFrame = null;
+
+    scoreEl.textContent     = '0s';
+    levelEl.textContent     = 'Lv 1';
+    xpBarFill.style.width   = '0%';
+    gameOverUI.classList.remove('active');
+    upgradeUI.classList.remove('active');
+
+    clearInterval(spawnTimer);
+    clearInterval(difficultyTimer);
+
+    spawnTimer = setInterval(spawnEnemy, spawnInterval);
+    difficultyTimer = setInterval(increaseDifficulty, 5000);
+
+    requestAnimationFrame(loop);
+  }
+
+  function placeEntity(el, x, y) {
+    el.style.left = x + 'px';
+    el.style.top  = y + 'px';
+  }
+
+  // ── Input ─────────────────────────────────────────────────
+  const TOUCH_OFFSET_Y = 80;
+  let isTouching = false;
+
+  arena.addEventListener('mousemove', e => {
+    if (paused) return;
+    targetX = e.clientX;
+    targetY = e.clientY;
+  });
+
+  function handleTouch(e) {
+    e.preventDefault();
+    if (paused) return;
+    const t = e.touches[0];
+    targetX = t.clientX;
+    targetY = Math.max(0, t.clientY - TOUCH_OFFSET_Y);
+    isTouching = true;
+  }
+
+  arena.addEventListener('touchstart', handleTouch, { passive: false });
+  arena.addEventListener('touchmove', handleTouch, { passive: false });
+  arena.addEventListener('touchend', e => { e.preventDefault(); isTouching = false; }, { passive: false });
+
+  // ── Enemy Spawning ────────────────────────────────────────
+  function spawnEnemy() {
+    if (!running || paused) return;
+
+    const roll = Math.random();
+    if (roll < 0.45) {
+      spawnComet();
+    } else if (roll < 0.80) {
+      spawnVirus();
+    } else {
+      spawnExplosion();
+    }
+  }
+
+  function spawnComet() {
+    const side = Math.floor(Math.random() * 4);
+    let x, y, vx, vy;
+    const speed = (3 + Math.random() * 3) * globalSpeed;
+
+    if (side === 0)      { x = -30;            y = Math.random() * screenH(); } // left
+    else if (side === 1) { x = screenW() + 30; y = Math.random() * screenH(); } // right
+    else if (side === 2) { x = Math.random() * screenW(); y = -30; }            // top
+    else                 { x = Math.random() * screenW(); y = screenH() + 30; } // bottom
+
+    const angle = Math.atan2(screenH() / 2 - y + (Math.random() - 0.5) * 400,
+                             screenW() / 2 - x + (Math.random() - 0.5) * 400);
+    vx = Math.cos(angle) * speed;
+    vy = Math.sin(angle) * speed;
+
+    const el = createEl('\u2604\uFE0F');
+    placeEntity(el, x, y);
+    enemies.push({ type: 'comet', el, x, y, vx, vy, size: 20 });
+  }
+
+  function spawnVirus() {
+    const side = Math.floor(Math.random() * 4);
+    let x, y;
+    if (side === 0)      { x = -30;            y = Math.random() * screenH(); }
+    else if (side === 1) { x = screenW() + 30; y = Math.random() * screenH(); }
+    else if (side === 2) { x = Math.random() * screenW(); y = -30; }
+    else                 { x = Math.random() * screenW(); y = screenH() + 30; }
+
+    const el = createEl('\u{1F47E}');
+    placeEntity(el, x, y);
+    enemies.push({ type: 'virus', el, x, y, vx: 0, vy: 0, speed: (1.2 + Math.random() * 0.8) * globalSpeed, size: 20 });
+  }
+
+  function spawnExplosion() {
+    const x = 60 + Math.random() * (screenW() - 120);
+    const y = 60 + Math.random() * (screenH() - 120);
+    const el = createEl('\u{1F4A5}', 'pulse');
+    placeEntity(el, x, y);
+    const enemy = { type: 'explosion', el, x, y, vx: 0, vy: 0, size: 24, timer: 1.5 };
+    enemies.push(enemy);
+  }
+
+  function detonateExplosion(ex, ey) {
+    for (let i = 0; i < 8; i++) {
+      const angle = i * (Math.PI / 4);
+      const speed = (3 + Math.random()) * globalSpeed;
+      const vx = Math.cos(angle) * speed;
+      const vy = Math.sin(angle) * speed;
+      const el = createEl('\u2728');
+      placeEntity(el, ex, ey);
+      enemies.push({ type: 'spark', el, x: ex, y: ey, vx, vy, size: 14 });
+    }
+  }
+
+  // ── Difficulty ────────────────────────────────────────────
+  function increaseDifficulty() {
+    if (!running || paused) return;
+    globalSpeed += 0.08;
+    spawnInterval = Math.max(200, spawnInterval - 40);
+    clearInterval(spawnTimer);
+    spawnTimer = setInterval(spawnEnemy, spawnInterval);
+  }
+
+  // ── Weapons ───────────────────────────────────────────────
+  function addSword() {
+    swordCount++;
+    rebuildSwords();
+  }
+
+  function rebuildSwords() {
+    // Remove existing sword weapon entities
+    weapons.forEach(w => removeEl(w.el));
+    weapons = [];
+    const fontSize = 2 + swordCount * 0.3;
+    const hitbox   = 18 + swordCount * 4;
+    for (let i = 0; i < swordCount; i++) {
+      const el = createEl('\u2694\uFE0F');
+      el.style.fontSize = fontSize + 'rem';
+      const angleOffset = (2 * Math.PI / swordCount) * i;
+      weapons.push({ el, angleOffset, angle: angleOffset, radius: 60 + swordCount * 8, size: hitbox });
+    }
+  }
+
+  function addBow() {
+    bowCount++;
+    bowCooldown = 0;
+    rebuildBowIndicators();
+  }
+
+  function rebuildBowIndicators() {
+    bowIndicators.forEach(b => removeEl(b.el));
+    bowIndicators = [];
+    for (let i = 0; i < bowCount; i++) {
+      const el = createEl('\u{1F3F9}');
+      el.style.fontSize = '1.4rem';
+      el.style.opacity = '0.85';
+      const angleOffset = Math.PI + (2 * Math.PI / bowCount) * i;
+      bowIndicators.push({ el, angleOffset, angle: angleOffset, radius: 40 + bowCount * 4 });
+    }
+  }
+
+  let bowCooldown = 0;
+
+  function fireArrow(dt) {
+    if (bowCount === 0) return;
+    bowCooldown -= dt;
+    if (bowCooldown > 0) return;
+
+    // Decrease cooldown based on bow count
+    const interval = Math.max(0.5, 2.5 - (bowCount - 1) * 0.4);
+    bowCooldown = interval;
+
+    // Find nearest enemy
+    let nearest = null, nearDist = Infinity;
+    for (const e of enemies) {
+      if (e.type === 'explosion') continue; // don't target warnings
+      const d = dist(playerX, playerY, e.x, e.y);
+      if (d < nearDist) { nearDist = d; nearest = e; }
+    }
+    if (!nearest) return;
+
+    const angle = Math.atan2(nearest.y - playerY, nearest.x - playerX);
+    const speed = 14;
+    const el = createEl('\u{1F531}');
+    el.style.fontSize = '1.8rem';
+    placeEntity(el, playerX, playerY);
+    arrows.push({ el, x: playerX, y: playerY, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, size: 16 });
+  }
+
+  // ── Upgrade UI ────────────────────────────────────────────
+  function showUpgrade() {
+    paused = true;
+    upgradeUI.classList.add('active');
+  }
+
+  document.querySelectorAll('.upgrade-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const choice = card.dataset.choice;
+      if (choice === 'sword') addSword();
+      else addBow();
+      upgradeUI.classList.remove('active');
+      paused = false;
+      lastFrame = performance.now();
+    });
+  });
+
+  // ── Nuke ──────────────────────────────────────────────────
+  const nukeFlash = document.getElementById('nuke-flash');
+  const nukeIcon  = document.getElementById('nuke-icon');
+
+  function triggerNuke() {
+    // Flash + icon animation
+    nukeFlash.classList.remove('active');
+    nukeIcon.classList.remove('active');
+    void nukeFlash.offsetWidth; // force reflow to restart animation
+    nukeFlash.classList.add('active');
+    nukeIcon.classList.add('active');
+
+    setTimeout(() => {
+      nukeFlash.classList.remove('active');
+      nukeIcon.classList.remove('active');
+    }, 900);
+
+    // Destroy all enemies
+    destroyedCount += enemies.length;
+    for (const e of enemies) {
+      removeEl(e.el);
+    }
+    enemies.length = 0;
+  }
+
+  // ── Game Over ─────────────────────────────────────────────
+  function gameOver() {
+    running = false;
+    clearInterval(spawnTimer);
+    clearInterval(difficultyTimer);
+    const seconds = Math.floor(elapsedTime);
+    finalScoreEl.textContent = playerName + ' — ' + seconds + 's  |  ' + destroyedCount + ' kills';
+    const board = saveScore(playerName, seconds);
+    renderLeaderboard(board);
+    gameOverUI.classList.add('active');
+  }
+
+  // ── Main Loop ─────────────────────────────────────────────
+  function loop(timestamp) {
+    if (!running) return;
+    if (paused) { requestAnimationFrame(loop); return; }
+
+    if (!startTime) startTime = timestamp;
+    if (!lastFrame) lastFrame = timestamp;
+
+    const dt = Math.min((timestamp - lastFrame) / 1000, 0.05); // cap delta
+    lastFrame = timestamp;
+    elapsedTime += dt;
+
+    // ── Score & XP ──
+    const seconds = Math.floor(elapsedTime);
+    scoreEl.textContent = seconds + 's';
+
+    xp += dt;
+    if (xp >= xpToLevel) {
+      xp -= xpToLevel;
+      level++;
+      levelEl.textContent = 'Lv ' + level;
+      showUpgrade();
+    }
+    xpBarFill.style.width = (xp / xpToLevel * 100) + '%';
+
+    // ── Stats HUD ──
+    statOnscreen.textContent  = enemies.length;
+    statDestroyed.textContent = destroyedCount;
+
+    // ── Nuke Milestone ──
+    if (elapsedTime >= nextNukeAt) {
+      triggerNuke();
+      nextNukeAt += 22;
+    }
+
+    // ── Move Player ──
+    playerX += (targetX - playerX) * EASE;
+    playerY += (targetY - playerY) * EASE;
+    placeEntity(playerEl, playerX, playerY);
+
+    // ── Update Enemies ──
+    for (let i = enemies.length - 1; i >= 0; i--) {
+      const e = enemies[i];
+
+      if (e.type === 'virus') {
+        const angle = Math.atan2(playerY - e.y, playerX - e.x);
+        e.vx = Math.cos(angle) * e.speed;
+        e.vy = Math.sin(angle) * e.speed;
+      }
+
+      if (e.type === 'explosion') {
+        e.timer -= dt;
+        if (e.timer <= 0) {
+          detonateExplosion(e.x, e.y);
+          removeEl(e.el);
+          enemies.splice(i, 1);
+          continue;
+        }
+        // Explosion warnings don't move and don't collide with player
+        continue;
+      }
+
+      e.x += e.vx;
+      e.y += e.vy;
+      placeEntity(e.el, e.x, e.y);
+
+      // Off-screen cleanup
+      if (e.x < -80 || e.x > screenW() + 80 || e.y < -80 || e.y > screenH() + 80) {
+        removeEl(e.el);
+        enemies.splice(i, 1);
+        continue;
+      }
+
+      // Player collision
+      if (aabb(playerX, playerY, PLAYER_SIZE, e.x, e.y, e.size)) {
+        gameOver();
+        return;
+      }
+    }
+
+    // ── Update Swords ──
+    const swordSpeed = 2.5;
+    for (const w of weapons) {
+      w.angle += swordSpeed * dt;
+      const wx = playerX + Math.cos(w.angle + w.angleOffset) * w.radius;
+      const wy = playerY + Math.sin(w.angle + w.angleOffset) * w.radius;
+      placeEntity(w.el, wx, wy);
+
+      // Sword vs enemies
+      for (let i = enemies.length - 1; i >= 0; i--) {
+        const e = enemies[i];
+        if (e.type === 'explosion') continue;
+        if (aabb(wx, wy, w.size, e.x, e.y, e.size)) {
+          removeEl(e.el);
+          enemies.splice(i, 1);
+          destroyedCount++;
+        }
+      }
+    }
+
+    // ── Update Bow Indicators ──
+    const bowOrbitSpeed = 1.8;
+    for (const b of bowIndicators) {
+      b.angle += bowOrbitSpeed * dt;
+      const bx = playerX + Math.cos(b.angle + b.angleOffset) * b.radius;
+      const by = playerY + Math.sin(b.angle + b.angleOffset) * b.radius;
+      placeEntity(b.el, bx, by);
+    }
+
+    // ── Fire Arrows ──
+    fireArrow(dt);
+
+    // ── Update Arrows ──
+    for (let i = arrows.length - 1; i >= 0; i--) {
+      const a = arrows[i];
+      a.x += a.vx;
+      a.y += a.vy;
+      placeEntity(a.el, a.x, a.y);
+
+      // Off-screen
+      if (a.x < -40 || a.x > screenW() + 40 || a.y < -40 || a.y > screenH() + 40) {
+        removeEl(a.el);
+        arrows.splice(i, 1);
+        continue;
+      }
+
+      // Arrow vs enemies
+      let hit = false;
+      for (let j = enemies.length - 1; j >= 0; j--) {
+        const e = enemies[j];
+        if (e.type === 'explosion') continue;
+        if (aabb(a.x, a.y, a.size, e.x, e.y, e.size)) {
+          removeEl(e.el);
+          enemies.splice(j, 1);
+          destroyedCount++;
+          hit = true;
+          break;
+        }
+      }
+      if (hit) {
+        removeEl(a.el);
+        arrows.splice(i, 1);
+      }
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  // ── Name Entry & Leaderboard ─────────────────────────────
+  function startGame() {
+    playerName = nameInput.value.trim() || 'Player';
+    nameScreen.classList.add('hidden');
+    init();
+  }
+
+  startBtn.addEventListener('click', startGame);
+  nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') startGame(); });
+  nameInput.focus();
+
+  function saveScore(name, seconds) {
+    const key = 'emoji-hell-leaderboard';
+    const board = JSON.parse(localStorage.getItem(key) || '[]');
+    board.push({ name, seconds, date: new Date().toLocaleDateString() });
+    board.sort((a, b) => b.seconds - a.seconds);
+    if (board.length > 10) board.length = 10;
+    localStorage.setItem(key, JSON.stringify(board));
+    return board;
+  }
+
+  function renderLeaderboard(board) {
+    let html = '<div class="lb-title">Top Scores</div>';
+    board.forEach((entry, i) => {
+      html += `<div>${i + 1}. ${entry.name} — ${entry.seconds}s</div>`;
+    });
+    leaderboardEl.innerHTML = html;
+  }
+
+  restartBtn.addEventListener('click', () => {
+    nameScreen.classList.remove('hidden');
+    nameInput.value = playerName;
+    nameInput.focus();
+  });
+})();
+</script>
+</body>
+</html>

@@ -8,7 +8,7 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   html, body {
-    background: #1a1a1a;
+    background: #0a0a0a;
     overflow: hidden;
     font-family: system-ui, sans-serif;
     color: #fff;
@@ -25,6 +25,20 @@
     height: 100vh;
     cursor: crosshair;
     overflow: hidden;
+    background: radial-gradient(ellipse at 50% 20%, #060a0f 0%, #0a0a0a 100%);
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    pointer-events: none;
+    animation: star-drift linear infinite;
+  }
+
+  @keyframes star-drift {
+    from { transform: translateY(0); }
+    to   { transform: translateY(100vh); }
   }
 
   @media (pointer: coarse) {
@@ -93,7 +107,7 @@
     display: flex;
     position: fixed;
     inset: 0;
-    background: #1a1a1a;
+    background: #0a0a0a;
     z-index: 400;
     flex-direction: column;
     justify-content: center;
@@ -130,7 +144,13 @@
     cursor: pointer;
   }
 
-  #start-btn:hover { background: #69e500; }
+  #start-btn:disabled {
+    background: #444;
+    color: #888;
+    cursor: not-allowed;
+  }
+
+  #start-btn:not(:disabled):hover { background: #69e500; }
 
   /* Leaderboard */
   #leaderboard {
@@ -215,6 +235,55 @@
 
   #restart-btn:hover { background: #69e500; }
 
+  /* Pause */
+  #pause-btn {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 110;
+    background: none;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 4px 12px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.15s;
+  }
+
+  #pause-btn:hover { opacity: 0.9; }
+
+  #pause-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 180;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #pause-overlay.active { display: flex; }
+
+  #pause-overlay .pause-title { font-size: 2.4rem; font-weight: 700; }
+
+  #resume-btn {
+    padding: 12px 36px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: #76ff03;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  #resume-btn:hover { background: #69e500; }
+
   /* Pulsing animation for explosion warning */
   @keyframes pulse-warning {
     0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
@@ -281,7 +350,7 @@
 <div id="name-screen">
   <div class="prompt">Enter Your Name</div>
   <input id="name-input" type="text" maxlength="16" placeholder="Player" autocomplete="off" />
-  <button id="start-btn">Play</button>
+  <button id="start-btn" disabled>Play</button>
 </div>
 
 <div id="arena"></div>
@@ -293,6 +362,13 @@
 <div id="stats">
   <div>On screen: <span id="stat-onscreen">0</span></div>
   <div>Destroyed: <span id="stat-destroyed">0</span></div>
+</div>
+
+<button id="pause-btn">&#x23F8;&#xFE0F;</button>
+
+<div id="pause-overlay">
+  <div class="pause-title">PAUSED</div>
+  <button id="resume-btn">Resume</button>
 </div>
 
 <div id="upgrade-overlay">
@@ -341,6 +417,9 @@
   const nameInput    = document.getElementById('name-input');
   const startBtn     = document.getElementById('start-btn');
   const leaderboardEl = document.getElementById('leaderboard');
+  const pauseBtn      = document.getElementById('pause-btn');
+  const pauseOverlay  = document.getElementById('pause-overlay');
+  const resumeBtn     = document.getElementById('resume-btn');
 
   // ── State ─────────────────────────────────────────────────
   let running, paused, startTime, elapsedTime, lastFrame;
@@ -394,6 +473,24 @@
   function init() {
     // Clear old entities
     arena.innerHTML = '';
+
+    // Generate starfield
+    const starCount = 120;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() < 0.8 ? (0.5 + Math.random() * 1.5) : (2 + Math.random() * 2);
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.opacity = 0.1 + Math.random() * 0.4;
+      const duration = size < 2 ? (20 + Math.random() * 30) : (8 + Math.random() * 12);
+      star.style.animationDuration = duration + 's';
+      star.style.animationDelay = -(Math.random() * duration) + 's';
+      arena.appendChild(star);
+    }
+
     enemies  = [];
     weapons  = [];
     arrows   = [];
@@ -416,7 +513,7 @@
     playerY = screenH() * PLAYER_FIXED_Y_RATIO;
     targetX = playerX;
 
-    playerEl = createEl('\u{1F6E1}\uFE0F');
+    playerEl = createEl('\u{1F680}');
     placeEntity(playerEl, playerX, playerY);
 
     startTime = null;
@@ -569,7 +666,7 @@
       const el = createEl('\u2694\uFE0F');
       el.style.fontSize = fontSize + 'rem';
       const angleOffset = (2 * Math.PI / swordCount) * i;
-      weapons.push({ el, angleOffset, angle: angleOffset, radius: 60 + swordCount * 8, size: hitbox });
+      weapons.push({ el, angleOffset, angle: 0, radius: 60 + swordCount * 8, size: hitbox });
     }
   }
 
@@ -587,7 +684,7 @@
       el.style.fontSize = '1.4rem';
       el.style.opacity = '0.85';
       const angleOffset = Math.PI + (2 * Math.PI / bowCount) * i;
-      bowIndicators.push({ el, angleOffset, angle: angleOffset, radius: 40 + bowCount * 4 });
+      bowIndicators.push({ el, angleOffset, angle: 0, radius: 40 + bowCount * 4 });
     }
   }
 
@@ -636,6 +733,26 @@
     });
   });
 
+  // ── Pause / Resume ──────────────────────────────────────────
+  function togglePause() {
+    if (!running) return;
+    if (upgradeUI.classList.contains('active')) return; // don't pause during upgrade
+    if (paused) {
+      paused = false;
+      pauseOverlay.classList.remove('active');
+      lastFrame = performance.now();
+    } else {
+      paused = true;
+      pauseOverlay.classList.add('active');
+    }
+  }
+
+  pauseBtn.addEventListener('click', togglePause);
+  resumeBtn.addEventListener('click', togglePause);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') togglePause();
+  });
+
   // ── Nuke ──────────────────────────────────────────────────
   const nukeFlash = document.getElementById('nuke-flash');
   const nukeIcon  = document.getElementById('nuke-icon');
@@ -667,7 +784,7 @@
     clearInterval(spawnTimer);
     clearInterval(difficultyTimer);
     const seconds = Math.floor(elapsedTime);
-    finalScoreEl.textContent = playerName + ' — ' + seconds + 's  |  ' + destroyedCount + ' kills';
+    finalScoreEl.textContent = playerName + ' — ' + seconds + 's  |  Lv ' + level + '  |  ' + destroyedCount + ' kills';
     const board = saveScore(playerName, seconds);
     renderLeaderboard(board);
     gameOverUI.classList.add('active');
@@ -827,13 +944,20 @@
 
   // ── Name Entry & Leaderboard ─────────────────────────────
   function startGame() {
-    playerName = nameInput.value.trim() || 'Player';
+    const name = nameInput.value.trim();
+    if (!name) return;
+    playerName = name;
     nameScreen.classList.add('hidden');
     init();
   }
 
+  nameInput.addEventListener('input', () => {
+    startBtn.disabled = !nameInput.value.trim();
+  });
   startBtn.addEventListener('click', startGame);
-  nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') startGame(); });
+  nameInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && nameInput.value.trim()) startGame();
+  });
   nameInput.focus();
 
   function saveScore(name, seconds) {

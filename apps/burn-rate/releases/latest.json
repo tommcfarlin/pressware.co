@@ -1,5 +1,5 @@
 {
   "version": "1.4.0",
   "notes": "\n### Added\n\n- Built-in update checker \u2014 polls pressware.co manifest once per 24 hours on launch\n- \"Check for Updates\" menu item for manual update checks\n- Red dot badge on menu bar icon when a new version is available\n- Update section in dropdown with version number, \"More Info\", and \"Download\" buttons\n- \"More Info\" opens a native release notes panel with full changelog and download link\n- Dismiss logic \u2014 suppresses notification until a new version or 30 days elapse\n- `make publish` target to copy DMG and generate manifest for pressware.co\n- `make release` target chaining `dist` then `publish` for one-command releases\n- `make test-update` target for local update checker testing\n- `BURNRATE_UPDATE_URL` environment variable override for testing\n- \"You're up to date\" confirmation after manual update check finds no newer version\n\n### Fixed\n\n- Keychain password prompts no longer stack \u2014 credentials are cached in memory after first read (#10)\n- Auto-refresh timer no longer queues Keychain dialogs after auth failure \u2014 pauses until manual refresh (#2)",
-  "url": "https://github.com/tommcfarlin/burn-rate/releases/download/v1.4.0/BurnRate-1.4.0.dmg"
+  "url": "https://pressware.co/apps/burn-rate/assets/BurnRate-1.4.0.dmg"
 }

@@ -42,6 +42,55 @@
             width: 100%;
         }
 
+        .retired-banner {
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.35);
+            color: #fca5a5;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .retired-banner .retired-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: rgba(220, 38, 38, 0.18);
+            border: 1px solid rgba(220, 38, 38, 0.5);
+            color: #ef4444;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .retired-banner p {
+            margin: 0;
+        }
+
+        .download-button.disabled {
+            background: #2a2a2a;
+            color: #666;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .download-button.disabled:hover {
+            transform: none;
+            opacity: 1;
+        }
+
+        .download-button.disabled svg {
+            fill: #666;
+        }
+
         .icon {
             width: 120px;
             height: 120px;
@@ -384,6 +433,11 @@
     </a>
 
     <div class="container">
+        <div class="retired-banner">
+            <span class="retired-tag">Retired</span>
+            <p>Shadow Ban is no longer maintained and the beta is no longer available for download. Thanks to everyone who tried it out.</p>
+        </div>
+
         <div class="icon">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/>
@@ -497,14 +551,13 @@
 
         <div class="download-box">
             <h3>Download Shadow Ban</h3>
-            <p>Get the beta extension and start cleaning up your inbox today.</p>
-            <a href="shadow-ban-beta.zip" class="download-button" download>
+            <p>Shadow Ban has been retired. The beta is no longer available for download.</p>
+            <span class="download-button disabled" aria-disabled="true">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                 </svg>
-                Download Beta
-            </a>
-            <p class="download-note">Requires Google Chrome and a Gmail account.</p>
+                Download unavailable
+            </span>
         </div>
 
         <div class="feedback-box">

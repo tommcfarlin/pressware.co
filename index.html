@@ -144,6 +144,29 @@
             background: transparent;
         }
 
+        .app.retired {
+            cursor: default;
+            opacity: 0.65;
+        }
+
+        .app.retired:hover {
+            background: transparent;
+        }
+
+        .app-badge.retired-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: rgba(220, 38, 38, 0.12);
+            border: 1px solid rgba(220, 38, 38, 0.35);
+            color: #ef4444;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 8px;
+        }
+
         .app-icon {
             width: 56px;
             height: 56px;
@@ -318,19 +341,6 @@
         <section id="apps">
             <h2 class="section-title">Apps</h2>
             <div class="apps">
-                <a href="/apps/burn-rate/" class="app">
-                    <div class="app-icon burnrate">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/>
-                        </svg>
-                    </div>
-                    <div class="app-info">
-                        <h2>BurnRate</h2>
-                        <p>Track Claude Code token usage across models and sessions from your menu bar.</p>
-                        <span class="app-badge available">Mac App · Available</span>
-                    </div>
-                </a>
-
                 <a href="/apps/now-playing-notify/" class="app">
                     <div class="app-icon spotify">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -380,6 +390,19 @@
                         <h2>Where Can I Watch?</h2>
                         <p>Find which streaming services have your favorite movies and shows.</p>
                         <span class="app-badge"><a href="https://wciw.tommcfarlin.com" class="app-badge-link available">Web App · Available</a> <span class="app-badge-sep">|</span> <a href="/apps/where-can-i-watch/ios" class="app-badge-link available">iOS App · Available</a></span>
+                    </div>
+                </div>
+
+                <div class="app retired">
+                    <div class="app-icon burnrate">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/>
+                        </svg>
+                    </div>
+                    <div class="app-info">
+                        <h2>BurnRate</h2>
+                        <p>Tracked Claude Code token usage across models and sessions from your menu bar.</p>
+                        <span class="app-badge retired-badge">Retired</span>
                     </div>
                 </div>
             </div>

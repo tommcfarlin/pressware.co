@@ -126,7 +126,7 @@
         .hero {
             max-width: var(--content-width);
             margin: 0 auto;
-            padding: 120px 24px 0;
+            padding: 140px 24px 0;
             display: flex;
             align-items: center;
             gap: 60px;
@@ -507,6 +507,225 @@
             gap: 24px;
         }
 
+        /* ---- Sub Nav (anchor scroll-spy) ---- */
+
+        .sub-nav {
+            position: fixed;
+            top: 48px;
+            left: 0;
+            right: 0;
+            z-index: 90;
+            background: rgba(10, 10, 10, 0.78);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .sub-nav-inner {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .sub-nav-inner::-webkit-scrollbar { display: none; }
+
+        .sub-nav-link {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            padding: 14px 0;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            white-space: nowrap;
+            position: relative;
+            top: 1px;
+        }
+
+        .sub-nav-link:hover {
+            color: var(--text-secondary);
+        }
+
+        .sub-nav-link.active {
+            color: var(--blue);
+            border-bottom-color: var(--blue);
+        }
+
+        /* ---- Bullet stagger + checkmark stroke-draw ---- */
+
+        .callout-list li {
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .feature.revealed .callout-list li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature.revealed .callout-list li:nth-child(1) { transition-delay: 0.15s; }
+        .feature.revealed .callout-list li:nth-child(2) { transition-delay: 0.25s; }
+        .feature.revealed .callout-list li:nth-child(3) { transition-delay: 0.35s; }
+        .feature.revealed .callout-list li:nth-child(4) { transition-delay: 0.45s; }
+
+        .callout-icon path {
+            stroke-dasharray: 28;
+            stroke-dashoffset: 28;
+            transition: stroke-dashoffset 0.55s ease;
+        }
+
+        .feature.revealed .callout-list li:nth-child(1) .callout-icon path { transition-delay: 0.3s; stroke-dashoffset: 0; }
+        .feature.revealed .callout-list li:nth-child(2) .callout-icon path { transition-delay: 0.4s; stroke-dashoffset: 0; }
+        .feature.revealed .callout-list li:nth-child(3) .callout-icon path { transition-delay: 0.5s; stroke-dashoffset: 0; }
+        .feature.revealed .callout-list li:nth-child(4) .callout-icon path { transition-delay: 0.6s; stroke-dashoffset: 0; }
+
+        /* ---- Parallax: shift phone-frame on scroll within each .feature.
+           Driven by JS (sets --parallax-y on the .phone-frame). Composed
+           with the .feature reveal transform on the parent. ---- */
+
+        .feature .phone-frame {
+            will-change: transform;
+            transform: translate3d(0, var(--parallax-y, 0px), 0);
+        }
+
+        /* ---- Scrub-image stack (used by .feature-scrub Today section) ---- */
+
+        .scrub-stack {
+            position: relative;
+            display: block;
+        }
+
+        .scrub-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 22px;
+            transition: opacity 0.4s ease;
+        }
+
+        .scrub-image:not(:first-child) {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+        }
+
+        .scrub-image.active {
+            opacity: 1;
+        }
+
+        /* Reserve a scroll runway for the scrub section so the sticky text
+           and visual have room to traverse. */
+        .feature-scrub {
+            align-items: flex-start;
+            min-height: 200vh;
+        }
+
+        .feature-scrub .feature-text,
+        .feature-scrub .feature-visual {
+            position: sticky;
+            top: 120px;
+            align-self: flex-start;
+        }
+
+        /* ---- Values / privacy section ---- */
+
+        .values-section {
+            padding: var(--section-gap) 24px;
+            border-top: 1px solid var(--surface-border);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .values-section.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .values-inner {
+            max-width: var(--content-width);
+            margin: 0 auto;
+        }
+
+        .values-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .values-header h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .value-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 18px;
+            padding: 32px 28px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .value-card:hover {
+            border-color: rgba(56, 144, 227, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .value-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--blue);
+            margin-bottom: 20px;
+        }
+
+        .value-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .value-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .value-card p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .callout-list li,
+            .callout-icon path,
+            .feature .phone-frame,
+            .values-section {
+                opacity: 1 !important;
+                transform: none !important;
+                stroke-dashoffset: 0 !important;
+                transition: none !important;
+            }
+        }
+
         /* ---- Responsive ---- */
 
         @media (max-width: 768px) {
@@ -516,7 +735,7 @@
 
             .hero {
                 flex-direction: column;
-                padding-top: 110px;
+                padding-top: 130px;
                 min-height: auto;
                 text-align: center;
                 gap: 48px;
@@ -570,6 +789,32 @@
                 gap: 16px;
                 text-align: center;
             }
+
+            .sub-nav-inner {
+                gap: 20px;
+                padding: 0 16px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .values-header {
+                margin-bottom: 40px;
+            }
+
+            /* Disable scrub stickiness on small screens — the side-by-side
+               layout collapses to stacked, so sticky positioning offers no
+               benefit and would feel cramped. */
+            .feature-scrub {
+                min-height: auto;
+            }
+
+            .feature-scrub .feature-text,
+            .feature-scrub .feature-visual {
+                position: static;
+            }
         }
 
         @media (max-width: 480px) {
@@ -620,6 +865,20 @@
         </div>
     </nav>
 
+    <!-- Sub Nav (anchor + active-state) — appears below main nav, sticks under it -->
+    <nav class="sub-nav" id="sub-nav" aria-label="Sections">
+        <div class="sub-nav-inner">
+            <a href="#search" class="sub-nav-link" data-target="search">Search</a>
+            <a href="#services" class="sub-nav-link" data-target="services">Services</a>
+            <a href="#watchlist" class="sub-nav-link" data-target="watchlist">Watchlist</a>
+            <!-- v1.4.0: add Today link here when Today section is uncommented:
+            <a href="#today" class="sub-nav-link" data-target="today">Today</a>
+            -->
+            <a href="#trending" class="sub-nav-link" data-target="trending">Trending</a>
+            <a href="#values" class="sub-nav-link" data-target="values">Values</a>
+        </div>
+    </nav>
+
     <!-- Hero -->
     <div class="hero-wrapper">
     <section class="hero">
@@ -644,22 +903,22 @@
     <div class="features">
 
         <!-- Feature: Detail -->
-        <section class="feature reverse">
+        <section class="feature reverse" id="search">
             <div class="feature-text">
                 <div class="feature-label">Search</div>
                 <h2>Search any title. Get answers instantly.</h2>
                 <p>Type in any movie or TV show and see exactly where it's available. Streaming, renting, buying — every option, from every service, in one place.</p>
                 <ul class="callout-list">
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         See season and episode counts for TV shows
                     </li>
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Stream, rent, or buy — know every option
                     </li>
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Save anything to your watchlist in one tap
                     </li>
                 </ul>
@@ -672,7 +931,7 @@
         </section>
 
         <!-- Feature: Services -->
-        <section class="feature">
+        <section class="feature" id="services">
             <div class="feature-text">
                 <div class="feature-label">Your Services</div>
                 <h2>Personalized to the services you actually pay for.</h2>
@@ -686,26 +945,26 @@
         </section>
 
         <!-- Feature: Watchlist -->
-        <section class="feature reverse">
+        <section class="feature reverse" id="watchlist">
             <div class="feature-text">
                 <div class="feature-label">Watchlist</div>
                 <h2>Never lose track of what to watch next.</h2>
                 <p>Save movies and TV shows to your watchlist. Shows display countdown badges so you always know when the next episode drops, and shows you've finished come back automatically when a new season is announced.</p>
                 <ul class="callout-list">
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Countdown badges: Tomorrow, 2d, 1 week
                     </li>
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Mark individual episodes watched as you go
                     </li>
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Get notified when new episodes air
                     </li>
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Filter by Shows, Movies, or Watched
                     </li>
                 </ul>
@@ -722,37 +981,51 @@
             v1.4.0 STAGED CONTENT — uncomment after App Store approval of v1.4.0.
             Adds the Today tab section + the Quick Actions and service-everywhere
             bullets that ship with that release. Search for "v1.4.0" in this file
-            to find this block. Requires screenshot at images/today.png before
-            going live.
+            to find this block.
+
+            REQUIRES THREE SCREENSHOTS before going live:
+              images/today-1.png   Today tab list view (the home moment)
+              images/today-2.png   Same Today tab with the row tapped / sheet rising
+              images/today-3.png   Episode Detail sheet open with synopsis + watched
+
+            The section uses `feature-scrub` — text + phone are sticky while the
+            user scrolls through; the phone scrubs through these three states.
+
+            When uncommenting, also uncomment the corresponding sub-nav link in
+            the .sub-nav block above (search for "v1.4.0:" in that block).
             =====================================================================
 
-        <section class="feature">
+        <section class="feature feature-scrub" id="today">
             <div class="feature-text">
                 <div class="feature-label">Today</div>
                 <h2>Know what's on tonight — and where to watch it.</h2>
                 <p>The Today tab surfaces every episode from your watchlist airing today, with the local air time and streaming service on every row. The "where can I watch?" question finally answered the moment you open the app.</p>
                 <ul class="callout-list">
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Per-episode rows for double drops (Apple TV+, HBO)
                     </li>
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Full-season Netflix drops collapse into a "Season available" row
                     </li>
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Tap any row for synopsis, still image, and one-tap watched
                     </li>
                     <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
                         Long-press the app icon for Quick Actions: Search, Today, Watchlist, Trending
                     </li>
                 </ul>
             </div>
             <div class="feature-visual">
                 <div class="phone-frame">
-                    <img src="images/today.png" alt="Today tab showing episodes airing today with local air times and streaming service names" width="1242" height="2688" loading="lazy">
+                    <div class="scrub-stack">
+                        <img src="images/today-1.png" class="scrub-image" alt="Today tab showing episodes airing today with local air times and streaming service names" width="1242" height="2688" loading="lazy">
+                        <img src="images/today-2.png" class="scrub-image" alt="Today tab with an episode row in pressed state, episode detail sheet rising from below" width="1242" height="2688" loading="lazy">
+                        <img src="images/today-3.png" class="scrub-image" alt="Episode Detail sheet open showing synopsis, still image, and the mark-as-watched control" width="1242" height="2688" loading="lazy">
+                    </div>
                 </div>
             </div>
         </section>
@@ -763,7 +1036,7 @@
         -->
 
         <!-- Feature: Trending -->
-        <section class="feature">
+        <section class="feature" id="trending">
             <div class="feature-text">
                 <div class="feature-label">Trending</div>
                 <h2>Discover what everyone's watching.</h2>
@@ -777,6 +1050,51 @@
         </section>
 
     </div>
+
+    <!-- Values -->
+    <section class="values-section" id="values">
+        <div class="values-inner">
+            <div class="values-header">
+                <div class="feature-label">Built without compromise</div>
+                <h2>What we don't do is what makes it work.</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
+                            <line x1="3" y1="3" x2="21" y2="21"/>
+                        </svg>
+                    </div>
+                    <h3>No accounts. Ever.</h3>
+                    <p>Open the app and start tracking. No sign-up, no email capture, no profile setup. Your watchlist lives on your device, not on a server.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"/>
+                            <circle cx="12" cy="12" r="9"/>
+                            <line x1="4.2" y1="4.2" x2="19.8" y2="19.8"/>
+                        </svg>
+                    </div>
+                    <h3>No tracking. No analytics.</h3>
+                    <p>We don't collect what you watch, when you watch, or who you are. Nothing about your usage leaves your phone.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20"/>
+                            <path d="M17 6.5C17 4.6 15.2 3 12.5 3S8 4.6 8 6.5 9.5 10 12 10s5 1.4 5 3.5S15.2 17 12.5 17 8 15.4 8 13.5"/>
+                            <line x1="3" y1="3" x2="21" y2="21"/>
+                        </svg>
+                    </div>
+                    <h3>Free. Always.</h3>
+                    <p>No subscriptions. No tiers. No ads. The TMDB license that powers the data requires non-commercial use — and we prefer it that way.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Bottom CTA -->
     <div class="bottom-cta-wrapper">
@@ -806,15 +1124,18 @@
     </div>
 
     <script>
-        // Scroll-reveal: fade + lift feature sections as they enter the viewport.
-        // Honors prefers-reduced-motion (the CSS short-circuits there too).
-        (function () {
-            var features = document.querySelectorAll('.feature');
-            if (!features.length) return;
+        var PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var HAS_INTERSECTION = 'IntersectionObserver' in window;
 
-            var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (prefersReduced || !('IntersectionObserver' in window)) {
-                features.forEach(function (el) { el.classList.add('revealed'); });
+        // Scroll-reveal: fade + lift .feature and .values-section as they enter
+        // the viewport. CSS short-circuits motion for prefers-reduced-motion;
+        // we still need to add `.revealed` so the bullet stagger triggers.
+        (function () {
+            var revealTargets = document.querySelectorAll('.feature, .values-section');
+            if (!revealTargets.length) return;
+
+            if (!HAS_INTERSECTION) {
+                revealTargets.forEach(function (el) { el.classList.add('revealed'); });
                 return;
             }
 
@@ -827,7 +1148,146 @@
                 });
             }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
 
-            features.forEach(function (el) { observer.observe(el); });
+            revealTargets.forEach(function (el) { observer.observe(el); });
+        })();
+
+        // Sub-nav active state: track which section is in view and highlight
+        // the matching link. Uses a tight rootMargin so the highlight tracks
+        // roughly where the eye is reading, not where the section technically
+        // first crosses the viewport edge.
+        (function () {
+            var links = document.querySelectorAll('.sub-nav-link');
+            if (!links.length || !HAS_INTERSECTION) return;
+
+            var linkByTarget = {};
+            links.forEach(function (link) {
+                linkByTarget[link.getAttribute('data-target')] = link;
+            });
+
+            var sections = [];
+            Object.keys(linkByTarget).forEach(function (id) {
+                var el = document.getElementById(id);
+                if (el) sections.push(el);
+            });
+            if (!sections.length) return;
+
+            var setActive = function (id) {
+                links.forEach(function (link) {
+                    link.classList.toggle('active', link.getAttribute('data-target') === id);
+                });
+            };
+
+            var observer = new IntersectionObserver(function (entries) {
+                // Pick the entry closest to the top of the viewport that's
+                // currently intersecting — handles overlapping intersections
+                // when sections are tall.
+                var best = null;
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        if (!best || entry.boundingClientRect.top < best.boundingClientRect.top) {
+                            best = entry;
+                        }
+                    }
+                });
+                if (best) setActive(best.target.id);
+            }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+
+            sections.forEach(function (section) { observer.observe(section); });
+        })();
+
+        // Parallax: shift each .phone-frame inside .feature on scroll, at
+        // a rate slower than the surrounding text. Creates depth without
+        // pulling the phone too far out of its layout slot.
+        (function () {
+            if (PREFERS_REDUCED) return;
+
+            var frames = document.querySelectorAll('.feature .phone-frame');
+            if (!frames.length) return;
+
+            // Tracks which frames are currently on-screen so we don't
+            // recompute offsets for ones the user isn't looking at.
+            var visible = new Set();
+            var visObserver = null;
+            if (HAS_INTERSECTION) {
+                visObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            visible.add(entry.target);
+                        } else {
+                            visible.delete(entry.target);
+                        }
+                    });
+                }, { rootMargin: '40% 0px 40% 0px' });
+                frames.forEach(function (f) { visObserver.observe(f); });
+            } else {
+                frames.forEach(function (f) { visible.add(f); });
+            }
+
+            var rafId = null;
+            function update() {
+                rafId = null;
+                var viewportH = window.innerHeight;
+                visible.forEach(function (frame) {
+                    var rect = frame.getBoundingClientRect();
+                    var center = rect.top + rect.height / 2;
+                    var delta = center - viewportH / 2;
+                    var offset = -delta * 0.08;
+                    frame.style.setProperty('--parallax-y', offset.toFixed(1) + 'px');
+                });
+            }
+
+            window.addEventListener('scroll', function () {
+                if (rafId === null) rafId = requestAnimationFrame(update);
+            }, { passive: true });
+            window.addEventListener('resize', function () {
+                if (rafId === null) rafId = requestAnimationFrame(update);
+            });
+            update();
+        })();
+
+        // Scrub: as user scrolls through a .feature-scrub section, swap
+        // between stacked screenshots. Sticky positioning (in CSS) pins the
+        // text and phone in place; this script just toggles which image is
+        // active based on scroll progress through the section.
+        (function () {
+            if (PREFERS_REDUCED) return;
+
+            var sections = document.querySelectorAll('.feature-scrub');
+            if (!sections.length) return;
+
+            sections.forEach(function (section) {
+                var images = section.querySelectorAll('.scrub-image');
+                if (images.length < 2) return;
+
+                // First image gets .active on load (it's the default state).
+                images[0].classList.add('active');
+
+                var rafId = null;
+                function update() {
+                    rafId = null;
+                    var rect = section.getBoundingClientRect();
+                    var viewportH = window.innerHeight;
+                    var scrollable = rect.height - viewportH;
+                    if (scrollable <= 0) return;
+                    var progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+                    // Map progress 0..1 across the image stack. The last
+                    // segment is a bit wider so the final image holds while
+                    // the user reads the closing copy.
+                    var stops = images.length;
+                    var idx = Math.min(stops - 1, Math.floor(progress * stops));
+                    images.forEach(function (img, i) {
+                        img.classList.toggle('active', i === idx);
+                    });
+                }
+
+                window.addEventListener('scroll', function () {
+                    if (rafId === null) rafId = requestAnimationFrame(update);
+                }, { passive: true });
+                window.addEventListener('resize', function () {
+                    if (rafId === null) rafId = requestAnimationFrame(update);
+                });
+                update();
+            });
         })();
     </script>
 </body>

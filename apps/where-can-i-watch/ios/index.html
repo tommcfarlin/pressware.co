@@ -108,11 +108,12 @@
             font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.01em;
-            transition: opacity 0.15s ease;
+            transition: filter 0.15s ease, box-shadow 0.2s ease;
         }
 
         .nav-cta:hover {
-            opacity: 0.85;
+            filter: brightness(1.08);
+            box-shadow: 0 0 16px var(--blue-glow);
         }
 
         /* ---- Hero ---- */
@@ -149,18 +150,18 @@
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
+            letter-spacing: -0.035em;
+            line-height: 1.05;
             margin-bottom: 24px;
         }
 
         .hero-sub {
-            font-size: clamp(1rem, 2vw, 1.1875rem);
+            font-size: clamp(1.0625rem, 2vw, 1.25rem);
             color: var(--text-secondary);
-            line-height: 1.65;
-            max-width: 480px;
+            line-height: 1.6;
+            max-width: 500px;
             margin-bottom: 36px;
         }
 
@@ -183,11 +184,17 @@
             text-decoration: none;
             font-size: 0.9375rem;
             font-weight: 500;
-            transition: opacity 0.15s ease;
+            transition: filter 0.15s ease, box-shadow 0.2s ease, transform 0.15s ease;
         }
 
         .btn-primary:hover {
-            opacity: 0.85;
+            filter: brightness(1.08);
+            box-shadow: 0 0 24px var(--blue-glow), 0 0 60px var(--blue-glow);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
         }
 
         .btn-secondary {
@@ -244,12 +251,14 @@
         .phone-frame {
             position: relative;
             border-radius: 24px;
-            border: 2px solid #333;
+            border: 1px solid #2a2a2a;
             overflow: hidden;
             box-shadow:
-                0 0 0 1px rgba(255, 255, 255, 0.05),
-                0 20px 60px rgba(0, 0, 0, 0.6),
-                0 0 80px var(--blue-glow);
+                inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.04),
+                0 30px 80px rgba(0, 0, 0, 0.5),
+                0 8px 24px rgba(0, 0, 0, 0.4),
+                0 0 100px var(--blue-glow);
             background: #000;
         }
 
@@ -266,16 +275,49 @@
         }
 
         .feature {
+            position: relative;
             max-width: var(--content-width);
             margin: 0 auto;
             padding: var(--section-gap) 0;
             display: flex;
             align-items: center;
             gap: 80px;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .feature.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Alternating surface tone — subtle (1-2% lightness) so it gives the
+           eye visual rest without competing with the content. The pseudo
+           extends full-bleed via 100vw, clipped by body's overflow-x: hidden. */
+        .feature:nth-child(even)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 100vw;
+            transform: translateX(-50%);
+            background: #0d0d10;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .feature:not(:last-child) {
             border-bottom: 1px solid var(--surface-border);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .feature {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
         }
 
         .feature-text {
@@ -301,10 +343,10 @@
         }
 
         .feature-text p {
-            font-size: 1.0625rem;
+            font-size: 1.125rem;
             color: var(--text-secondary);
-            line-height: 1.7;
-            max-width: 440px;
+            line-height: 1.65;
+            max-width: 460px;
         }
 
         .feature-visual {
@@ -735,5 +777,31 @@
             </div>
         </footer>
     </div>
+
+    <script>
+        // Scroll-reveal: fade + lift feature sections as they enter the viewport.
+        // Honors prefers-reduced-motion (the CSS short-circuits there too).
+        (function () {
+            var features = document.querySelectorAll('.feature');
+            if (!features.length) return;
+
+            var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReduced || !('IntersectionObserver' in window)) {
+                features.forEach(function (el) { el.classList.add('revealed'); });
+                return;
+            }
+
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+            features.forEach(function (el) { observer.observe(el); });
+        })();
+    </script>
 </body>
 </html>

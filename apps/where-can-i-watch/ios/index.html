@@ -239,8 +239,9 @@
 
         .hero-device .phone-frame {
             border-bottom: none;
-            border-radius: 24px 24px 0 0;
+            border-radius: 30px 30px 0 0;
             box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.06),
                 0 0 0 1px rgba(255, 255, 255, 0.05),
                 0 -10px 60px rgba(0, 0, 0, 0.4),
                 0 0 100px var(--blue-glow);
@@ -250,11 +251,12 @@
 
         .phone-frame {
             position: relative;
-            border-radius: 24px;
-            border: 1px solid #2a2a2a;
+            border-radius: 30px;
+            border: 1px solid #333;
             overflow: hidden;
+            padding: 6px;
             box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.06),
                 0 0 0 1px rgba(255, 255, 255, 0.04),
                 0 30px 80px rgba(0, 0, 0, 0.5),
                 0 8px 24px rgba(0, 0, 0, 0.4),
@@ -262,10 +264,30 @@
             background: #000;
         }
 
+        /* Top-edge glass highlight — simulates light catching the curve of
+           the device. Brightest at the top corners, fades to nothing by
+           mid-screen. Sits above the screenshot, pointer-events ignored. */
+        .phone-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.18) 0%,
+                    rgba(255, 255, 255, 0.06) 18%,
+                    rgba(255, 255, 255, 0) 42%
+                );
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
         .phone-frame img {
             width: 100%;
             height: auto;
             display: block;
+            border-radius: 22px;
         }
 
         /* ---- Feature Sections ---- */
@@ -516,8 +538,8 @@
             }
 
             .hero-device .phone-frame {
-                border-radius: 24px;
-                border-bottom: 2px solid #333;
+                border-radius: 30px;
+                border-bottom: 1px solid #333;
             }
 
             .feature {
@@ -568,11 +590,16 @@
             }
 
             .phone-frame {
-                border-radius: 20px;
+                border-radius: 24px;
+                padding: 5px;
+            }
+
+            .phone-frame img {
+                border-radius: 19px;
             }
 
             .hero-device .phone-frame {
-                border-radius: 20px;
+                border-radius: 24px;
             }
         }
     </style>

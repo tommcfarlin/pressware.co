@@ -2,1268 +2,578 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Where Can I Watch? — Find where movies and TV shows are streaming</title>
-    <meta name="description" content="Stop guessing which streaming service has your favorite movie or show. Where Can I Watch? searches across every service to give you the answer instantly. Free for iOS.">
+    <meta name="description" content="Stop guessing which streaming service has the movie or show you want. Where Can I Watch? searches every service, tracks your watchlist, and shows what airs tonight. Free for iPhone.">
+    <meta name="theme-color" content="#05060a">
+    <meta name="apple-itunes-app" content="app-id=6758677785">
     <meta property="og:title" content="Where Can I Watch?">
-    <meta property="og:description" content="Find where movies and TV shows are streaming. Free for iOS.">
+    <meta property="og:description" content="Find where movies and TV shows are streaming. Free for iPhone.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://pressware.co/apps/where-can-i-watch/ios">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%233890E3'/><path d='M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z' fill='%23fff'/></svg>">
+    <meta property="og:url" content="https://pressware.co/apps/where-can-i-watch/ios/">
+    <meta property="og:image" content="https://pressware.co/apps/where-can-i-watch/ios/images/app-icon.png">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <style>
+        /*
+         * Screening Room. A darkened room where every phone casts bias light
+         * from its own screen (a blurred copy of the screenshot behind it),
+         * so each section takes its color from the app itself.
+         */
         :root {
-            --bg: #0a0a0a;
-            --bg-accent: #0f1219;
-            --surface: #161616;
-            --surface-border: #1e2028;
-            --blue: #3890E3;
-            --blue-glow: rgba(56, 144, 227, 0.15);
-            --text: #f5f5f7;
-            --text-secondary: #86868b;
-            --text-tertiary: #6e6e73;
-            --section-gap: 140px;
-            --content-width: 1040px;
+            --room: #05060a;
+            --fg: #f5f5f7;
+            --fg-2: #9a9aa3;
+            --fg-3: #5d5e66;
+            --hair: rgba(255, 255, 255, 0.09);
+            --beam: #2d5cf0;
+            --check: #4f8dff;
+            --cta: #f5f5f7;
+            --cta-fg: #05060a;
+            --display: -apple-system, "SF Pro Display", BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --text: -apple-system, "SF Pro Text", BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+            --nav-h: 64px;
+            color-scheme: dark;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            margin: 0;
+            background: var(--room);
+            color: var(--fg);
+            font-family: var(--text);
+            font-size: 17px;
             line-height: 1.5;
+            letter-spacing: -0.02em;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
         }
 
+        /* Film grain over the whole page. */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.07;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        a { color: var(--fg); text-decoration: none; }
+        :focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; border-radius: 8px; }
+        h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; font-weight: 600; }
+        p { margin: 0; }
+        img { max-width: 100%; }
+        section[id] { scroll-margin-top: var(--nav-h); }
+
+        .wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding-left: max(24px, env(safe-area-inset-left, 0px));
+            padding-right: max(24px, env(safe-area-inset-right, 0px));
+        }
+
+        .tc {
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--fg-2);
+        }
+
         /* ---- Navigation ---- */
 
         .nav {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background: rgba(15, 18, 25, 0.85);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 20;
+            padding-top: env(safe-area-inset-top, 0px);
+            background: linear-gradient(var(--room) 20%, transparent);
         }
 
-        .nav-inner {
-            max-width: var(--content-width);
-            margin: 0 auto;
-            padding: 0 24px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .nav .wrap { display: flex; align-items: center; height: var(--nav-h); gap: 28px; }
+
+        .brand { display: flex; gap: 10px; align-items: center; font-family: var(--display); font-weight: 600; font-size: 16px; }
+        .brand img { width: 28px; height: 28px; border-radius: 7px; }
+
+        .nav ul { display: flex; gap: 26px; list-style: none; margin: 0 auto; padding: 0; }
+        .nav ul a { font-size: 13px; color: var(--fg-2); transition: color 0.2s; }
+        .nav ul a:hover { color: var(--fg); }
+
+        .pillbtn { background: var(--cta); color: var(--cta-fg); border-radius: 980px; font-weight: 600; font-size: 13px; padding: 7px 16px; }
+
+        @media (max-width: 820px) {
+            .nav ul { display: none; }
+            .pillbtn { margin-left: auto; }
         }
 
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--text);
-            font-size: 0.875rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-        }
+        /* ---- Phone with bias light ---- */
 
-        .nav-icon {
-            width: 28px;
-            height: 28px;
-            background: var(--blue);
-            border-radius: 7px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .phone { container-type: inline-size; width: var(--w, 300px); max-width: 100%; position: relative; flex: none; }
 
-        .nav-icon svg {
-            width: 16px;
-            height: 16px;
-            fill: #fff;
-        }
-
-        .nav-cta {
-            display: inline-flex;
-            align-items: center;
-            height: 30px;
-            padding: 0 14px;
-            background: var(--blue);
-            border-radius: 15px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            transition: filter 0.15s ease, box-shadow 0.2s ease;
-        }
-
-        .nav-cta:hover {
-            filter: brightness(1.08);
-            box-shadow: 0 0 16px var(--blue-glow);
-        }
-
-        /* ---- Hero ---- */
-
-        .hero-wrapper {
-            background: var(--bg-accent);
-            border-bottom: 1px solid var(--surface-border);
-        }
-
-        .hero {
-            max-width: var(--content-width);
-            margin: 0 auto;
-            padding: 140px 24px 0;
-            display: flex;
-            align-items: center;
-            gap: 60px;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--blue);
-            margin-bottom: 20px;
-            letter-spacing: 0.02em;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 700;
-            letter-spacing: -0.035em;
-            line-height: 1.05;
-            margin-bottom: 24px;
-        }
-
-        .hero-sub {
-            font-size: clamp(1.0625rem, 2vw, 1.25rem);
-            color: var(--text-secondary);
-            line-height: 1.6;
-            max-width: 500px;
-            margin-bottom: 36px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            height: 44px;
-            padding: 0 24px;
-            background: var(--blue);
-            border: 1px solid var(--blue);
-            border-radius: 22px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9375rem;
-            font-weight: 500;
-            transition: filter 0.15s ease, box-shadow 0.2s ease, transform 0.15s ease;
-        }
-
-        .btn-primary:hover {
-            filter: brightness(1.08);
-            box-shadow: 0 0 24px var(--blue-glow), 0 0 60px var(--blue-glow);
-            transform: translateY(-1px);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            height: 44px;
-            padding: 0 24px;
-            background: transparent;
-            border: 1px solid #444;
-            border-radius: 22px;
-            color: var(--text);
-            text-decoration: none;
-            font-size: 0.9375rem;
-            font-weight: 500;
-            transition: border-color 0.15s ease;
-        }
-
-        .btn-secondary:hover {
-            border-color: #888;
-        }
-
-        .hero-device {
-            flex-shrink: 0;
-            width: 320px;
-            align-self: flex-end;
-            position: relative;
-            max-height: 520px;
-            overflow: hidden;
-        }
-
-        .hero-device::after {
-            content: '';
+        .phone .glow {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 120px;
-            background: linear-gradient(to bottom, transparent, var(--bg-accent));
+            inset: -8% -30%;
+            z-index: 0;
+            width: 160%;
+            max-width: none;
+            height: 116%;
+            object-fit: cover;
+            filter: blur(70px) saturate(1.8) brightness(1.1);
+            opacity: 0.55;
             pointer-events: none;
-            z-index: 1;
         }
 
-        .hero-device .phone-frame {
-            border-bottom: none;
-            border-radius: 30px 30px 0 0;
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-                0 0 0 1px rgba(255, 255, 255, 0.05),
-                0 -10px 60px rgba(0, 0, 0, 0.4),
-                0 0 100px var(--blue-glow);
-        }
-
-        /* ---- Phone Frame ---- */
-
-        .phone-frame {
+        .frame {
             position: relative;
-            border-radius: 30px;
-            border: 1px solid #333;
-            overflow: hidden;
-            padding: 6px;
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-                0 0 0 1px rgba(255, 255, 255, 0.04),
-                0 30px 80px rgba(0, 0, 0, 0.5),
-                0 8px 24px rgba(0, 0, 0, 0.4),
-                0 0 100px var(--blue-glow);
+            z-index: 1;
+            padding: 3.4cqw;
+            border-radius: 16.5cqw;
+            background: linear-gradient(150deg, #55555a, #1a1a1c 28%, #232326 72%, #5b5b60);
+            box-shadow: inset 0 0 0 0.5cqw #08080a, 0 50px 90px -30px rgba(0, 0, 0, 0.9);
+        }
+
+        .frame img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1179 / 2556;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 13.4cqw;
             background: #000;
         }
 
-        /* Top-edge glass highlight — simulates light catching the curve of
-           the device. Brightest at the top corners, fades to nothing by
-           mid-screen. Sits above the screenshot, pointer-events ignored. */
-        .phone-frame::after {
-            content: '';
+        /* Dynamic Island */
+        .frame::after {
+            content: "";
             position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background:
-                linear-gradient(
-                    180deg,
-                    rgba(255, 255, 255, 0.18) 0%,
-                    rgba(255, 255, 255, 0.06) 18%,
-                    rgba(255, 255, 255, 0) 42%
-                );
-            mix-blend-mode: screen;
-            pointer-events: none;
+            top: 5.6cqw;
+            left: 50%;
+            width: 28cqw;
+            height: 8.4cqw;
+            margin-left: -14cqw;
+            border-radius: 9cqw;
+            background: #000;
         }
 
-        .phone-frame img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 22px;
+        @media (prefers-reduced-motion: no-preference) {
+            .hero .phone .glow { animation: breathe 9s ease-in-out infinite alternate; }
         }
 
-        /* ---- Feature Sections ---- */
-
-        .features {
-            padding: 0 24px;
+        @keyframes breathe {
+            from { opacity: 0.42; transform: scale(0.97); }
+            to { opacity: 0.6; transform: scale(1.03); }
         }
 
-        .feature {
-            position: relative;
-            max-width: var(--content-width);
-            margin: 0 auto;
-            padding: var(--section-gap) 0;
-            display: flex;
+        /* ---- Buttons ---- */
+
+        .ctas { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 40px; }
+
+        .badge { display: inline-block; line-height: 0; border-radius: 10px; transition: opacity 0.2s; }
+        .badge img { height: 54px; width: auto; }
+        .badge:hover { opacity: 0.85; }
+
+        .btn {
+            display: inline-flex;
             align-items: center;
-            gap: 80px;
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-
-        .feature.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Alternating surface tone — subtle (1-2% lightness) so it gives the
-           eye visual rest without competing with the content. The pseudo
-           extends full-bleed via 100vw, clipped by body's overflow-x: hidden. */
-        .feature:nth-child(even)::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 100vw;
-            transform: translateX(-50%);
-            background: #0d0d10;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .feature:not(:last-child) {
-            border-bottom: 1px solid var(--surface-border);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .feature {
-                opacity: 1;
-                transform: none;
-                transition: none;
-            }
-        }
-
-        .feature-text {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .feature-label {
-            font-size: 0.8125rem;
+            height: 54px;
+            border-radius: 980px;
+            padding: 0 26px;
             font-weight: 600;
-            color: var(--blue);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 12px;
+            font-size: 16px;
+            color: var(--fg);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+            transition: box-shadow 0.2s;
         }
+        .btn:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5); }
 
-        .feature-text h2 {
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            line-height: 1.15;
-            margin-bottom: 20px;
-        }
+        /* ---- Hero ---- */
 
-        .feature-text p {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            line-height: 1.65;
-            max-width: 460px;
-        }
+        .hero { position: relative; padding-block: 56px 120px; overflow: hidden; }
 
-        .feature-visual {
-            flex-shrink: 0;
-            width: 320px;
-            position: relative;
-        }
-
-        .feature-visual::before {
-            content: '';
+        .hero::before {
+            content: "";
             position: absolute;
-            top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            width: 280px;
-            height: 280px;
-            background: radial-gradient(circle, rgba(56, 144, 227, 0.12) 0%, transparent 70%);
-            border-radius: 50%;
+            top: -340px;
+            width: 1400px;
+            height: 1100px;
+            margin-left: -700px;
             pointer-events: none;
-            z-index: 0;
+            background: radial-gradient(closest-side, color-mix(in srgb, var(--beam) 34%, transparent), transparent 70%);
         }
 
-        .feature-visual .phone-frame {
-            position: relative;
-            z-index: 1;
-        }
+        .hero .wrap { position: relative; }
+        .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
+        .hero-grid > div { min-width: 0; }
+        .hero h1 { font-size: clamp(52px, 8.4vw, 112px); line-height: 0.96; letter-spacing: -0.045em; margin-top: 22px; }
+        .hero h1 span { color: var(--fg-3); }
+        .hero .lede { font-size: clamp(18px, 1.7vw, 21px); color: var(--fg-2); max-width: 38ch; margin-top: 30px; line-height: 1.45; }
+        .hero .phone { --w: 330px; justify-self: center; }
 
-        .feature.reverse {
-            flex-direction: row-reverse;
-        }
-
-        /* ---- Callouts ---- */
-
-        .callout-list {
-            list-style: none;
-            margin-top: 24px;
+        .marquee {
+            margin-top: 88px;
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            gap: 16px 40px;
+            flex-wrap: wrap;
+            align-items: center;
+            border-top: 1px solid var(--hair);
+            padding-top: 26px;
+            font-family: var(--display);
+            font-size: 20px;
+            color: var(--fg-3);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        .marquee .tc { margin-right: 8px; }
+
+        @media (max-width: 860px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero .phone { --w: 280px; margin-top: 40px; }
         }
 
-        .callout-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 0.9375rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
+        /* ---- Scenes ---- */
+
+        .scene { position: relative; overflow-x: clip; padding-block: 150px; border-top: 1px solid var(--hair); }
+        .scene h2 { font-size: clamp(40px, 6vw, 80px); line-height: 1; letter-spacing: -0.04em; }
+        .scene .body { font-size: clamp(18px, 1.7vw, 21px); color: var(--fg-2); max-width: 42ch; line-height: 1.45; margin-top: 26px; }
+        .scene .body b { color: var(--fg); font-weight: 500; }
+        .scene .tc + h2 { margin-top: 22px; }
+
+        .head { display: grid; grid-template-columns: 200px 1fr; gap: 24px; }
+        .head > div { min-width: 0; }
+
+        @media (max-width: 760px) {
+            .scene { padding-block: 110px; }
+            .head { grid-template-columns: 1fr; gap: 14px; }
         }
 
-        .callout-icon {
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            color: var(--blue);
-            margin-top: 1px;
+        .credits { display: grid; grid-template-columns: repeat(var(--cols, 3), 1fr); margin-top: 72px; border-top: 1px solid var(--hair); }
+        .credits div { padding: 22px 24px 0 0; min-width: 0; font-size: 16px; color: var(--fg-2); line-height: 1.45; }
+        .credits div b { display: block; color: var(--fg); font-weight: 500; margin-bottom: 4px; }
+
+        @media (max-width: 960px) {
+            .credits { grid-template-columns: repeat(min(var(--cols, 3), 2), 1fr); }
+            .credits div { padding-bottom: 22px; }
         }
 
-        /* ---- Bottom CTA ---- */
-
-        .bottom-cta-wrapper {
-            background: var(--bg-accent);
-            border-top: 1px solid var(--surface-border);
+        @media (max-width: 600px) {
+            .credits { grid-template-columns: 1fr; }
+            .credits div { padding: 18px 0; border-bottom: 1px solid var(--hair); }
         }
 
-        .bottom-cta {
-            text-align: center;
-            padding: var(--section-gap) 24px;
-            max-width: var(--content-width);
-            margin: 0 auto;
+        .stage { display: flex; justify-content: center; align-items: flex-end; gap: 56px; margin-top: 96px; flex-wrap: wrap; }
+        .stage .phone { --w: 320px; }
+        .stage.pair .phone:nth-child(2) { --w: 270px; margin-bottom: 60px; }
+
+        @media (max-width: 760px) {
+            .stage.pair .phone:nth-child(2) { display: none; }
         }
 
-        .bottom-cta h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 16px;
+        .split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+        .split > div { min-width: 0; }
+        .split .phone { --w: 320px; justify-self: center; }
+
+        @media (max-width: 860px) {
+            .split { grid-template-columns: 1fr; }
+            .split .phone { order: 2; }
         }
 
-        .bottom-cta p {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
+        .svc { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+        .svc span { border-radius: 980px; padding: 8px 16px; font-size: 15px; font-weight: 500; box-shadow: inset 0 0 0 1px var(--hair); color: var(--fg-2); }
+        .svc span.on { color: var(--fg); background: rgba(255, 255, 255, 0.07); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); }
+        .svc span.on::before { content: "\2713\00a0"; color: var(--check); }
+
+        /* ---- Today ---- */
+
+        .tonight { display: grid; grid-template-columns: auto 1fr; gap: 72px; align-items: center; margin-top: 96px; }
+        .tonight > div { min-width: 0; }
+        .tonight .phone { --w: 300px; }
+
+        .clock { font-family: var(--display); font-weight: 200; font-size: clamp(84px, 12vw, 168px); letter-spacing: -0.05em; line-height: 0.9; font-variant-numeric: tabular-nums; }
+        .clock small { font-size: 0.32em; font-weight: 500; letter-spacing: -0.01em; color: var(--fg-2); margin-left: 0.15em; }
+        .clock-sub { font-size: 19px; color: var(--fg-2); margin-top: 18px; }
+        .clock-sub b { color: var(--fg); font-weight: 500; }
+        .tonight .credits { margin-top: 48px; }
+
+        @media (max-width: 860px) {
+            .tonight { grid-template-columns: 1fr; justify-items: center; }
+            .tonight > div { justify-self: stretch; }
         }
 
-        .bottom-cta .hero-buttons {
-            margin-bottom: 0;
-            justify-content: center;
+        /* ---- Values ---- */
+
+        .values { margin-top: 72px; }
+        .value { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px 64px; padding-block: 44px; border-top: 1px solid var(--hair); align-items: baseline; }
+        .value h3 { font-size: clamp(34px, 4.4vw, 56px); letter-spacing: -0.04em; line-height: 1.02; }
+        .value p { color: var(--fg-2); font-size: 18px; max-width: 44ch; }
+
+        @media (max-width: 760px) {
+            .value { grid-template-columns: 1fr; }
         }
 
-        /* ---- Attribution ---- */
+        /* ---- Closing ---- */
 
-        .attribution {
-            text-align: center;
-            padding: 0 24px 24px;
-            font-size: 0.8125rem;
-            color: var(--text-tertiary);
+        .closing { position: relative; text-align: center; padding-block: 180px 160px; overflow: hidden; border-top: 1px solid var(--hair); }
+
+        .closing::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 900px;
+            height: 700px;
+            margin: -350px 0 0 -450px;
+            background: radial-gradient(closest-side, color-mix(in srgb, var(--beam) 30%, transparent), transparent);
+            pointer-events: none;
         }
 
-        .attribution a {
-            color: var(--text-secondary);
-            text-decoration: none;
-        }
-
-        .attribution a:hover {
-            text-decoration: underline;
-        }
+        .closing .wrap { position: relative; }
+        .closing .icon { width: 120px; height: 120px; border-radius: 27px; margin: 0 auto 36px; display: block; box-shadow: 0 30px 80px -10px color-mix(in srgb, var(--beam) 70%, transparent); }
+        .closing h2 { font-size: clamp(44px, 7vw, 96px); letter-spacing: -0.045em; line-height: 0.98; }
+        .closing p { color: var(--fg-2); font-size: 20px; margin-top: 22px; }
+        .closing .ctas { justify-content: center; }
 
         /* ---- Footer ---- */
 
-        footer {
-            border-top: 1px solid var(--surface-border);
-            padding: 32px 24px;
-            max-width: var(--content-width);
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8125rem;
-            color: var(--text-tertiary);
-        }
-
-        footer a {
-            color: var(--text-tertiary);
-            text-decoration: none;
-            transition: color 0.15s ease;
-        }
-
-        footer a:hover {
-            color: var(--text);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        /* ---- Sub Nav (anchor scroll-spy) ---- */
-
-        .sub-nav {
-            position: fixed;
-            top: 48px;
-            left: 0;
-            right: 0;
-            z-index: 90;
-            background: rgba(10, 10, 10, 0.78);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .sub-nav-inner {
-            max-width: var(--content-width);
-            margin: 0 auto;
-            padding: 0 24px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .sub-nav-inner::-webkit-scrollbar { display: none; }
-
-        .sub-nav-link {
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text-tertiary);
-            text-decoration: none;
-            padding: 14px 0;
-            border-bottom: 2px solid transparent;
-            transition: color 0.2s ease, border-color 0.2s ease;
-            white-space: nowrap;
-            position: relative;
-            top: 1px;
-        }
-
-        .sub-nav-link:hover {
-            color: var(--text-secondary);
-        }
-
-        .sub-nav-link.active {
-            color: var(--blue);
-            border-bottom-color: var(--blue);
-        }
-
-        /* ---- Bullet stagger + checkmark stroke-draw ---- */
-
-        .callout-list li {
-            opacity: 0;
-            transform: translateY(6px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .feature.revealed .callout-list li {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .feature.revealed .callout-list li:nth-child(1) { transition-delay: 0.15s; }
-        .feature.revealed .callout-list li:nth-child(2) { transition-delay: 0.25s; }
-        .feature.revealed .callout-list li:nth-child(3) { transition-delay: 0.35s; }
-        .feature.revealed .callout-list li:nth-child(4) { transition-delay: 0.45s; }
-
-        .callout-icon path {
-            stroke-dasharray: 28;
-            stroke-dashoffset: 28;
-            transition: stroke-dashoffset 0.55s ease;
-        }
-
-        .feature.revealed .callout-list li:nth-child(1) .callout-icon path { transition-delay: 0.3s; stroke-dashoffset: 0; }
-        .feature.revealed .callout-list li:nth-child(2) .callout-icon path { transition-delay: 0.4s; stroke-dashoffset: 0; }
-        .feature.revealed .callout-list li:nth-child(3) .callout-icon path { transition-delay: 0.5s; stroke-dashoffset: 0; }
-        .feature.revealed .callout-list li:nth-child(4) .callout-icon path { transition-delay: 0.6s; stroke-dashoffset: 0; }
-
-        /* ---- Parallax: shift phone-frame on scroll within each .feature.
-           Driven by JS (sets --parallax-y on the .phone-frame). Composed
-           with the .feature reveal transform on the parent. ---- */
-
-        .feature .phone-frame {
-            will-change: transform;
-            transform: translate3d(0, var(--parallax-y, 0px), 0);
-        }
-
-        /* ---- Scrub-image stack (used by .feature-scrub Today section) ---- */
-
-        .scrub-stack {
-            position: relative;
-            display: block;
-        }
-
-        .scrub-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 22px;
-            transition: opacity 0.4s ease;
-        }
-
-        .scrub-image:not(:first-child) {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-        }
-
-        .scrub-image.active {
-            opacity: 1;
-        }
-
-        /* Reserve a scroll runway for the scrub section so the sticky text
-           and visual have room to traverse. */
-        .feature-scrub {
-            align-items: flex-start;
-            min-height: 200vh;
-        }
-
-        .feature-scrub .feature-text,
-        .feature-scrub .feature-visual {
-            position: sticky;
-            top: 120px;
-            align-self: flex-start;
-        }
-
-        /* ---- Values / privacy section ---- */
-
-        .values-section {
-            padding: var(--section-gap) 24px;
-            border-top: 1px solid var(--surface-border);
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-
-        .values-section.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .values-inner {
-            max-width: var(--content-width);
-            margin: 0 auto;
-        }
-
-        .values-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-
-        .values-header h2 {
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            line-height: 1.15;
-            max-width: 720px;
-            margin: 0 auto;
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .value-card {
-            background: var(--surface);
-            border: 1px solid var(--surface-border);
-            border-radius: 18px;
-            padding: 32px 28px;
-            transition: border-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .value-card:hover {
-            border-color: rgba(56, 144, 227, 0.35);
-            transform: translateY(-2px);
-        }
-
-        .value-icon {
-            width: 32px;
-            height: 32px;
-            color: var(--blue);
-            margin-bottom: 20px;
-        }
-
-        .value-icon svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .value-card h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: -0.01em;
-        }
-
-        .value-card p {
-            font-size: 0.9375rem;
-            color: var(--text-secondary);
-            line-height: 1.55;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .callout-list li,
-            .callout-icon path,
-            .feature .phone-frame,
-            .values-section {
-                opacity: 1 !important;
-                transform: none !important;
-                stroke-dashoffset: 0 !important;
-                transition: none !important;
-            }
-        }
-
-        /* ---- Responsive ---- */
-
-        @media (max-width: 768px) {
-            :root {
-                --section-gap: 80px;
-            }
-
-            .hero {
-                flex-direction: column;
-                padding-top: 130px;
-                min-height: auto;
-                text-align: center;
-                gap: 48px;
-            }
-
-            .hero-content {
-                order: 1;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-device {
-                order: 2;
-                width: 260px;
-                align-self: center;
-                max-height: 400px;
-            }
-
-            .hero-device .phone-frame {
-                border-radius: 30px;
-                border-bottom: 1px solid #333;
-            }
-
-            .feature {
-                flex-direction: column !important;
-                text-align: center;
-                gap: 48px;
-            }
-
-            .feature-text p {
-                max-width: 100%;
-            }
-
-            .feature-text {
-                order: 1;
-            }
-
-            .feature-visual {
-                order: 2;
-                width: 240px;
-            }
-
-            .callout-list {
-                align-items: center;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-
-            .sub-nav-inner {
-                gap: 20px;
-                padding: 0 16px;
-            }
-
-            .values-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .values-header {
-                margin-bottom: 40px;
-            }
-
-            /* Disable scrub stickiness on small screens — the side-by-side
-               layout collapses to stacked, so sticky positioning offers no
-               benefit and would feel cramped. */
-            .feature-scrub {
-                min-height: auto;
-            }
-
-            .feature-scrub .feature-text,
-            .feature-scrub .feature-visual {
-                position: static;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero-sub {
-                font-size: 0.9375rem;
-            }
-
-            .hero-device {
-                width: 220px;
-            }
-
-            .feature-visual {
-                width: 200px;
-            }
-
-            .phone-frame {
-                border-radius: 24px;
-                padding: 5px;
-            }
-
-            .phone-frame img {
-                border-radius: 19px;
-            }
-
-            .hero-device .phone-frame {
-                border-radius: 24px;
-            }
-        }
+        footer { border-top: 1px solid var(--hair); padding-block: 32px calc(44px + env(safe-area-inset-bottom, 0px)); font-size: 12px; color: var(--fg-3); line-height: 1.6; }
+        footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; }
+        footer a { color: var(--fg-2); transition: color 0.2s; }
+        footer a:hover { color: var(--fg); }
+        footer .attrib { max-width: 64ch; }
+        footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-inner">
-            <a href="/apps/where-can-i-watch/" class="nav-brand">
-                <div class="nav-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/>
-                    </svg>
+    <header class="nav">
+        <div class="wrap">
+            <a class="brand" href="#top"><img src="images/app-icon.png" alt="">Where Can I Watch?</a>
+            <ul>
+                <li><a href="#search">Search</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#watchlist">Watchlist</a></li>
+                <li><a href="#today">Today</a></li>
+                <li><a href="#discover">Discover</a></li>
+                <li><a href="#values">Values</a></li>
+            </ul>
+            <a class="pillbtn" href="https://apps.apple.com/us/app/where-can-i-watch/id6758677785">Download</a>
+        </div>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <div class="wrap">
+                <div class="hero-grid">
+                    <div>
+                        <p class="tc">Free on iPhone</p>
+                        <h1>Stop guessing <span>where it’s</span> streaming.</h1>
+                        <p class="lede">Netflix, Hulu, Apple TV, Disney+, HBO. You pay for all of them but never know which one has what you want to watch. That ends now.</p>
+                        <div class="ctas">
+                            <a class="badge" href="https://apps.apple.com/us/app/where-can-i-watch/id6758677785"><img src="images/app-store-badge.svg" alt="Download on the App Store" width="160" height="54"></a>
+                            <a class="btn" href="https://wciw.tommcfarlin.com">Try the web app</a>
+                        </div>
+                    </div>
+                    <div class="phone">
+                        <img class="glow" src="images/watchlist.jpg" alt="">
+                        <div class="frame"><img src="images/watchlist.jpg" alt="Watchlist with the Currently Watching rail and countdown badges"></div>
+                    </div>
                 </div>
-                Where Can I Watch?
-            </a>
-            <a href="https://apps.apple.com/us/app/where-can-i-watch/id6758677785" class="nav-cta">Download</a>
-        </div>
-    </nav>
-
-    <!-- Sub Nav (anchor + active-state) — appears below main nav, sticks under it -->
-    <nav class="sub-nav" id="sub-nav" aria-label="Sections">
-        <div class="sub-nav-inner">
-            <a href="#search" class="sub-nav-link" data-target="search">Search</a>
-            <a href="#services" class="sub-nav-link" data-target="services">Services</a>
-            <a href="#watchlist" class="sub-nav-link" data-target="watchlist">Watchlist</a>
-            <a href="#today" class="sub-nav-link" data-target="today">Today</a>
-            <a href="#trending" class="sub-nav-link" data-target="trending">Trending</a>
-            <a href="#values" class="sub-nav-link" data-target="values">Values</a>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <div class="hero-wrapper">
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-eyebrow">Free on iOS</div>
-            <h1>Stop guessing where it's streaming.</h1>
-            <p class="hero-sub">Netflix, Hulu, Apple TV, Disney+, HBO — you're paying for all of them but never know which one has what you want to watch. That ends now.</p>
-            <div class="hero-buttons">
-                <a href="https://apps.apple.com/us/app/where-can-i-watch/id6758677785" class="btn-primary">Download for iOS</a>
-                <a href="https://wciw.tommcfarlin.com" class="btn-secondary">Try the Web App</a>
-            </div>
-        </div>
-        <div class="hero-device">
-            <div class="phone-frame">
-                <img src="images/search.png" alt="Where Can I Watch? search results showing streaming availability for movies and TV shows" width="1242" height="2688" loading="eager">
-            </div>
-        </div>
-    </section>
-    </div>
-
-    <!-- Features -->
-    <div class="features">
-
-        <!-- Feature: Detail -->
-        <section class="feature reverse" id="search">
-            <div class="feature-text">
-                <div class="feature-label">Search</div>
-                <h2>Search any title. Get answers instantly.</h2>
-                <p>Type in any movie or TV show and see exactly where it's available. Streaming, renting, buying — every option, from every service, in one place.</p>
-                <ul class="callout-list">
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        See season and episode counts for TV shows
-                    </li>
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Stream, rent, or buy — know every option
-                    </li>
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Save anything to your watchlist in one tap
-                    </li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="phone-frame">
-                    <img src="images/detail.png" alt="Detail view showing Shrinking TV show with seasons, episodes, overview, and streaming providers" width="1242" height="2688" loading="lazy">
+                <div class="marquee" aria-label="Works with every major streaming service">
+                    <span class="tc">Every service</span>
+                    <span>Netflix</span><span>Hulu</span><span>Apple TV</span><span>Disney+</span><span>HBO Max</span><span>Prime Video</span><span>Peacock</span>
                 </div>
             </div>
         </section>
 
-        <!-- Feature: Services -->
-        <section class="feature" id="services">
-            <div class="feature-text">
-                <div class="feature-label">Your Services</div>
-                <h2>Personalized to the services you actually pay for.</h2>
-                <p>Select which streaming services you subscribe to. Results are tailored to show what's available on your services first, so you stop paying to rent something you already have access to.</p>
-            </div>
-            <div class="feature-visual">
-                <div class="phone-frame">
-                    <img src="images/services.png" alt="Services selection screen showing Netflix, Disney Plus, HBO Max, Hulu, Apple TV, and more" width="1242" height="2688" loading="lazy">
+        <section class="scene" id="search">
+            <div class="wrap">
+                <div class="head">
+                    <p class="tc">Search</p>
+                    <div>
+                        <h2>Search any title. Get answers instantly.</h2>
+                        <p class="body">Type in any movie, TV show, or actor and see exactly where it’s available. <b>Streaming, renting, buying.</b> Every option, from every service, in one place.</p>
+                    </div>
+                </div>
+                <div class="stage pair">
+                    <div class="phone">
+                        <img class="glow" src="images/search.jpg" alt="" loading="lazy">
+                        <div class="frame"><img src="images/search.jpg" alt="Search results for X Files showing Hulu, Prime Video, and rent or buy options" loading="lazy"></div>
+                    </div>
+                    <div class="phone">
+                        <img class="glow" src="images/detail.jpg" alt="" loading="lazy">
+                        <div class="frame"><img src="images/detail.jpg" alt="Detail view for Shrinking with three seasons and 33 episodes" loading="lazy"></div>
+                    </div>
+                </div>
+                <div class="credits" style="--cols: 4">
+                    <div><b>Stream, rent, or buy</b>Know every option before you pay.</div>
+                    <div><b>Search by actor</b>Find a person and see where each of their movies and shows streams.</div>
+                    <div><b>Seasons and episodes</b>See season and episode counts for TV shows.</div>
+                    <div><b>One tap</b>Save anything to your watchlist in one tap.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Feature: Watchlist -->
-        <section class="feature reverse" id="watchlist">
-            <div class="feature-text">
-                <div class="feature-label">Watchlist</div>
-                <h2>Never lose track of what to watch next.</h2>
-                <p>Save movies and TV shows to your watchlist. Shows display countdown badges so you always know when the next episode drops, and shows you've finished come back automatically when a new season is announced.</p>
-                <ul class="callout-list">
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Countdown badges: Tomorrow, 2d, 1 week
-                    </li>
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Mark individual episodes watched as you go
-                    </li>
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Get notified when new episodes air
-                    </li>
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Filter by Shows, Movies, or Watched
-                    </li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="phone-frame">
-                    <img src="images/watchlist.png" alt="Watchlist showing TV shows with countdown badges — Tomorrow, 2d, 3d, 1 week" width="1242" height="2688" loading="lazy">
+        <section class="scene" id="services">
+            <div class="wrap split">
+                <div>
+                    <p class="tc">Your Services</p>
+                    <h2>Personalized to the services you actually pay for.</h2>
+                    <p class="body">Select which streaming services you subscribe to. Results show what’s on your services first, so you <b>stop paying to rent something you already have access to.</b></p>
+                    <div class="svc" aria-hidden="true">
+                        <span class="on">Netflix</span><span class="on">Apple TV</span><span class="on">Prime Video</span><span class="on">Disney+</span><span class="on">Hulu</span><span>Peacock</span><span>Paramount+</span><span>Crunchyroll</span>
+                    </div>
+                </div>
+                <div class="phone">
+                    <img class="glow" src="images/services.jpg" alt="" loading="lazy">
+                    <div class="frame"><img src="images/services.jpg" alt="Services screen with nine selected streaming services" loading="lazy"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Feature: Today -->
-        <section class="feature" id="today">
-            <div class="feature-text">
-                <div class="feature-label">Today</div>
-                <h2>Know what's on tonight — and where to watch it.</h2>
-                <p>The Today tab surfaces every episode from your watchlist airing today, with the local air time and streaming service on every row. The "where can I watch?" question finally answered the moment you open the app.</p>
-                <ul class="callout-list">
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Per-episode rows for double drops (Apple TV+, HBO)
-                    </li>
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Full-season Netflix drops collapse into a "Season available" row
-                    </li>
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Tap any row for synopsis, still image, and one-tap watched
-                    </li>
-                    <li>
-                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L20 6"/></svg>
-                        Long-press the app icon for Quick Actions: Search, Today, Watchlist, Trending
-                    </li>
-                </ul>
+        <section class="scene" id="watchlist">
+            <div class="wrap">
+                <div class="head">
+                    <p class="tc">Watchlist</p>
+                    <div>
+                        <h2>Never lose track of what to watch next.</h2>
+                        <p class="body">Save movies and TV shows to your watchlist. Countdown badges tell you when the next episode drops, and finished shows come back on their own when a new season is announced.</p>
+                    </div>
+                </div>
+                <div class="stage">
+                    <div class="phone" style="--w: 340px">
+                        <img class="glow" src="images/watchlist.jpg" alt="" loading="lazy">
+                        <div class="frame"><img src="images/watchlist.jpg" alt="Watchlist with Community and Silo in Currently Watching, and Ted Lasso in 5 days" loading="lazy"></div>
+                    </div>
+                </div>
+                <div class="credits" style="--cols: 4">
+                    <div><b>Currently Watching</b>Pin the shows you’re in the middle of and pick up at your next unwatched episode.</div>
+                    <div><b>Countdown badges</b>Tomorrow, 2d, 1 week.</div>
+                    <div><b>Per-episode tracking</b>Mark individual episodes watched as you go.</div>
+                    <div><b>Notifications</b>Get notified when new episodes air.</div>
+                </div>
             </div>
-            <div class="feature-visual">
-                <div class="phone-frame">
-                    <div class="scrub-stack">
-                        <img src="images/today-1.png" class="scrub-image" alt="Today tab showing episodes airing today with local air times and streaming service names" width="1242" height="2688" loading="lazy">
-                        <img src="images/today-2.png" class="scrub-image" alt="Today tab with an episode row in pressed state, episode detail sheet rising from below" width="1242" height="2688" loading="lazy">
-                        <img src="images/today-3.png" class="scrub-image" alt="Episode Detail sheet open showing synopsis, still image, and the mark-as-watched control" width="1242" height="2688" loading="lazy">
+        </section>
+
+        <section class="scene" id="today">
+            <div class="wrap">
+                <div class="head">
+                    <p class="tc">Today</p>
+                    <div>
+                        <h2>Know what’s on tonight, and where to watch it.</h2>
+                        <p class="body">The Today tab shows every episode from your watchlist airing today, with the local air time and streaming service on every row. The “where can I watch?” question, answered the moment you open the app.</p>
+                    </div>
+                </div>
+                <div class="tonight">
+                    <div class="phone">
+                        <img class="glow" src="images/today.jpg" alt="" loading="lazy">
+                        <div class="frame"><img src="images/today.jpg" alt="Today tab with Silo season 3 episode 8 at 12:00 AM on Apple TV" loading="lazy"></div>
+                    </div>
+                    <div>
+                        <div class="clock">12:00<small>AM EDT</small></div>
+                        <p class="clock-sub"><b>Silo</b> · S3 · E8 · Apple TV</p>
+                        <div class="credits" style="--cols: 2">
+                            <div><b>Double drops</b>Per-episode rows for Apple TV+ and HBO.</div>
+                            <div><b>Full-season drops</b>Netflix seasons collapse into one “Season available” row.</div>
+                            <div><b>Episode detail</b>Tap any row for the synopsis, still image, and one-tap watched.</div>
+                            <div><b>Quick Actions</b>Long-press the app icon to jump to Search, Today, Watchlist, or Discover.</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Feature: Trending -->
-        <section class="feature reverse" id="trending">
-            <div class="feature-text">
-                <div class="feature-label">Trending</div>
-                <h2>Discover what everyone's watching.</h2>
-                <p>Browse daily trending movies and TV shows. See the top 5, check where they're streaming, and add anything that catches your eye to your watchlist.</p>
-            </div>
-            <div class="feature-visual">
-                <div class="phone-frame">
-                    <img src="images/trending.png" alt="Trending tab showing top movies and TV shows with rankings and streaming availability" width="1242" height="2688" loading="lazy">
+        <section class="scene" id="discover">
+            <div class="wrap split">
+                <div class="phone">
+                    <img class="glow" src="images/discover.jpg" alt="" loading="lazy">
+                    <div class="frame"><img src="images/discover.jpg" alt="Trending Today with a Top 5 rail" loading="lazy"></div>
+                </div>
+                <div>
+                    <p class="tc">Discover</p>
+                    <h2>Find something new on what you already pay for.</h2>
+                    <p class="body">See what everyone’s watching today, then browse <b>New and Well-Rated on Your Services</b>: movies and shows from the last 90 days, ranked by audience score, on the services you subscribe to.</p>
+                    <div class="credits" style="--cols: 2">
+                        <div><b>Trending Today</b>The top movies and shows right now, and where they stream.</div>
+                        <div><b>New and Well-Rated</b>Recent, highly rated titles on your services.</div>
+                        <div><b>TMDB score</b>Each title’s TMDB user score on its detail page.</div>
+                        <div><b>Rotten Tomatoes</b>One tap to look the title up on Rotten Tomatoes.</div>
+                    </div>
                 </div>
             </div>
         </section>
 
-    </div>
-
-    <!-- Values -->
-    <section class="values-section" id="values">
-        <div class="values-inner">
-            <div class="values-header">
-                <div class="feature-label">Built without compromise</div>
-                <h2>What we don't do is what makes it work.</h2>
-            </div>
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="8" r="4"/>
-                            <path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
-                            <line x1="3" y1="3" x2="21" y2="21"/>
-                        </svg>
+        <section class="scene" id="sync">
+            <div class="wrap">
+                <div class="head">
+                    <p class="tc">Sync and Share</p>
+                    <div>
+                        <h2>Your watchlist, wherever you are.</h2>
+                        <p class="body">Turn on iCloud sync to keep your watchlist and watched episodes the same on every iPhone you use. It stays off until you choose it.</p>
                     </div>
-                    <h3>No accounts. Ever.</h3>
-                    <p>Open the app and start tracking. No sign-up, no email capture, no profile setup. Your watchlist lives on your device, not on a server.</p>
                 </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="3"/>
-                            <circle cx="12" cy="12" r="9"/>
-                            <line x1="4.2" y1="4.2" x2="19.8" y2="19.8"/>
-                        </svg>
-                    </div>
-                    <h3>No tracking. No analytics.</h3>
-                    <p>We don't collect what you watch, when you watch, or who you are. Nothing about your usage leaves your phone.</p>
+                <div class="credits">
+                    <div><b>iCloud sync</b>Your watchlist and episode progress, synced through your own private iCloud account.</div>
+                    <div><b>Share your watchlist</b>Send your whole list, one filter, or a single title. Friends open it to add those titles to their own watchlist.</div>
+                    <div><b>Works offline</b>Your tracked shows, seasons, and streaming services stay available with no connection.</div>
                 </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2v20"/>
-                            <path d="M17 6.5C17 4.6 15.2 3 12.5 3S8 4.6 8 6.5 9.5 10 12 10s5 1.4 5 3.5S15.2 17 12.5 17 8 15.4 8 13.5"/>
-                            <line x1="3" y1="3" x2="21" y2="21"/>
-                        </svg>
-                    </div>
-                    <h3>Free. Always.</h3>
-                    <p>No subscriptions. No tiers. No ads. The TMDB license that powers the data requires non-commercial use — and we prefer it that way.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Bottom CTA -->
-    <div class="bottom-cta-wrapper">
-        <section class="bottom-cta">
-            <h2>Available now. Completely free.</h2>
-            <p>No subscriptions. No accounts. No ads. Just answers.</p>
-            <div class="hero-buttons">
-                <a href="https://apps.apple.com/us/app/where-can-i-watch/id6758677785" class="btn-primary">Download for iOS</a>
-                <a href="https://wciw.tommcfarlin.com" class="btn-secondary">Try the Web App</a>
             </div>
         </section>
 
-        <!-- Attribution -->
-        <div class="attribution">
-            <p>This product uses the <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB API</a> but is not endorsed or certified by TMDB.</p>
-        </div>
+        <section class="scene" id="values">
+            <div class="wrap">
+                <div class="head">
+                    <p class="tc">Built without compromise</p>
+                    <div>
+                        <h2>What we don’t do is what makes it work.</h2>
+                    </div>
+                </div>
+                <div class="values">
+                    <div class="value">
+                        <h3>No accounts. Ever.</h3>
+                        <p>Open the app and start tracking. No sign-up, no email capture, no profile setup. Your watchlist lives on your device, and in your own iCloud if you turn on sync. Never on our servers.</p>
+                    </div>
+                    <div class="value">
+                        <h3>No tracking. No analytics.</h3>
+                        <p>We don’t collect what you watch, when you watch, or who you are. Nothing about how you use the app is ever sent to us.</p>
+                    </div>
+                    <div class="value">
+                        <h3>Free. Always.</h3>
+                        <p>No subscriptions. No tiers. No ads. The TMDB license that powers the data requires non-commercial use, and we prefer it that way.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <!-- Footer -->
-        <footer>
-            <span>&copy; 2026 <a href="/">Pressware, LLC</a></span>
-            <div class="footer-links">
+        <section class="closing">
+            <div class="wrap">
+                <img class="icon" src="images/app-icon.png" alt="Where Can I Watch? app icon" loading="lazy">
+                <h2>Available now.<br>Completely free.</h2>
+                <p>No subscriptions. No accounts. No ads. Just answers.</p>
+                <div class="ctas">
+                    <a class="badge" href="https://apps.apple.com/us/app/where-can-i-watch/id6758677785"><img src="images/app-store-badge.svg" alt="Download on the App Store" width="160" height="54" loading="lazy"></a>
+                    <a class="btn" href="https://wciw.tommcfarlin.com">Try the web app</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <span class="attrib">This product uses the TMDB API but is not endorsed or certified by <a href="https://www.themoviedb.org/">TMDB</a>. Streaming availability data from <a href="https://www.justwatch.com/">JustWatch</a>. &copy; 2026 <a href="/">Pressware, LLC</a></span>
+            <nav>
+                <a href="/apps/where-can-i-watch/">All platforms</a>
                 <a href="../privacy.html">Privacy</a>
                 <a href="../terms.html">Terms</a>
                 <a href="mailto:support@pressware.co">Contact</a>
-            </div>
-        </footer>
-    </div>
-
-    <script>
-        var PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var HAS_INTERSECTION = 'IntersectionObserver' in window;
-
-        // Scroll-reveal: fade + lift .feature and .values-section as they enter
-        // the viewport. CSS short-circuits motion for prefers-reduced-motion;
-        // we still need to add `.revealed` so the bullet stagger triggers.
-        (function () {
-            var revealTargets = document.querySelectorAll('.feature, .values-section');
-            if (!revealTargets.length) return;
-
-            if (!HAS_INTERSECTION) {
-                revealTargets.forEach(function (el) { el.classList.add('revealed'); });
-                return;
-            }
-
-            var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-
-            revealTargets.forEach(function (el) { observer.observe(el); });
-        })();
-
-        // Sub-nav active state: track which section is in view and highlight
-        // the matching link. Uses a tight rootMargin so the highlight tracks
-        // roughly where the eye is reading, not where the section technically
-        // first crosses the viewport edge.
-        (function () {
-            var links = document.querySelectorAll('.sub-nav-link');
-            if (!links.length || !HAS_INTERSECTION) return;
-
-            var linkByTarget = {};
-            links.forEach(function (link) {
-                linkByTarget[link.getAttribute('data-target')] = link;
-            });
-
-            var sections = [];
-            Object.keys(linkByTarget).forEach(function (id) {
-                var el = document.getElementById(id);
-                if (el) sections.push(el);
-            });
-            if (!sections.length) return;
-
-            var setActive = function (id) {
-                links.forEach(function (link) {
-                    link.classList.toggle('active', link.getAttribute('data-target') === id);
-                });
-            };
-
-            var observer = new IntersectionObserver(function (entries) {
-                // Pick the entry closest to the top of the viewport that's
-                // currently intersecting — handles overlapping intersections
-                // when sections are tall.
-                var best = null;
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        if (!best || entry.boundingClientRect.top < best.boundingClientRect.top) {
-                            best = entry;
-                        }
-                    }
-                });
-                if (best) setActive(best.target.id);
-            }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
-
-            sections.forEach(function (section) { observer.observe(section); });
-        })();
-
-        // Parallax: shift each .phone-frame inside .feature on scroll, at
-        // a rate slower than the surrounding text. Creates depth without
-        // pulling the phone too far out of its layout slot.
-        (function () {
-            if (PREFERS_REDUCED) return;
-
-            var frames = document.querySelectorAll('.feature .phone-frame');
-            if (!frames.length) return;
-
-            // Tracks which frames are currently on-screen so we don't
-            // recompute offsets for ones the user isn't looking at.
-            var visible = new Set();
-            var visObserver = null;
-            if (HAS_INTERSECTION) {
-                visObserver = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
-                            visible.add(entry.target);
-                        } else {
-                            visible.delete(entry.target);
-                        }
-                    });
-                }, { rootMargin: '40% 0px 40% 0px' });
-                frames.forEach(function (f) { visObserver.observe(f); });
-            } else {
-                frames.forEach(function (f) { visible.add(f); });
-            }
-
-            var rafId = null;
-            function update() {
-                rafId = null;
-                var viewportH = window.innerHeight;
-                visible.forEach(function (frame) {
-                    var rect = frame.getBoundingClientRect();
-                    var center = rect.top + rect.height / 2;
-                    var delta = center - viewportH / 2;
-                    var offset = -delta * 0.08;
-                    frame.style.setProperty('--parallax-y', offset.toFixed(1) + 'px');
-                });
-            }
-
-            window.addEventListener('scroll', function () {
-                if (rafId === null) rafId = requestAnimationFrame(update);
-            }, { passive: true });
-            window.addEventListener('resize', function () {
-                if (rafId === null) rafId = requestAnimationFrame(update);
-            });
-            update();
-        })();
-
-        // Scrub: as user scrolls through a .feature-scrub section, swap
-        // between stacked screenshots. Sticky positioning (in CSS) pins the
-        // text and phone in place; this script just toggles which image is
-        // active based on scroll progress through the section.
-        (function () {
-            if (PREFERS_REDUCED) return;
-
-            var sections = document.querySelectorAll('.feature-scrub');
-            if (!sections.length) return;
-
-            sections.forEach(function (section) {
-                var images = section.querySelectorAll('.scrub-image');
-                if (images.length < 2) return;
-
-                // First image gets .active on load (it's the default state).
-                images[0].classList.add('active');
-
-                var rafId = null;
-                function update() {
-                    rafId = null;
-                    var rect = section.getBoundingClientRect();
-                    var viewportH = window.innerHeight;
-                    var scrollable = rect.height - viewportH;
-                    if (scrollable <= 0) return;
-                    var progress = Math.max(0, Math.min(1, -rect.top / scrollable));
-                    // Map progress 0..1 across the image stack. The last
-                    // segment is a bit wider so the final image holds while
-                    // the user reads the closing copy.
-                    var stops = images.length;
-                    var idx = Math.min(stops - 1, Math.floor(progress * stops));
-                    images.forEach(function (img, i) {
-                        img.classList.toggle('active', i === idx);
-                    });
-                }
-
-                window.addEventListener('scroll', function () {
-                    if (rafId === null) rafId = requestAnimationFrame(update);
-                }, { passive: true });
-                window.addEventListener('resize', function () {
-                    if (rafId === null) rafId = requestAnimationFrame(update);
-                });
-                update();
-            });
-        })();
-    </script>
+            </nav>
+        </div>
+    </footer>
 </body>
 </html>

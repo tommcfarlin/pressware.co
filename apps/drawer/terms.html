@@ -3,218 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms and Conditions - Drawer</title>
+    <title>Terms and Conditions – Drawer</title>
+    <meta name="description" content="The terms for downloading and using Drawer, a free menu bar app for macOS.">
+    <meta name="theme-color" content="#fbfbfd">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23D1D1D6'/><stop offset='1' stop-color='%238E8E93'/></linearGradient></defs><rect width='24' height='24' rx='5' fill='url(%23g)'/><g transform='translate(4 4) scale(.6667)'><path d='M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z' fill='%231c1c1e'/></g></svg>">
-    <style>
-        :root {
-            --accent: #C7C7CC;
-            --dark-bg: #121212;
-            --card-bg: #181818;
-            --text-primary: #FFFFFF;
-            --text-secondary: #B3B3B3;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding: 60px 24px;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-        }
-
-        .back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-bottom: 32px;
-            transition: color 0.15s ease;
-        }
-
-        .back:hover {
-            color: var(--text-primary);
-        }
-
-        .back svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.02em;
-        }
-
-        .updated {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 40px;
-        }
-
-        .section {
-            margin-bottom: 32px;
-        }
-
-        h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--accent);
-        }
-
-        p {
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-
-        p:last-child {
-            margin-bottom: 0;
-        }
-
-        ul {
-            color: var(--text-secondary);
-            margin-left: 20px;
-            margin-bottom: 12px;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .legal-caps {
-            text-transform: uppercase;
-        }
-
-        footer {
-            margin-top: 64px;
-            padding-top: 32px;
-            border-top: 1px solid #282828;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.15s ease;
-        }
-
-        footer a:hover {
-            color: var(--text-primary);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        .home-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.6;
-            transition: opacity 0.15s ease;
-        }
-
-        .home-link:hover {
-            opacity: 1;
-        }
-
-        .home-link svg {
-            width: 24px;
-            height: 24px;
-            fill: #e5d52b;
-        }
-
-        @media (max-width: 480px) {
-            .home-link {
-                top: 12px;
-                left: 12px;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="site.css">
 </head>
 <body>
-    <a href="/" class="home-link" title="Pressware">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-        </svg>
-    </a>
-    <div class="container">
-        <a href="index.html" class="back">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-            </svg>
-            Back to Drawer
-        </a>
-
-        <h1>Terms and Conditions</h1>
-        <p class="updated">Last updated: September 25, 2026</p>
-
-        <div class="section">
-            <h2>Agreement to Terms</h2>
-            <p>By downloading, installing, or using Drawer ("the App"), you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, do not use the App.</p>
+    <header class="bar">
+        <div class="wrap">
+            <a class="brand" href="./">Drawer</a>
+            <span class="spacer"></span>
+            <a class="barlink" href="privacy.html">Privacy</a>
+            <a class="barlink strong" href="https://github.com/tommcfarlin/drawer/releases/latest/download/Drawer.dmg">Download</a>
         </div>
+    </header>
 
-        <div class="section">
-            <h2>Description of Service</h2>
-            <p>Drawer is a macOS menu bar application that hides and shows the menu bar icons you place between its brackets. The App is developed by Tom McFarlin ("we," "us," or "our").</p>
-        </div>
+    <main>
+        <section class="doc-head">
+            <div class="wrap">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#1d1d1f" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 2.8h8l4 4v13.4a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V3.8a1 1 0 0 1 1-1z"/><path d="M14.5 2.8v4h4M8.5 11.5h7M8.5 14.5h7M8.5 17.5h4.5"/></svg>
+                <p class="eyebrow">Drawer for Mac</p>
+                <h1>Terms and Conditions</h1>
+                <p class="date">Last updated October 19, 2026</p>
+            </div>
+        </section>
 
-        <div class="section">
+        <nav class="doc" aria-label="On this page">
+            <div class="panel toc-panel">
+                <p class="title">On this page</p>
+                <ul class="toc">
+                    <li><a href="#agreement">Agreement to terms</a></li>
+                    <li><a href="#warranty">Disclaimer of warranties</a></li>
+                    <li><a href="#service">Description of the App</a></li>
+                    <li><a href="#liability">Limitation of liability</a></li>
+                    <li><a href="#license">License and restrictions</a></li>
+                    <li><a href="#changes">Changes and termination</a></li>
+                    <li><a href="#menubar">Menu bar behavior</a></li>
+                    <li><a href="#law">Governing law</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <article class="doc body">
+            <h2 id="agreement">Agreement to terms</h2>
+            <p>By downloading, installing, or using Drawer (“the App”), you agree to these Terms and Conditions (“Terms”). If you do not agree, do not use the App.</p>
+
+            <h2 id="service">Description of the App</h2>
+            <p>Drawer is a macOS menu bar app that hides and shows the menu bar icons you place between its brackets. The App is developed by Tom McFarlin (“we,” “us,” or “our”).</p>
+
             <h2>Requirements</h2>
-            <p>To use the App, you need:</p>
             <ul>
-                <li>A Mac running macOS 26 (Tahoe) or later</li>
+                <li>A Mac running macOS 26 Tahoe or later.</li>
+                <li>On macOS 27, Accessibility permission, and the App installed in your Applications folder.</li>
             </ul>
-        </div>
 
-        <div class="section">
-            <h2>License Grant</h2>
-            <p>Subject to these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to download, install, and use the App for your personal, non-commercial purposes on devices you own or control.</p>
-        </div>
+            <h2 id="license">License grant</h2>
+            <p>Subject to these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to download, install, and use the App for personal, non-commercial purposes on devices you own or control.</p>
 
-        <div class="section">
             <h2>Restrictions</h2>
             <p>You agree not to:</p>
             <ul>
@@ -224,92 +70,70 @@
                 <li>Use the App for any unlawful purpose</li>
                 <li>Remove any proprietary notices from the App</li>
             </ul>
-        </div>
 
-        <div class="section">
-            <h2>Intellectual Property</h2>
+            <h2>Intellectual property</h2>
             <p>The App and its original content, features, and functionality are owned by Tom McFarlin and are protected by copyright, trademark, and other intellectual property laws.</p>
-        </div>
 
-        <div class="section">
             <h2>Distribution</h2>
-            <p>The App is distributed as a free download through GitHub Releases. Your use of GitHub is governed by GitHub's own terms of service and privacy policy.</p>
-        </div>
+            <p>The App is distributed as a free download through GitHub Releases. Your use of GitHub is governed by GitHub’s own terms of service and privacy policy.</p>
 
-        <div class="section">
-            <h2>Menu Bar Behavior</h2>
-            <p>The App changes the size of its own menu bar items to hide other icons. It relies on macOS behavior that Apple may change in future releases. We are not responsible for menu bar icons that macOS hides or rearranges on its own, such as icons hidden by a notched display or a crowded menu bar.</p>
-        </div>
+            <h2 id="menubar">Menu bar behavior</h2>
+            <p>To hide icons, the App relies on how macOS lays out and draws the menu bar. On macOS 26 it changes the size of its own menu bar items; on macOS 27 it uses system features that Apple does not document. Apple may change either in a future release, and the App may stop hiding icons as a result.</p>
+            <p>On macOS 27 the App hides whole apps, so an app with one icon inside the drawer and one outside is hidden entirely while the drawer is closed. We are not responsible for icons that macOS hides or rearranges on its own, such as icons hidden by a notched display or a crowded menu bar.</p>
 
-        <div class="section">
-            <h2>Disclaimer of Warranties</h2>
-            <p class="legal-caps">The App is provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+            <h2 id="warranty">Disclaimer of warranties</h2>
+            <p>The App is provided “as is” and “as available,” without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
             <p>We do not warrant that:</p>
             <ul>
                 <li>The App will function uninterrupted or error-free</li>
                 <li>Defects will be corrected</li>
                 <li>The App will be compatible with future versions of macOS</li>
             </ul>
-        </div>
 
-        <div class="section">
-            <h2>Limitation of Liability</h2>
-            <p class="legal-caps">To the maximum extent permitted by applicable law, in no event shall Tom McFarlin be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from:</p>
+            <h2 id="liability">Limitation of liability</h2>
+            <p>To the maximum extent permitted by applicable law, in no event shall Tom McFarlin be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from:</p>
             <ul>
-                <li>Your use or inability to use the App</li>
+                <li>Your use of or inability to use the App</li>
                 <li>Any unauthorized access to or alteration of your data</li>
                 <li>Any third-party conduct related to the App</li>
                 <li>Any other matter relating to the App</li>
             </ul>
-        </div>
 
-        <div class="section">
             <h2>Indemnification</h2>
-            <p>You agree to indemnify, defend, and hold harmless Tom McFarlin from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorney's fees, arising out of or in any way connected with your use of the App or violation of these Terms.</p>
-        </div>
+            <p>You agree to indemnify, defend, and hold harmless Tom McFarlin from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorney’s fees, arising out of or in any way connected with your use of the App or violation of these Terms.</p>
 
-        <div class="section">
-            <h2>Changes to the App</h2>
+            <h2 id="changes">Changes to the App</h2>
             <p>We reserve the right to modify, suspend, or discontinue the App at any time without notice. We shall not be liable to you or any third party for any modification, suspension, or discontinuation of the App.</p>
-        </div>
 
-        <div class="section">
-            <h2>Changes to These Terms</h2>
-            <p>We may revise these Terms from time to time. The most current version will always be available within the App or on our website. By continuing to use the App after revisions become effective, you agree to be bound by the revised Terms.</p>
-        </div>
+            <h2>Changes to these Terms</h2>
+            <p>We may revise these Terms from time to time. The most current version will always be available on our website. By continuing to use the App after revisions take effect, you agree to the revised Terms.</p>
 
-        <div class="section">
             <h2>Termination</h2>
-            <p>We may terminate or suspend your access to the App immediately, without prior notice, for any reason, including if you breach these Terms. Upon termination, your right to use the App will immediately cease.</p>
-        </div>
+            <p>We may terminate or suspend your access to the App immediately, without prior notice, for any reason, including if you breach these Terms. Upon termination, your right to use the App ends immediately.</p>
 
-        <div class="section">
-            <h2>Governing Law</h2>
-            <p>These Terms shall be governed by and construed in accordance with the laws of the United States and the State of Georgia, without regard to its conflict of law provisions.</p>
-        </div>
+            <h2 id="law">Governing law</h2>
+            <p>These Terms are governed by the laws of the United States and the State of Georgia, without regard to conflict of law provisions.</p>
 
-        <div class="section">
             <h2>Severability</h2>
-            <p>If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law, and the remaining provisions will continue in full force and effect.</p>
-        </div>
+            <p>If any provision of these Terms is held to be unenforceable or invalid, it will be changed and interpreted to accomplish its objectives to the greatest extent possible under applicable law, and the remaining provisions will continue in full force and effect.</p>
 
-        <div class="section">
-            <h2>Entire Agreement</h2>
-            <p>These Terms constitute the entire agreement between you and Tom McFarlin regarding the App and supersede all prior agreements and understandings.</p>
-        </div>
+            <h2>Entire agreement</h2>
+            <p>These Terms are the entire agreement between you and Tom McFarlin regarding the App and supersede all prior agreements and understandings.</p>
 
-        <div class="section">
-            <h2>Contact Us</h2>
-            <p>If you have any questions about these Terms, please contact us at <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
-        </div>
+            <h2>Contact us</h2>
+            <p>Questions about these Terms? Email <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
+        </article>
+    </main>
 
-        <footer>
-            <span>&copy; 2026 Pressware, LLC · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>
-            <div class="footer-links">
+    <footer>
+        <div class="wrap">
+            <span>&copy; 2026 <a href="/">Pressware, LLC</a> · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>
+            <nav aria-label="Legal">
+                <a href="./">Drawer</a>
                 <a href="privacy.html">Privacy</a>
                 <a href="mailto:support@pressware.co">Contact</a>
-            </div>
-        </footer>
-    </div>
+            </nav>
+        </div>
+    </footer>
 </body>
 </html>

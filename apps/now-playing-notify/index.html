@@ -2,364 +2,455 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Now Playing Notify</title>
-    <meta name="description" content="Track alerts for Spotify. A simple macOS menu bar app that shows you what's playing.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%231DB954'/><path d='M12 5v8.44c-.47-.27-1.02-.44-1.6-.44-1.77 0-3.2 1.43-3.2 3.2s1.43 3.2 3.2 3.2 3.2-1.43 3.2-3.2V8.6h3.2V5h-4.8z' fill='%23000'/></svg>">
-    <style>
-        :root {
-            --spotify-green: #1DB954;
-            --dark-bg: #121212;
-            --card-bg: #181818;
-            --text-primary: #FFFFFF;
-            --text-secondary: #B3B3B3;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 60px 24px;
-            line-height: 1.5;
-        }
-
-        .container {
-            max-width: 640px;
-            width: 100%;
-        }
-
-        .icon {
-            width: 120px;
-            height: 120px;
-            background: var(--spotify-green);
-            border-radius: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 32px;
-            box-shadow: 0 8px 32px rgba(29, 185, 84, 0.3);
-        }
-
-        .icon svg {
-            width: 60px;
-            height: 60px;
-            fill: #000;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
-        }
-
-        .tagline {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 48px;
-        }
-
-        .features {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 32px;
-        }
-
-        .feature {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .feature:last-child {
-            margin-bottom: 0;
-        }
-
-        .feature-icon {
-            width: 24px;
-            height: 24px;
-            color: var(--spotify-green);
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .feature h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .feature p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .requirements {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 48px;
-        }
-
-        .requirements a {
-            color: var(--spotify-green);
-            text-decoration: none;
-        }
-
-        .requirements a:hover {
-            text-decoration: underline;
-        }
-
-        .app-store-badge {
-            display: inline-block;
-            transition: transform 0.15s ease, opacity 0.15s ease;
-        }
-
-        .app-store-badge:hover {
-            transform: scale(1.04);
-            opacity: 0.9;
-        }
-
-        .app-store-badge svg {
-            height: 40px;
-            width: auto;
-        }
-
-        footer {
-            margin-top: 64px;
-            padding-top: 32px;
-            border-top: 1px solid #282828;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.15s ease;
-        }
-
-        footer a:hover {
-            color: var(--text-primary);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        .home-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.6;
-            transition: opacity 0.15s ease;
-        }
-
-        .home-link:hover {
-            opacity: 1;
-        }
-
-        .home-link svg {
-            width: 24px;
-            height: 24px;
-            fill: #e5d52b;
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.75rem;
-            }
-
-            .tagline {
-                font-size: 1rem;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-
-            .home-link {
-                top: 12px;
-                left: 12px;
-            }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Now Playing Notify – Spotify Track Notifications for Mac</title>
+    <meta name="description" content="A native macOS notification for every new Spotify track, plus what’s playing one click away in your menu bar.">
+    <link rel="canonical" href="https://pressware.co/apps/now-playing-notify/">
+    <meta property="og:title" content="Now Playing Notify">
+    <meta property="og:description" content="A native macOS notification for every new Spotify track, plus what’s playing one click away in your menu bar.">
+    <meta property="og:url" content="https://pressware.co/apps/now-playing-notify/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="theme-color" content="#07080a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='t' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23f2f2f5'/><stop offset='1' stop-color='%23d4d4da'/></linearGradient><linearGradient id='i' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%2355555c'/><stop offset='.55' stop-color='%232c2c31'/><stop offset='1' stop-color='%231b1b1f'/></linearGradient></defs><rect width='100' height='100' rx='22.5' fill='url(%23t)'/><g transform='translate(13 13) scale(.74)' fill='url(%23i)'><path d='M37 22 L82 12 L82 26 L44 34.5 Z'/><rect x='37' y='22' width='7.5' height='52' rx='2'/><rect x='74.5' y='13.5' width='7.5' height='52' rx='2'/><ellipse cx='30' cy='75' rx='14' ry='10.5' transform='rotate(-22 30 75)'/><ellipse cx='67.5' cy='66.5' rx='14' ry='10.5' transform='rotate(-22 67.5 66.5)'/></g></svg>">
+    <link rel="stylesheet" href="site.css">
 </head>
 <body>
-    <a href="/" class="home-link" title="Pressware">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-        </svg>
-    </a>
-    <div class="container">
-        <div class="icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-            </svg>
-        </div>
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+        <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#55555c"/>
+            <stop offset="0.55" stop-color="#2c2c31"/>
+            <stop offset="1" stop-color="#1b1b1f"/>
+        </linearGradient>
+    </defs>
+    <!-- Placeholder ♫ for the app icon (#88 delivers the real artwork). -->
+    <symbol id="beamed" viewBox="0 0 100 100">
+        <path d="M37 22 L82 12 L82 26 L44 34.5 Z" fill="url(#ink)"/>
+        <rect x="37" y="22" width="7.5" height="52" rx="2" fill="url(#ink)"/>
+        <rect x="74.5" y="13.5" width="7.5" height="52" rx="2" fill="url(#ink)"/>
+        <ellipse cx="30" cy="75" rx="14" ry="10.5" transform="rotate(-22 30 75)" fill="url(#ink)"/>
+        <ellipse cx="67.5" cy="66.5" rx="14" ry="10.5" transform="rotate(-22 67.5 66.5)" fill="url(#ink)"/>
+        <ellipse cx="25" cy="70" rx="6" ry="2.6" transform="rotate(-22 25 70)" fill="#ffffff" opacity="0.28"/>
+        <ellipse cx="62.5" cy="61.5" rx="6" ry="2.6" transform="rotate(-22 62.5 61.5)" fill="#ffffff" opacity="0.28"/>
+        <path d="M40 23.5 L80 14.6" stroke="#ffffff" stroke-opacity="0.3" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <!-- Menu bar template glyph, after SF Symbols music.note -->
+    <symbol id="note" viewBox="0 0 16 16">
+        <rect x="9.6" y="2" width="1.5" height="10" rx="0.4" fill="currentColor"/>
+        <path d="M11.1 2.1c.5 1.7 3.4 2.3 3.1 5.1-.6-1.4-1.7-2-3.1-2.1z" fill="currentColor"/>
+        <ellipse cx="8.1" cy="12.1" rx="2.6" ry="1.9" transform="rotate(-20 8.1 12.1)" fill="currentColor"/>
+    </symbol>
+    <symbol id="apple" viewBox="0 0 16 16">
+        <circle cx="8" cy="9" r="5.4" fill="currentColor"/>
+        <path d="M8.4 3.6c.2-1.3 1.1-2.2 2.3-2.4-.1 1.3-1 2.3-2.3 2.4z" fill="currentColor"/>
+    </symbol>
+    <symbol id="wifi" viewBox="0 0 16 16"><path d="M2 6.2a9 9 0 0 1 12 0M4.2 8.6a6 6 0 0 1 7.6 0M6.4 11a3 3 0 0 1 3.2 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="battery" viewBox="0 0 20 16"><rect x="1.5" y="4.5" width="15" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="3" y="6" width="9" height="4" rx="0.8" fill="currentColor"/><path d="M18.3 6.8v2.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+    <symbol id="toggles" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="3.2" width="12" height="4" rx="2"/><rect x="2" y="8.8" width="12" height="4" rx="2"/></g><circle cx="12" cy="5.2" r="1.1" fill="currentColor"/><circle cx="4" cy="10.8" r="1.1" fill="currentColor"/></symbol>
+</svg>
 
-        <h1>Now Playing Notify</h1>
-        <p class="tagline">Track alerts for Spotify.</p>
-
-        <div class="features">
-            <div class="feature">
-                <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
-                </svg>
-                <div>
-                    <h3>Track change notifications</h3>
-                    <p>See the song, artist, and album art whenever a new track plays</p>
-                </div>
-            </div>
-
-            <div class="feature">
-                <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
-                </svg>
-                <div>
-                    <h3>Now Playing in menu bar</h3>
-                    <p>Click the music note to see what's currently playing</p>
-                </div>
-            </div>
-
-            <div class="feature">
-                <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17 7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h10c2.76 0 5-2.24 5-5s-2.24-5-5-5zM7 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
-                </svg>
-                <div>
-                    <h3>Toggle notifications</h3>
-                    <p>Easily turn notifications on or off from the menu</p>
-                </div>
-            </div>
-
-            <div class="feature">
-                <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                </svg>
-                <div>
-                    <h3>Stays out of your way</h3>
-                    <p>Lives in the menu bar with no dock icon</p>
-                </div>
-            </div>
-
-            <div class="feature">
-                <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17 7h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.43-.98 2.63-2.31 2.98l1.46 1.46C20.88 15.61 22 13.95 22 12c0-2.76-2.24-5-5-5zm-1 4h-2.19l2 2H16zM2 4.27l3.11 3.11C3.29 8.12 2 9.91 2 12c0 2.76 2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1 0-1.59 1.21-2.9 2.76-3.07L8.73 11H8v2h2.73l.87.87-.1.13v2h1.9v-2l5.46 5.46 1.27-1.27L3.27 3z"/>
-                </svg>
-                <div>
-                    <h3>Open tracks from notifications</h3>
-                    <p>Click a notification to jump straight to that track in Spotify</p>
-                </div>
-            </div>
-
-            <div class="feature">
-                <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
-                </svg>
-                <div>
-                    <h3>Copy Link</h3>
-                    <p>Copy a shareable Spotify link for the current track with one click</p>
-                </div>
-            </div>
-
-            <div class="feature">
-                <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M10 16V8l5 4-5 4zm-7-2h2V10H3v4zm14-4v4h2V10h-2zM7 10H5.83l.29-.71 1.04-2.19c.1-.21.03-.46-.15-.59L6.39 6.1c-.21-.15-.5-.1-.65.1L3.08 9.98C3.03 10.07 3 10.17 3 10.28V14c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1zm14 0h-1.17l.29-.71 1.04-2.19c.1-.21.03-.46-.15-.59l-.62-.41c-.21-.15-.5-.1-.65.1l-2.66 3.78c-.05.09-.08.19-.08.3V14c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1z"/>
-                </svg>
-                <div>
-                    <h3>Launch at Login</h3>
-                    <p>Start automatically when you log in — toggle it on and forget about it</p>
-                </div>
-            </div>
-        </div>
-
-        <p class="requirements">Requires macOS 13.0+ and <a href="https://www.spotify.com/download/" target="_blank" rel="noopener">Spotify desktop app</a></p>
-
-        <a href="https://apps.apple.com/us/app/now-playing-notify/id6758255928?mt=12" class="app-store-badge" target="_blank" rel="noopener" aria-label="Download on the Mac App Store">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.10054 40">
-                <title>Download on the Mac App Store</title>
-                <g>
-                    <g>
-                        <g>
-                            <path d="M146.57123,0H9.53468c-.3667,0-.729,0-1.09473.002-.30615.002-.60986.00781-.91895.0127A13.21476,13.21476,0,0,0,5.5171.19141a6.66509,6.66509,0,0,0-1.90088.627A6.4378,6.4378,0,0,0,1.99757,1.99707,6.25844,6.25844,0,0,0,.81935,3.61816a6.60119,6.60119,0,0,0-.625,1.90332,12.993,12.993,0,0,0-.1792,2.002C.00587,7.83008.00489,8.1377,0,8.44434V31.5586c.00489.3105.00587.6113.01514.9219a12.99232,12.99232,0,0,0,.1792,2.0019,6.58756,6.58756,0,0,0,.625,1.9043A6.20778,6.20778,0,0,0,1.99757,38.001a6.27446,6.27446,0,0,0,1.61865,1.1787,6.70082,6.70082,0,0,0,1.90088.6308,13.45514,13.45514,0,0,0,2.0039.1768c.30909.0068.6128.0107.91895.0107C8.80567,40,9.168,40,9.53468,40H146.57123c.3594,0,.7246,0,1.084-.002.3047,0,.6172-.0039.9219-.0107a13.279,13.279,0,0,0,2-.1768,6.80432,6.80432,0,0,0,1.9082-.6308,6.27742,6.27742,0,0,0,1.6172-1.1787,6.39482,6.39482,0,0,0,1.1816-1.6143,6.60413,6.60413,0,0,0,.6191-1.9043,13.50643,13.50643,0,0,0,.1856-2.0019c.0039-.3106.0039-.6114.0039-.9219.0078-.3633.0078-.7246.0078-1.0938V9.53613c0-.36621,0-.72949-.0078-1.09179,0-.30664,0-.61426-.0039-.9209a13.5071,13.5071,0,0,0-.1856-2.002,6.6177,6.6177,0,0,0-.6191-1.90332,6.46619,6.46619,0,0,0-2.7988-2.7998,6.76754,6.76754,0,0,0-1.9082-.627,13.04394,13.04394,0,0,0-2-.17676c-.3047-.00488-.6172-.01074-.9219-.01269-.3594-.002-.7246-.002-1.084-.002Z" style="fill:#a6a6a6"/>
-                            <path d="M8.44483,39.125c-.30468,0-.60205-.0039-.90429-.0107a12.68714,12.68714,0,0,1-1.86914-.1631,5.88381,5.88381,0,0,1-1.65674-.5479,5.40573,5.40573,0,0,1-1.397-1.0166,5.32082,5.32082,0,0,1-1.02051-1.3965,5.72184,5.72184,0,0,1-.543-1.6572,12.41339,12.41339,0,0,1-.1665-1.875c-.00634-.2109-.01464-.9131-.01464-.9131V8.44434S.88185,7.75293.8877,7.5498a12.37032,12.37032,0,0,1,.16553-1.87207,5.75552,5.75552,0,0,1,.54346-1.6621A5.3735,5.3735,0,0,1,2.61183,2.61768,5.56543,5.56543,0,0,1,4.01417,1.59521a5.82309,5.82309,0,0,1,1.65332-.54394A12.58589,12.58589,0,0,1,7.543.88721L8.44532.875h139.205l.9131.0127a12.38493,12.38493,0,0,1,1.8584.16259,5.93833,5.93833,0,0,1,1.6709.54785,5.59374,5.59374,0,0,1,2.415,2.41993,5.76267,5.76267,0,0,1,.5352,1.64892,12.995,12.995,0,0,1,.1738,1.88721c.0029.2832.0029.5874.0029.89014.0079.375.0079.73193.0079,1.09179V30.4648c0,.3633,0,.7178-.0079,1.0752,0,.3252,0,.6231-.0039.9297a12.73127,12.73127,0,0,1-.1709,1.8535,5.739,5.739,0,0,1-.54,1.67,5.48029,5.48029,0,0,1-1.0156,1.3857,5.4129,5.4129,0,0,1-1.3994,1.0225,5.86168,5.86168,0,0,1-1.668.5498,12.54218,12.54218,0,0,1-1.8692.1631c-.2929.0068-.5996.0107-.8974.0107l-1.084.002Z"/>
-                        </g>
-                        <g id="_Group_" data-name="&lt;Group&gt;">
-                            <g id="_Group_2" data-name="&lt;Group&gt;">
-                                <g id="_Group_3" data-name="&lt;Group&gt;">
-                                    <g id="_Group_4" data-name="&lt;Group&gt;">
-                                        <path id="_Path_" data-name="&lt;Path&gt;" d="M24.76888,20.30068a4.94881,4.94881,0,0,1,2.35656-4.15206,5.06566,5.06566,0,0,0-3.99116-2.15768c-1.67924-.17626-3.30719,1.00483-4.1629,1.00483-.87227,0-2.18977-.98733-3.6085-.95814a5.31529,5.31529,0,0,0-4.47292,2.72787c-1.934,3.34842-.49141,8.26947,1.3612,10.97608.9269,1.32535,2.01018,2.8058,3.42763,2.7533,1.38706-.05753,1.9051-.88448,3.5794-.88448,1.65876,0,2.14479.88448,3.591.8511,1.48838-.02416,2.42613-1.33124,3.32051-2.66914a10.962,10.962,0,0,0,1.51842-3.09251A4.78205,4.78205,0,0,1,24.76888,20.30068Z" style="fill:#fff"/>
-                                        <path id="_Path_2" data-name="&lt;Path&gt;" d="M22.03725,12.21089a4.87248,4.87248,0,0,0,1.11452-3.49062,4.95746,4.95746,0,0,0-3.20758,1.65961,4.63634,4.63634,0,0,0-1.14371,3.36139A4.09905,4.09905,0,0,0,22.03725,12.21089Z" style="fill:#fff"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <path d="M46.14895,30.49609V21.35645H46.0884l-3.74316,9.04492H40.91652l-3.75293-9.04492H37.104v9.13965H35.34816v-12.418h2.22949l4.01855,9.80176h.06836l4.01074-9.80176h2.2373v12.418Z" style="fill:#fff"/>
-                                    <path d="M49.396,27.92285c0-1.583,1.21289-2.53906,3.36523-2.668l2.47852-.1377v-.68848c0-1.00684-.66309-1.5752-1.791-1.5752a1.73035,1.73035,0,0,0-1.90137,1.27441H49.8091c.05176-1.63574,1.5752-2.79687,3.69141-2.79687,2.16016,0,3.58887,1.17871,3.58887,2.96v6.20508H55.30813V29.00684h-.043a3.23683,3.23683,0,0,1-2.85742,1.64453A2.74447,2.74447,0,0,1,49.396,27.92285Zm5.84375-.81738V26.4082l-2.22949.1377c-1.11035.06934-1.73828.55078-1.73828,1.3252,0,.792.6543,1.30859,1.65234,1.30859A2.17046,2.17046,0,0,0,55.23977,27.10547Z" style="fill:#fff"/>
-                                    <path d="M64.89309,24.55762a1.99909,1.99909,0,0,0-2.13379-1.66895c-1.42871,0-2.375,1.19629-2.375,3.08105,0,1.92773.95508,3.08887,2.3916,3.08887a1.94829,1.94829,0,0,0,2.11719-1.626h1.79A3.61835,3.61835,0,0,1,62.7593,30.6084c-2.582,0-4.26855-1.76465-4.26855-4.63867,0-2.81445,1.68652-4.63867,4.251-4.63867a3.63931,3.63931,0,0,1,3.9248,3.22656Z" style="fill:#fff"/>
-                                    <path d="M78.7593,27.13965H74.0259l-1.13672,3.35645H70.8843l4.4834-12.418h2.083l4.4834,12.418H79.895Zm-4.24316-1.54883h3.752l-1.84961-5.44727h-.05176Z" style="fill:#fff"/>
-                                    <path d="M91.61672,25.96973c0,2.81348-1.50586,4.62109-3.77832,4.62109a3.0693,3.0693,0,0,1-2.84863-1.584h-.043v4.48438H83.0884V21.44238h1.79883v1.50586h.03418a3.21161,3.21161,0,0,1,2.88281-1.60059C90.10207,21.34766,91.61672,23.16406,91.61672,25.96973Zm-1.91016,0c0-1.833-.94727-3.03809-2.39258-3.03809-1.41992,0-2.375,1.23047-2.375,3.03809,0,1.82422.95508,3.0459,2.375,3.0459C88.7593,29.01563,89.70656,27.81934,89.70656,25.96973Z" style="fill:#fff"/>
-                                    <path d="M101.58156,25.96973c0,2.81348-1.50586,4.62109-3.77832,4.62109a3.0693,3.0693,0,0,1-2.84863-1.584h-.043v4.48438h-1.8584V21.44238h1.79883v1.50586h.03418a3.21162,3.21162,0,0,1,2.88281-1.60059C100.06691,21.34766,101.58156,23.16406,101.58156,25.96973Zm-1.91016,0c0-1.833-.94727-3.03809-2.39258-3.03809-1.41992,0-2.375,1.23047-2.375,3.03809,0,1.82422.95508,3.0459,2.375,3.0459C98.72414,29.01563,99.67141,27.81934,99.67141,25.96973Z" style="fill:#fff"/>
-                                    <path d="M108.1675,27.03613c.1377,1.23145,1.334,2.04,2.96875,2.04,1.56641,0,2.69336-.80859,2.69336-1.91895,0-.96387-.67969-1.541-2.28906-1.93652l-1.60937-.3877c-2.28027-.55078-3.33887-1.61719-3.33887-3.34766,0-2.14258,1.86719-3.61426,4.51855-3.61426,2.624,0,4.42285,1.47168,4.4834,3.61426h-1.876c-.1123-1.23926-1.13672-1.9873-2.63379-1.9873s-2.52149.75684-2.52149,1.8584c0,.87793.65431,1.39453,2.25489,1.79l1.36816.33594c2.54785.60254,3.60645,1.626,3.60645,3.44238,0,2.32324-1.85059,3.77832-4.79395,3.77832-2.75391,0-4.61328-1.4209-4.7334-3.667Z" style="fill:#fff"/>
-                                    <path d="M119.80324,19.2998v2.14258h1.72168v1.47168h-1.72168v4.99121c0,.77539.34473,1.13672,1.10156,1.13672a5.80752,5.80752,0,0,0,.61133-.043v1.46289a5.10351,5.10351,0,0,1-1.03223.08594c-1.833,0-2.54785-.68848-2.54785-2.44434V22.91406h-1.31641V21.44238h1.31641V19.2998Z" style="fill:#fff"/>
-                                    <path d="M122.521,25.96973c0-2.84863,1.67773-4.63867,4.29395-4.63867,2.625,0,4.29492,1.79,4.29492,4.63867,0,2.85645-1.66113,4.63867-4.29492,4.63867C124.18215,30.6084,122.521,28.82617,122.521,25.96973Zm6.69531,0c0-1.9541-.89551-3.10742-2.40137-3.10742s-2.40137,1.16211-2.40137,3.10742c0,1.96191.89551,3.10645,2.40137,3.10645S129.21633,27.93164,129.21633,25.96973Z" style="fill:#fff"/>
-                                    <path d="M132.64309,21.44238h1.77246v1.541h.043a2.1594,2.1594,0,0,1,2.17773-1.63574,2.86616,2.86616,0,0,1,.63672.06934v1.73828a2.598,2.598,0,0,0-.835-.1123,1.87264,1.87264,0,0,0-1.93651,2.083v5.37012h-1.8584Z" style="fill:#fff"/>
-                                    <path d="M145.84035,27.83691c-.25,1.64355-1.85059,2.77148-3.89844,2.77148-2.63379,0-4.26855-1.76465-4.26855-4.5957,0-2.83984,1.64355-4.68164,4.19043-4.68164,2.50488,0,4.08008,1.7207,4.08008,4.46582v.63672h-6.39453v.1123a2.358,2.358,0,0,0,2.43555,2.56445,2.04834,2.04834,0,0,0,2.09082-1.27344Zm-6.28223-2.70215h4.52637a2.1773,2.1773,0,0,0-2.2207-2.29785A2.292,2.292,0,0,0,139.55813,25.13477Z" style="fill:#fff"/>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                    <g id="_Group_5" data-name="&lt;Group&gt;">
-                        <g>
-                            <path d="M37.82619,8.731a2.63964,2.63964,0,0,1,2.80762,2.96484c0,1.90625-1.03027,3.002-2.80762,3.002H35.67092V8.731Zm-1.22852,5.123h1.125a1.87588,1.87588,0,0,0,1.96777-2.146,1.881,1.881,0,0,0-1.96777-2.13379h-1.125Z" style="fill:#fff"/>
-                            <path d="M41.68068,12.44434a2.13323,2.13323,0,1,1,4.24707,0,2.13358,2.13358,0,1,1-4.24707,0Zm3.333,0c0-.97607-.43848-1.54687-1.208-1.54687-.77246,0-1.207.5708-1.207,1.54688,0,.98389.43457,1.55029,1.207,1.55029C44.57521,13.99463,45.01369,13.42432,45.01369,12.44434Z" style="fill:#fff"/>
-                            <path d="M51.57326,14.69775h-.92187l-.93066-3.31641h-.07031l-.92676,3.31641h-.91309l-1.24121-4.50293h.90137l.80664,3.436h.06641l.92578-3.436h.85254l.92578,3.436h.07031l.80273-3.436h.88867Z" style="fill:#fff"/>
-                            <path d="M53.85354,10.19482H54.709v.71533h.06641a1.348,1.348,0,0,1,1.34375-.80225,1.46456,1.46456,0,0,1,1.55859,1.6748v2.915h-.88867V12.00586c0-.72363-.31445-1.0835-.97168-1.0835a1.03294,1.03294,0,0,0-1.0752,1.14111v2.63428h-.88867Z" style="fill:#fff"/>
-                            <path d="M59.09377,8.437h.88867v6.26074h-.88867Z" style="fill:#fff"/>
-                            <path d="M61.21779,12.44434a2.13323,2.13323,0,1,1,4.24707,0,2.13358,2.13358,0,1,1-4.24707,0Zm3.333,0c0-.97607-.43848-1.54687-1.208-1.54687-.77246,0-1.207.5708-1.207,1.54688,0,.98389.43457,1.55029,1.207,1.55029C64.11232,13.99463,64.5508,13.42432,64.5508,12.44434Z" style="fill:#fff"/>
-                            <path d="M66.40041,13.42432c0-.81055.60352-1.27783,1.6748-1.34424l1.21973-.07031v-.38867c0-.47559-.31445-.74414-.92187-.74414-.49609,0-.83984.18213-.93848.50049h-.86035c.09082-.77344.81836-1.26953,1.83984-1.26953,1.12891,0,1.76563.562,1.76563,1.51318v3.07666h-.85547v-.63281h-.07031a1.515,1.515,0,0,1-1.35254.707A1.36026,1.36026,0,0,1,66.40041,13.42432Zm2.89453-.38477v-.37646l-1.09961.07031c-.62012.0415-.90137.25244-.90137.64941,0,.40527.35156.64111.835.64111A1.0615,1.0615,0,0,0,69.29494,13.03955Z" style="fill:#fff"/>
-                            <path d="M71.34768,12.44434c0-1.42285.73145-2.32422,1.86914-2.32422a1.484,1.484,0,0,1,1.38086.79h.06641V8.437h.88867v6.26074h-.85156v-.71143h-.07031a1.56284,1.56284,0,0,1-1.41406.78564C72.07131,14.772,71.34768,13.87061,71.34768,12.44434Zm.918,0c0,.95508.4502,1.52979,1.20313,1.52979.749,0,1.21191-.583,1.21191-1.52588,0-.93848-.46777-1.52979-1.21191-1.52979C72.72072,10.91846,72.26564,11.49707,72.26564,12.44434Z" style="fill:#fff"/>
-                            <path d="M79.22951,12.44434a2.13346,2.13346,0,1,1,4.24756,0,2.1338,2.1338,0,1,1-4.24756,0Zm3.333,0c0-.97607-.43848-1.54687-1.208-1.54687-.77246,0-1.207.5708-1.207,1.54688,0,.98389.43457,1.55029,1.207,1.55029C82.124,13.99463,82.56252,13.42432,82.56252,12.44434Z" style="fill:#fff"/>
-                            <path d="M84.66945,10.19482h.85547v.71533h.06641a1.348,1.348,0,0,1,1.34375-.80225,1.46456,1.46456,0,0,1,1.55859,1.6748v2.915H87.605V12.00586c0-.72363-.31445-1.0835-.97168-1.0835a1.03294,1.03294,0,0,0-1.0752,1.14111v2.63428h-.88867Z" style="fill:#fff"/>
-                            <path d="M93.51516,9.07373v1.1416h.97559v.74854h-.97559V13.2793c0,.47168.19434.67822.63672.67822a2.96657,2.96657,0,0,0,.33887-.02051v.74023a2.9155,2.9155,0,0,1-.4834.04541c-.98828,0-1.38184-.34766-1.38184-1.21582v-2.543h-.71484v-.74854h.71484V9.07373Z" style="fill:#fff"/>
-                            <path d="M95.70461,8.437h.88086v2.48145h.07031a1.3856,1.3856,0,0,1,1.373-.80664,1.48339,1.48339,0,0,1,1.55078,1.67871v2.90723H98.69v-2.688c0-.71924-.335-1.0835-.96289-1.0835a1.05194,1.05194,0,0,0-1.13379,1.1416v2.62988h-.88867Z" style="fill:#fff"/>
-                            <path d="M104.76125,13.48193a1.828,1.828,0,0,1-1.95117,1.30273A2.04531,2.04531,0,0,1,100.73,12.46045a2.07685,2.07685,0,0,1,2.07617-2.35254c1.25293,0,2.00879.856,2.00879,2.27V12.688h-3.17969v.0498a1.1902,1.1902,0,0,0,1.19922,1.29,1.07934,1.07934,0,0,0,1.07129-.5459Zm-3.126-1.45117h2.27441a1.08647,1.08647,0,0,0-1.1084-1.1665A1.15162,1.15162,0,0,0,101.63527,12.03076Z" style="fill:#fff"/>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-        </a>
-
-        <footer>
-            <span>&copy; 2026 Pressware, LLC · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>
-            <div class="footer-links">
-                <a href="privacy.html">Privacy</a>
-                <a href="terms.html">Terms</a>
-                <a href="mailto:support@pressware.co">Contact</a>
-            </div>
-        </footer>
+<header class="nav">
+    <div class="wrap">
+        <a class="brand" href="#top"><span class="tile" style="--s: 26px"><svg aria-hidden="true"><use href="#beamed"/></svg></span>Now Playing Notify</a>
+        <ul>
+            <li><a href="#notifications">Notifications</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#quiet">Notification Center</a></li>
+            <li><a href="#asks">Permissions</a></li>
+            <li><a href="#privacy">Privacy</a></li>
+            <li><a href="#questions">Questions</a></li>
+        </ul>
+        <a class="pill" href="https://apps.apple.com/us/app/now-playing-notify/id6758255928?mt=12">Download</a>
     </div>
+</header>
+
+<main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="wrap">
+            <p class="eyebrow">A menu bar app for Mac</p>
+            <h1 id="hero-title">Every new track. <span>At a glance.</span></h1>
+            <div class="hero-row">
+                <p class="lede">When Spotify starts a new song, a notification tells you what it is: the title, the artist, and the cover art. It looks like it came with your Mac.</p>
+                <div class="get">
+                    <a class="store" href="https://apps.apple.com/us/app/now-playing-notify/id6758255928?mt=12">View in the Mac App Store</a>
+                    <p class="req">macOS 13 Ventura or later<br>Works with the Spotify desktop app</p>
+                </div>
+            </div>
+
+            <div class="stage" id="stage">
+                <div class="glow" aria-hidden="true"></div>
+                <div class="desktop" id="desktop">
+                    <div class="menubar">
+                        <svg class="apple" aria-hidden="true"><use href="#apple"/></svg>
+                        <span class="app">Finder</span>
+                        <span class="menus" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span></span>
+                        <span class="spacer"></span>
+                        <span class="extras">
+                            <button class="mb" id="glyph" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu" aria-label="Now Playing Notify menu"><svg width="16" height="16" aria-hidden="true"><use href="#note"/></svg></button>
+                            <span class="mb" aria-hidden="true"><svg width="16" height="16"><use href="#wifi"/></svg></span>
+                            <span class="mb optional" aria-hidden="true"><svg width="20" height="16"><use href="#battery"/></svg></span>
+                            <span class="mb optional" aria-hidden="true"><svg width="16" height="16"><use href="#toggles"/></svg></span>
+                            <span class="clock" aria-hidden="true">Mon Oct 19&nbsp;&nbsp;9:41 PM</span>
+                        </span>
+                    </div>
+
+                    <button class="banner" id="banner" type="button" aria-label="">
+                        <span class="tile" style="--s: 34px"><svg aria-hidden="true"><use href="#beamed"/></svg></span>
+                        <span style="min-width: 0">
+                            <span class="meta"><span>Now Playing Notify</span><span>now</span></span>
+                            <span class="t" data-f="title"></span>
+                            <span class="s" data-f="artist"></span>
+                            <span class="b" data-f="album"></span>
+                        </span>
+                        <span class="art" aria-hidden="true"></span>
+                    </button>
+
+                    <div class="menu" id="menu" role="menu" aria-label="Now Playing Notify" hidden>
+                        <button class="mi np" type="button" role="menuitem" data-act="open">
+                            <span></span>
+                            <span style="min-width: 0"><span class="label" data-f="title"></span><span class="sub" data-f="artist"></span></span>
+                            <span></span>
+                        </button>
+                        <button class="mi" type="button" role="menuitem" data-act="copy"><span></span><span class="label">Copy Song Link</span><span class="key">⌘C</span></button>
+                        <div class="sep" role="separator"></div>
+                        <button class="mi" type="button" role="menuitemcheckbox" aria-checked="true" data-act="notify"><span class="check" aria-hidden="true">✓</span><span class="label">Show Notifications</span><span></span></button>
+                        <button class="mi" type="button" role="menuitemcheckbox" aria-checked="true" data-act="login"><span class="check" aria-hidden="true">✓</span><span class="label">Launch at Login</span><span></span></button>
+                        <div class="sep" role="separator"></div>
+                        <button class="mi" type="button" role="menuitem" data-act="about"><span></span><span class="label">About Now Playing Notify</span><span></span></button>
+                        <div class="sep" role="separator"></div>
+                        <button class="mi" type="button" role="menuitem" data-act="quit"><span></span><span class="label">Quit Now Playing Notify</span><span class="key">⌘Q</span></button>
+                    </div>
+
+                    <div class="hint"><span id="hint" aria-live="polite">Click ♪ in the menu bar.</span></div>
+                </div>
+                <div class="demo-ctl">
+                    <span class="queue" id="queue"></span>
+                    <button class="ghost" id="pause" type="button" aria-pressed="false">Pause demo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="scene" id="notifications" aria-labelledby="n-title">
+        <div class="wrap">
+            <div class="head">
+                <p class="label">Notifications</p>
+                <div>
+                    <h2 id="n-title">The song you just heard. <span>Named.</span></h2>
+                    <p class="body">Music runs behind everything else you do. When a new track starts, a notification slides in with the <b>title</b>, the <b>artist</b>, and the <b>album</b>, plus the cover art. Click it and Spotify opens to that song.</p>
+                </div>
+            </div>
+            <div class="credits">
+                <div><b>Native notifications</b>The same banners as Mail or Messages. They follow Focus and your Notification settings.</div>
+                <div><b>One per song</b>Pause and resume, and you won’t get the same song twice.</div>
+                <div><b>Silent</b>No sound. A quiet banner while the music plays.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="scene" id="menu" aria-labelledby="m-title">
+        <div class="wrap">
+            <div class="head">
+                <p class="label">Menu bar</p>
+                <div>
+                    <h2 id="m-title">What’s playing, <span>one click away.</span></h2>
+                    <p class="body">The note in your menu bar opens a standard Mac menu. The current song sits at the top. Choose it to jump to the song in Spotify.</p>
+                </div>
+            </div>
+            <div class="exhibit">
+                <div class="plate" aria-hidden="true">
+                    <div class="menu" style="width: min(300px, 100%)">
+                        <div class="mi np" style="background: var(--select)"><span></span><span style="min-width: 0"><span class="label">Stop This Train</span><span class="sub" style="color: rgba(255,255,255,.85)">John Mayer</span></span><span></span></div>
+                        <div class="mi"><span></span><span class="label">Copy Song Link</span><span class="key">⌘C</span></div>
+                        <div class="sep"></div>
+                        <div class="mi"><span class="check">✓</span><span class="label">Show Notifications</span><span></span></div>
+                        <div class="mi"><span class="check">✓</span><span class="label">Launch at Login</span><span></span></div>
+                        <div class="sep"></div>
+                        <div class="mi"><span></span><span class="label">About Now Playing Notify</span><span></span></div>
+                        <div class="sep"></div>
+                        <div class="mi"><span></span><span class="label">Quit Now Playing Notify</span><span class="key">⌘Q</span></div>
+                    </div>
+                </div>
+                <div class="credits" style="margin-top: 0; grid-template-columns: minmax(0, 1fr)">
+                    <div><b>Copy Song Link</b>Puts an open.spotify.com link for the song on your clipboard, ready to paste into a message.</div>
+                    <div><b>Show Notifications</b>Turn banners off for a while. The menu keeps showing what’s playing.</div>
+                    <div><b>Launch at Login</b>Starts with your Mac, so you never have to think about it.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="scene" id="quiet" aria-labelledby="q-title">
+        <div class="wrap">
+            <div class="head">
+                <p class="label">Notification Center</p>
+                <div>
+                    <h2 id="q-title">A quiet Notification Center. <span>Only what’s playing now.</span></h2>
+                    <p class="body">When the next song starts, the app removes the last one. After a full day of music, Notification Center holds one entry, not a hundred.</p>
+                </div>
+            </div>
+            <div class="exhibit">
+                <div class="plate" aria-hidden="true">
+                    <div class="nc">
+                        <div class="banner" style="--a:#ff7a3d; --b:#a01818; --c:#200606">
+                            <span class="tile" style="--s: 34px"><svg><use href="#beamed"/></svg></span>
+                            <span style="min-width: 0">
+                                <span class="meta"><span>Now Playing Notify</span><span>now</span></span>
+                                <span class="t">The Unforgiven II</span>
+                                <span class="s">Metallica</span>
+                                <span class="b">Reload</span>
+                            </span>
+                            <span class="art"></span>
+                        </div>
+                        <div class="gone"><s>Evenstar · Howard Shore</s><span>Removed</span></div>
+                        <div class="gone"><s>Goodbye Yellow Brick Road · Elton John</s><span>Removed</span></div>
+                        <div class="gone"><s>Asthenia · blink-182</s><span>Removed</span></div>
+                    </div>
+                </div>
+                <div class="credits" style="margin-top: 0; grid-template-columns: minmax(0, 1fr)">
+                    <div><b>Grouped</b>Entries stack under Now Playing Notify, so they never get mixed in with your messages.</div>
+                    <div><b>Still clickable</b>The entry for the current song opens it in Spotify, just like the banner.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="scene" id="asks" aria-labelledby="a-title">
+        <div class="wrap">
+            <div class="head">
+                <p class="label">Permissions</p>
+                <div>
+                    <h2 id="a-title">What it asks of you. <span>Two permissions.</span></h2>
+                    <p class="body">macOS asks you about both once, the first time you open the app. You can change your mind any time in System Settings.</p>
+                </div>
+            </div>
+            <div class="asks">
+                <div class="ask">
+                    <div class="alert" aria-hidden="true">
+                        <span class="tile"><svg><use href="#beamed"/></svg></span>
+                        <h3>“Now Playing Notify” Would Like to Send You Notifications</h3>
+                        <p>Notifications may include alerts and sounds. These can be configured in System Settings.</p>
+                        <div class="btns"><span>Don’t Allow</span><span class="def">Allow</span></div>
+                    </div>
+                    <h3 class="why">Notifications</h3>
+                    <p class="why">So your Mac can show you each new song.</p>
+                </div>
+                <div class="ask">
+                    <div class="alert" aria-hidden="true">
+                        <span class="tile"><svg><use href="#beamed"/></svg></span>
+                        <h3>“Now Playing Notify” wants access to control “Spotify”.</h3>
+                        <p>Now Playing Notify needs to communicate with Spotify to get track information and album artwork.</p>
+                        <div class="btns"><span>Don’t Allow</span><span class="def">Allow</span></div>
+                    </div>
+                    <h3 class="why">Spotify access</h3>
+                    <p class="why">So the app can read what’s playing in the Spotify app on your Mac. It never controls playback.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="scene" id="privacy" aria-labelledby="p-title">
+        <div class="wrap">
+            <div class="head">
+                <p class="label">Privacy</p>
+                <div>
+                    <h2 id="p-title">Private by design. <span>Your listening stays yours.</span></h2>
+                </div>
+            </div>
+            <div class="values">
+                <div class="value"><h3>Nothing collected.</h3><p>No analytics and no tracking. The app doesn’t keep a record of what you listen to.</p></div>
+                <div class="value"><h3>No account.</h3><p>No sign-in and nothing to set up. Your one setting stays on your Mac.</p></div>
+                <div class="value"><h3>Two connections. Both Spotify.</h3><p>It talks to the Spotify app on your Mac, and to Spotify’s servers only to download cover art.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="scene" id="questions" aria-labelledby="f-title">
+        <div class="wrap">
+            <div class="head">
+                <p class="label">Questions</p>
+                <div>
+                    <h2 id="f-title">The liner notes. <span>For the curious.</span></h2>
+                    <p class="body">Everything you might wonder about between songs, from permissions to Intel Macs.</p>
+                </div>
+            </div>
+            <div class="faq">
+                <details open>
+                    <summary>I said no to a permission. How do I fix it?</summary>
+                    <p>Click the note in your menu bar. The menu shows a button that opens the right page of System Settings.</p>
+                </details>
+                <details>
+                    <summary>Does it work with the Spotify web player?</summary>
+                    <p>No. It reads from the Spotify desktop app, so that app needs to be installed and playing.</p>
+                </details>
+                <details>
+                    <summary>What happens when Spotify isn’t running?</summary>
+                    <p>The app waits quietly. It stops checking for songs until Spotify opens again.</p>
+                </details>
+                <details>
+                    <summary>I can’t find the note in my menu bar.</summary>
+                    <p>Open Now Playing Notify again from your Applications folder. A window opens with your settings and a Quit button.</p>
+                </details>
+                <details>
+                    <summary>Does it run on Intel Macs?</summary>
+                    <p>Yes. It runs natively on Apple silicon and Intel.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="closing" aria-labelledby="c-title">
+        <div class="wrap">
+            <span class="tile"><svg aria-hidden="true"><use href="#beamed"/></svg></span>
+            <h2 id="c-title">Hear something new? <span>Now you’ll know.</span></h2>
+            <p>Available on the Mac App Store.</p>
+            <div class="ctas">
+                <a class="store" href="https://apps.apple.com/us/app/now-playing-notify/id6758255928?mt=12">View in the Mac App Store</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="wrap">
+        <span class="attrib">© 2026 <a href="/">Pressware, LLC</a> · <a href="https://tommcfarlin.com">Tom McFarlin</a><br>Spotify is a trademark of Spotify AB. Now Playing Notify is not affiliated with Spotify. Songs and artists appear only as examples and don’t imply endorsement. Cover colors are illustrations, not album art.</span>
+        <nav aria-label="Legal">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <span>Support: <a class="mail" href="mailto:support@pressware.co">support@pressware.co</a></span>
+        </nav>
+    </div>
+</footer>
+
+<script>
+(function () {
+    // Each track's colors are generated (inspired by the record, never the real cover art), and the room takes its light from them.
+    var tracks = [
+        { title: 'Stop This Train', artist: 'John Mayer', album: 'Continuum', a: '#e6dccb', b: '#55525a', c: '#121214' },
+        { title: 'Caution', artist: 'The Killers', album: 'Imploding the Mirage', a: '#ffb36b', b: '#b0457a', c: '#2a1340' },
+        { title: 'Asthenia', artist: 'blink-182', album: 'blink-182', a: '#8fe0d2', b: '#2f5d66', c: '#0a1416' },
+        { title: 'Goodbye Yellow Brick Road', artist: 'Elton John', album: 'Goodbye Yellow Brick Road', a: '#ffd24a', b: '#c2452f', c: '#2a1408' },
+        { title: 'Evenstar', artist: 'Howard Shore', album: 'The Lord of the Rings: The Two Towers (Original Motion Picture Soundtrack)', a: '#c7d8ff', b: '#3d5a8c', c: '#0b1222' },
+        { title: 'The Unforgiven II', artist: 'Metallica', album: 'Reload', a: '#ff7a3d', b: '#a01818', c: '#200606' },
+        { title: 'Sora', artist: 'Hammock', album: 'Oblivion Hymns (Deluxe Edition)', a: '#f2c6d8', b: '#6b8fb5', c: '#10172a' }
+    ];
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var i = 0;
+    var playing = !reduce;
+    var notify = true;
+    var timer = null;
+
+    var root = document.documentElement;
+    var desktop = document.getElementById('desktop');
+    var banner = document.getElementById('banner');
+    var menu = document.getElementById('menu');
+    var glyph = document.getElementById('glyph');
+    var hint = document.getElementById('hint');
+    var pause = document.getElementById('pause');
+    var queue = document.getElementById('queue');
+    var items = Array.prototype.slice.call(menu.querySelectorAll('.mi'));
+
+    function say(text) { hint.textContent = text; }
+
+    function render(arrive) {
+        var t = tracks[i];
+        root.style.setProperty('--a', t.a);
+        root.style.setProperty('--b', t.b);
+        root.style.setProperty('--c', t.c);
+        desktop.querySelectorAll('[data-f]').forEach(function (el) { el.textContent = t[el.getAttribute('data-f')]; });
+        banner.setAttribute('aria-label', 'Notification: ' + t.title + ' by ' + t.artist + ', from ' + t.album + '. Opens in Spotify.');
+        banner.hidden = !notify;
+        if (arrive && notify) {
+            banner.classList.remove('arrive');
+            void banner.offsetWidth;
+            banner.classList.add('arrive');
+        }
+        queue.textContent = 'Track ' + (i + 1) + ' of ' + tracks.length + ' · ' + (playing ? 'Playing' : 'Paused');
+    }
+
+    function next() { i = (i + 1) % tracks.length; render(true); }
+
+    function setPlaying(on) {
+        playing = on;
+        clearInterval(timer);
+        if (playing) timer = setInterval(next, 6500);
+        pause.textContent = playing ? 'Pause demo' : 'Play demo';
+        pause.setAttribute('aria-pressed', String(!playing));
+        render(false);
+    }
+
+    function place() {
+        // Drop the menu below the glyph, kept inside the desktop.
+        var d = desktop.getBoundingClientRect();
+        var g = glyph.getBoundingClientRect();
+        var w = menu.offsetWidth;
+        var left = Math.min(Math.max(8, g.left - d.left - 8), d.width - w - 8);
+        menu.style.left = left + 'px';
+    }
+
+    function openMenu() {
+        menu.hidden = false;
+        glyph.setAttribute('aria-expanded', 'true');
+        place();
+        items[0].focus();
+    }
+
+    function closeMenu(returnFocus) {
+        menu.hidden = true;
+        glyph.setAttribute('aria-expanded', 'false');
+        if (returnFocus) glyph.focus();
+    }
+
+    glyph.addEventListener('click', function () { menu.hidden ? openMenu() : closeMenu(true); });
+
+    menu.addEventListener('keydown', function (e) {
+        var at = items.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); items[(at + 1) % items.length].focus(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); items[(at - 1 + items.length) % items.length].focus(); }
+        else if (e.key === 'Escape') { e.preventDefault(); closeMenu(true); }
+        else if (e.key === 'Tab') { closeMenu(false); }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!menu.hidden && !menu.contains(e.target) && !glyph.contains(e.target)) closeMenu(false);
+    });
+
+    menu.addEventListener('click', function (e) {
+        var item = e.target.closest('.mi');
+        if (!item) return;
+        var t = tracks[i];
+        var act = item.getAttribute('data-act');
+        if (act === 'notify' || act === 'login') {
+            var on = item.getAttribute('aria-checked') !== 'true';
+            item.setAttribute('aria-checked', String(on));
+            item.querySelector('.check').textContent = on ? '✓' : '';
+            if (act === 'notify') {
+                notify = on;
+                render(on);
+                say(on ? 'Notifications are on.' : 'Notifications are off. The menu still shows what’s playing.');
+            } else {
+                say(on ? 'Now Playing Notify will open when you log in.' : 'Now Playing Notify won’t open at login.');
+            }
+        } else if (act === 'open') {
+            say('Opens “' + t.title + '” in Spotify.');
+        } else if (act === 'copy') {
+            say('Song link copied.');
+        } else if (act === 'about') {
+            say('Shows the About window with the version number.');
+        } else if (act === 'quit') {
+            say('In the real app, this quits Now Playing Notify.');
+        }
+        // Choosing an item closes the menu, as it does on a Mac.
+        closeMenu(true);
+    });
+
+    banner.addEventListener('click', function () { say('Opens “' + tracks[i].title + '” in Spotify.'); });
+    pause.addEventListener('click', function () { setPlaying(!playing); });
+    window.addEventListener('resize', function () { if (!menu.hidden) place(); });
+
+    setPlaying(playing);
+})();
+</script>
 </body>
 </html>

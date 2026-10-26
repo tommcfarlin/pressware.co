@@ -2,340 +2,159 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Now Playing Notify</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%231DB954'/><path d='M12 5v8.44c-.47-.27-1.02-.44-1.6-.44-1.77 0-3.2 1.43-3.2 3.2s1.43 3.2 3.2 3.2 3.2-1.43 3.2-3.2V8.6h3.2V5h-4.8z' fill='%23000'/></svg>">
-    <style>
-        :root {
-            --spotify-green: #1DB954;
-            --dark-bg: #121212;
-            --card-bg: #181818;
-            --text-primary: #FFFFFF;
-            --text-secondary: #B3B3B3;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding: 60px 24px;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-        }
-
-        .back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-bottom: 32px;
-            transition: color 0.15s ease;
-        }
-
-        .back:hover {
-            color: var(--text-primary);
-        }
-
-        .back svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.02em;
-        }
-
-        .updated {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 40px;
-        }
-
-        .section {
-            margin-bottom: 32px;
-        }
-
-        h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--spotify-green);
-        }
-
-        p {
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-
-        p:last-child {
-            margin-bottom: 0;
-        }
-
-        ul {
-            color: var(--text-secondary);
-            margin-left: 20px;
-            margin-bottom: 12px;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        ol {
-            color: var(--text-secondary);
-            margin-left: 20px;
-            margin-bottom: 12px;
-        }
-
-        a {
-            color: var(--spotify-green);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .summary-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 12px;
-        }
-
-        .summary-table th,
-        .summary-table td {
-            text-align: left;
-            padding: 12px;
-            border-bottom: 1px solid #282828;
-            color: var(--text-secondary);
-        }
-
-        .summary-table th {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .summary-table tr:last-child th,
-        .summary-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        footer {
-            margin-top: 64px;
-            padding-top: 32px;
-            border-top: 1px solid #282828;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.15s ease;
-        }
-
-        footer a:hover {
-            color: var(--text-primary);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        .home-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.6;
-            transition: opacity 0.15s ease;
-        }
-
-        .home-link:hover {
-            opacity: 1;
-        }
-
-        .home-link svg {
-            width: 24px;
-            height: 24px;
-            fill: #e5d52b;
-        }
-
-        @media (max-width: 480px) {
-            .home-link {
-                top: 12px;
-                left: 12px;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Privacy Policy – Now Playing Notify</title>
+    <meta name="description" content="Now Playing Notify collects no data. It reads what’s playing from the Spotify app on your Mac and connects to Spotify’s servers only to download cover art.">
+    <link rel="canonical" href="https://pressware.co/apps/now-playing-notify/privacy.html">
+    <meta name="theme-color" content="#07080a" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='t' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23f2f2f5'/><stop offset='1' stop-color='%23d4d4da'/></linearGradient><linearGradient id='i' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%2355555c'/><stop offset='.55' stop-color='%232c2c31'/><stop offset='1' stop-color='%231b1b1f'/></linearGradient></defs><rect width='100' height='100' rx='22.5' fill='url(%23t)'/><g transform='translate(13 13) scale(.74)' fill='url(%23i)'><path d='M37 22 L82 12 L82 26 L44 34.5 Z'/><rect x='37' y='22' width='7.5' height='52' rx='2'/><rect x='74.5' y='13.5' width='7.5' height='52' rx='2'/><ellipse cx='30' cy='75' rx='14' ry='10.5' transform='rotate(-22 30 75)'/><ellipse cx='67.5' cy='66.5' rx='14' ry='10.5' transform='rotate(-22 67.5 66.5)'/></g></svg>">
+    <link rel="stylesheet" href="site.css">
 </head>
-<body>
-    <a href="/" class="home-link" title="Pressware">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-        </svg>
-    </a>
-    <div class="container">
-        <a href="index.html" class="back">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-            </svg>
-            Back to Now Playing Notify
-        </a>
-
-        <h1>Privacy Policy</h1>
-        <p class="updated">Last updated: January 24, 2026</p>
-
-        <div class="section">
-            <h2>Overview</h2>
-            <p>Now Playing Notify ("the App") is a macOS menu bar application developed by Tom McFarlin ("we," "us," or "our"). This privacy policy explains how the App handles your information.</p>
-            <p><strong>The short version: We don't collect any data. Period.</strong></p>
-        </div>
-
-        <div class="section">
-            <h2>Information We Collect</h2>
-            <p><strong>None.</strong> The App does not collect, store, transmit, or share any personal information or usage data.</p>
-        </div>
-
-        <div class="section">
-            <h2>How the App Works</h2>
-            <p>The App operates entirely on your device and performs the following functions:</p>
-            <ul>
-                <li><strong>Reads current track information from Spotify</strong> — The App uses AppleScript to communicate with the Spotify desktop application on your Mac to retrieve the currently playing track name, artist, and album artwork URL.</li>
-                <li><strong>Displays native macOS notifications</strong> — When a track changes, the App shows a notification using Apple's built-in notification system.</li>
-                <li><strong>Downloads album artwork</strong> — The App downloads album artwork from Spotify's public CDN servers to display in notifications. These requests are made directly to Spotify's servers and do not pass through any servers we operate.</li>
-                <li><strong>Stores your notification preference</strong> — The App saves your preference for whether notifications are enabled or disabled. This preference is stored locally on your device using macOS's standard UserDefaults system and is never transmitted anywhere.</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Data Storage</h2>
-            <p>The only data stored by the App is:</p>
-            <ul>
-                <li><strong>Notification preference</strong> — A simple on/off setting stored locally on your device</li>
-                <li><strong>Temporary artwork files</strong> — Album artwork images are temporarily cached in your system's temporary directory for notification display and are automatically cleaned up by macOS</li>
-            </ul>
-            <p>No data is stored on external servers. No accounts are created. No analytics are collected.</p>
-        </div>
-
-        <div class="section">
-            <h2>Third-Party Services</h2>
-            <p>The App does not integrate with any third-party analytics, advertising, or tracking services.</p>
-            <p>The App communicates only with:</p>
-            <ol>
-                <li><strong>The Spotify desktop application</strong> — Locally on your Mac, to read track information</li>
-                <li><strong>Spotify's CDN servers</strong> — To download album artwork images for notifications</li>
-            </ol>
-            <p>We have no access to these communications and do not operate any servers that process your data.</p>
-        </div>
-
-        <div class="section">
-            <h2>Network Usage</h2>
-            <p>The App requires network access solely to download album artwork from Spotify's servers. No other network requests are made. The App does not:</p>
-            <ul>
-                <li>Send any data to our servers (we don't operate any)</li>
-                <li>Track your listening history</li>
-                <li>Record which songs you play</li>
-                <li>Share any information with third parties</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Children's Privacy</h2>
-            <p>The App does not collect any personal information from anyone, including children under 13 years of age.</p>
-        </div>
-
-        <div class="section">
-            <h2>Changes to This Privacy Policy</h2>
-            <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated revision date. Since we don't collect any data, changes would likely only clarify our practices or reflect changes in legal requirements.</p>
-        </div>
-
-        <div class="section">
-            <h2>Your Rights</h2>
-            <p>Since we don't collect any personal data, there is no personal data to access, correct, or delete. Your notification preference is stored only on your device and can be changed at any time within the App.</p>
-        </div>
-
-        <div class="section">
-            <h2>Contact Us</h2>
-            <p>If you have any questions about this privacy policy or the App's practices, please contact us at <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
-        </div>
-
-        <div class="section">
-            <h2>Summary</h2>
-            <table class="summary-table">
-                <tr>
-                    <th>Question</th>
-                    <th>Answer</th>
-                </tr>
-                <tr>
-                    <td>Do you collect personal data?</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Do you track usage?</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Do you use analytics?</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Do you show ads?</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Do you share data with third parties?</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Do you have access to my Spotify account?</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>What data is stored?</td>
-                    <td>Only your notification on/off preference, locally on your device</td>
-                </tr>
-            </table>
-        </div>
-
-        <footer>
-            <span>&copy; 2026 Pressware, LLC · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>
-            <div class="footer-links">
-                <a href="terms.html">Terms</a>
-                <a href="mailto:support@pressware.co">Contact</a>
-            </div>
-        </footer>
+<body class="doc-page">
+<!--
+    Keep in sync with docs/privacy-policy.md in tommcfarlin/now-playing-on-spotify.
+    This page is the published version; it reflects the 1.3.0 app.
+-->
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+        <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#55555c"/>
+            <stop offset="0.55" stop-color="#2c2c31"/>
+            <stop offset="1" stop-color="#1b1b1f"/>
+        </linearGradient>
+    </defs>
+    <symbol id="beamed" viewBox="0 0 100 100">
+        <path d="M37 22 L82 12 L82 26 L44 34.5 Z" fill="url(#ink)"/>
+        <rect x="37" y="22" width="7.5" height="52" rx="2" fill="url(#ink)"/>
+        <rect x="74.5" y="13.5" width="7.5" height="52" rx="2" fill="url(#ink)"/>
+        <ellipse cx="30" cy="75" rx="14" ry="10.5" transform="rotate(-22 30 75)" fill="url(#ink)"/>
+        <ellipse cx="67.5" cy="66.5" rx="14" ry="10.5" transform="rotate(-22 67.5 66.5)" fill="url(#ink)"/>
+        <ellipse cx="25" cy="70" rx="6" ry="2.6" transform="rotate(-22 25 70)" fill="#ffffff" opacity="0.28"/>
+        <ellipse cx="62.5" cy="61.5" rx="6" ry="2.6" transform="rotate(-22 62.5 61.5)" fill="#ffffff" opacity="0.28"/>
+        <path d="M40 23.5 L80 14.6" stroke="#ffffff" stroke-opacity="0.3" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+</svg>
+<header class="nav">
+    <div class="wrap">
+        <a class="brand" href="./"><span class="tile" style="--s: 26px"><svg aria-hidden="true"><use href="#beamed"/></svg></span>Now Playing Notify</a>
+        <ul>
+            <li><a href="./">Overview</a></li>
+            <li><a href="privacy.html" aria-current="page">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+        </ul>
+        <a class="pill" href="https://apps.apple.com/us/app/now-playing-notify/id6758255928?mt=12">Download</a>
     </div>
+</header>
+
+<main id="top">
+    <section class="doc-hero" aria-labelledby="doc-title">
+        <div class="wrap">
+            <p class="eyebrow">Now Playing Notify for Mac</p>
+            <h1 id="doc-title">Privacy Policy. <span>Nothing collected.</span></h1>
+            <p class="date">Last updated October 26, 2026</p>
+
+            <div class="panel" role="table" aria-label="The short version">
+                <div class="row" role="row"><span role="cell">Do you collect personal data?</span><b role="cell">No</b></div>
+                <div class="row" role="row"><span role="cell">Do you track usage or use analytics?</span><b role="cell">No</b></div>
+                <div class="row" role="row"><span role="cell">Do you show ads or share data with third parties?</span><b role="cell">No</b></div>
+                <div class="row" role="row"><span role="cell">Do you have access to my Spotify account?</span><b role="cell">No</b></div>
+                <div class="row" role="row"><span role="cell">What does the App connect to?</span><b role="cell">The Spotify app on your Mac, and Spotify’s servers for cover art</b></div>
+                <div class="row" role="row"><span role="cell">What does the App store?</span><b role="cell">Your notification setting, on your Mac</b></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="doc-body" aria-label="Privacy Policy">
+        <div class="wrap head">
+            <nav class="toc" aria-label="On this page">
+                <p class="label">On this page</p>
+                <ol>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#collect">Information we collect</a></li>
+                    <li><a href="#how">How the App works</a></li>
+                    <li><a href="#stored">Data stored on your Mac</a></li>
+                    <li><a href="#permissions">Permissions</a></li>
+                    <li><a href="#network">Network usage</a></li>
+                    <li><a href="#third-party">Third-party services</a></li>
+                    <li><a href="#children">Children’s privacy</a></li>
+                    <li><a href="#rights">Your rights</a></li>
+                    <li><a href="#changes">Changes to this policy</a></li>
+                    <li><a href="#contact">Contact us</a></li>
+                </ol>
+            </nav>
+
+            <article class="prose">
+                <h2 id="overview">Overview</h2>
+                <p>Now Playing Notify (“the App”) is a macOS menu bar app developed by Tom McFarlin (“we,” “us,” or “our”). This policy explains how the App handles your information.</p>
+                <p><b>The short version: we don’t collect any data. Period.</b></p>
+
+                <h2 id="collect">Information we collect</h2>
+                <p>None. The App does not collect, transmit, or share any personal information or usage data.</p>
+
+                <h2 id="how">How the App works</h2>
+                <p>Everything the App does happens on your Mac:</p>
+                <ul>
+                    <li><b>Reads what’s playing from Spotify.</b> The App uses AppleScript to ask the Spotify desktop app on your Mac for the current track: its name, artist, album, Spotify track ID, playback state, and the web address of its cover art. It also listens for the update Spotify posts on your Mac when the track changes. The App never signs in to Spotify and has no access to your Spotify account.</li>
+                    <li><b>Shows a notification.</b> When a new track starts, the App shows a standard macOS notification with the title, artist, album, and cover art. When the next track starts, the App removes the previous notification, so Notification Center holds only the current song.</li>
+                    <li><b>Downloads cover art.</b> To show the cover in the notification, the App downloads the image directly from Spotify’s servers, at the address the Spotify app provided. The request does not pass through any server we operate.</li>
+                    <li><b>Opens and copies song links.</b> When you click a notification or choose the current song in the menu, the App asks macOS to open that song in Spotify. When you choose Copy Song Link, the App puts an open.spotify.com link for the song on your clipboard. It does not otherwise use your clipboard.</li>
+                </ul>
+
+                <h2 id="stored">Data stored on your Mac</h2>
+                <p>The only data the App stores is:</p>
+                <ul>
+                    <li><b>Your notification setting:</b> whether Show Notifications is on. It is kept in macOS’s standard preferences for the App (<span class="id">com.tommcfarlin.NowPlayingOnSpotify</span>) and never leaves your Mac.</li>
+                    <li><b>Temporary cover art:</b> downloaded images are saved in your Mac’s temporary folder so the notification can show them. Each time the App opens, it deletes cover art files older than 24 hours, and macOS also clears this folder from time to time.</li>
+                </ul>
+                <p>If you turn on Launch at Login, macOS keeps that choice in its own Login Items list. The App doesn’t keep a record of what you listen to. Nothing is stored on servers, no accounts are created, and no analytics are collected.</p>
+
+                <h2 id="permissions">Permissions</h2>
+                <p>macOS asks you about two permissions the first time you open the App:</p>
+                <ul>
+                    <li><b>Notifications,</b> so the App can show you each new song.</li>
+                    <li><b>Automation for Spotify,</b> shown as “wants access to control Spotify,” so the App can read what’s playing in the Spotify app. The App uses it only to read track information.</li>
+                </ul>
+                <p>You can change either one at any time in System Settings, under Notifications and under Privacy &amp; Security › Automation. The App does not ask for your location, contacts, files, camera, microphone, or screen.</p>
+
+                <h2 id="network">Network usage</h2>
+                <p>The App connects to the internet only to download cover art from Spotify’s servers. It makes no other network requests. The App does not:</p>
+                <ul>
+                    <li>Send any data to our servers (we don’t operate any)</li>
+                    <li>Track your listening history</li>
+                    <li>Record which songs you play</li>
+                    <li>Share any information with third parties</li>
+                </ul>
+
+                <h2 id="third-party">Third-party services</h2>
+                <p>The App does not include any third-party analytics, advertising, or tracking services.</p>
+                <p>The App communicates only with the Spotify desktop app on your Mac, to read track information, and with Spotify’s servers, to download cover art. Your use of Spotify is governed by Spotify’s own privacy policy. We have no access to these communications.</p>
+
+                <h2 id="children">Children’s privacy</h2>
+                <p>The App does not collect any personal information from anyone, including children under 13.</p>
+
+                <h2 id="rights">Your rights</h2>
+                <p>Because we don’t collect personal data, there is nothing to access, correct, or delete. Your notification setting stays on your Mac, and you can change it at any time from the App’s menu.</p>
+
+                <h2 id="changes">Changes to this policy</h2>
+                <p>We may update this policy from time to time. Changes will be posted on this page with a new date. Since we don’t collect any data, changes will most likely clarify our practices or reflect new legal requirements.</p>
+
+                <h2 id="contact">Contact us</h2>
+                <p>Questions about this policy? Email <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="wrap">
+        <span class="attrib">© 2026 <a href="/">Pressware, LLC</a> · <a href="https://tommcfarlin.com">Tom McFarlin</a><br>Spotify is a trademark of Spotify AB. Now Playing Notify is not affiliated with Spotify. Songs and artists appear only as examples and don’t imply endorsement. Cover colors are illustrations, not album art.</span>
+        <nav aria-label="Legal">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <span>Support: <a class="mail" href="mailto:support@pressware.co">support@pressware.co</a></span>
+        </nav>
+    </div>
+</footer>
 </body>
 </html>

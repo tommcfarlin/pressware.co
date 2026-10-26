@@ -40,7 +40,9 @@ Point the apex domain to GitHub Pages IP addresses:
 │   ├── now-playing-notify/
 │   │   ├── index.html            # Landing page
 │   │   ├── privacy.html          # Privacy Policy
-│   │   └── terms.html            # Terms of Service
+│   │   ├── terms.html            # Terms of Service
+│   │   └── site.css              # Shared styles for the three pages
+│   ├── now-playing-on-spotify/   # Redirects from the app's old name (index, privacy, terms)
 │   └── shelf-life/
 │       ├── index.html            # Landing page
 │       ├── privacy-policy.html   # Privacy Policy

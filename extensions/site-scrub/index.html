@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Scrub – Scrub the Sites You Choose</title>
+    <meta name="description" content="One click removes the browsing history of the sites you pick, and every subdomain under them. A free, open source extension for Brave and Chrome.">
+    <meta property="og:title" content="Site Scrub – Scrub the Sites You Choose">
+    <meta property="og:description" content="One click removes the browsing history of the sites you pick. Nothing is deleted until you press Scrub.">
+    <meta property="og:url" content="https://pressware.co/extensions/site-scrub/">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#fbfbfd">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧽</text></svg>">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body class="landing">
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top"><i aria-hidden="true">🧽</i>Site Scrub</a>
+    <span class="spacer"></span>
+    <nav aria-label="Sections" style="display:flex">
+      <a class="barlink" href="#how">How it works</a>
+      <a class="barlink" href="#asks">Permissions</a>
+      <a class="barlink" href="#install">Install</a>
+      <a class="barlink" href="#faq">Questions</a>
+    </nav>
+    <a class="pill" href="#install">Download</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="tile" aria-hidden="true">🧽</div>
+      <p class="eyebrow">A browser extension for Brave and Chrome.</p>
+      <h1>Scrub the sites you choose.</h1>
+      <p class="lede">One click removes the browsing history of the sites you pick. Nothing is deleted until you press Scrub.</p>
+      <div class="cta">
+        <a class="dl" href="#install">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8.5M4.5 7.5 8 11l3.5-3.5M2.5 13.5h11"/></svg>
+          Download for Brave and Chrome
+        </a>
+        <span class="meta">Free · Version 1.0.0 · Brave and Chrome</span>
+      </div>
+
+      <div class="desk">
+        <div class="win" id="win">
+          <div class="chrome">
+            <div class="lights" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="tab"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 4.5V8l2.5 1.5"/></svg>History</div>
+          </div>
+          <div class="toolbar">
+            <div class="nav" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 5 8l5 5"/></svg>
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 3 5 5-5 5"/></svg>
+            </div>
+            <div class="addr">brave://history</div>
+            <div class="ext">
+              <span class="xbtn hide" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M6.5 2.5h3v2a1 1 0 1 0 2 0v-.5h2v3h-.5a1 1 0 1 0 0 2h.5v3h-3v-.5a1 1 0 1 0-2 0v.5h-3v-3h.5a1 1 0 1 0 0-2h-.5v-3h1z"/></svg></span>
+              <button class="xbtn ping" id="sponge" type="button" aria-label="Site Scrub. Open the scrub box" aria-haspopup="dialog">🧽</button>
+              <span class="xbtn hide" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.3"/><circle cx="8" cy="8" r="1.3"/><circle cx="8" cy="13" r="1.3"/></svg></span>
+            </div>
+          </div>
+          <div class="pg" id="pg">
+            <div class="pgtop"><h2>History</h2><span class="count" id="count" aria-live="polite"></span></div>
+            <ul class="hist" id="hist"></ul>
+            <div class="statusline"><span id="status" role="status" aria-live="polite">Settings for this demo: facebook.com, reddit.com, linkedin.com, and x.com are on. work.facebook.com is kept.</span><button type="button" id="replay" hidden>Replay</button></div>
+          </div>
+        </div>
+      </div>
+      <p class="hint">Click the sponge in the demo.</p>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="how-head">
+        <h2 class="display">Choose the sites.<br>Then scrub them.</h2>
+        <p class="sub">Three steps, and the box always asks first.</p>
+      </div>
+      <div class="strip">
+        <figure>
+          <div class="frame" aria-hidden="true">
+            <div class="card">
+              <div class="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>Search sites</div>
+              <div class="srow"><div class="g"><div class="tt">facebook.com</div></div><span class="nn">252 items</span><span class="sw on"></span></div>
+              <div class="srow"><div class="g"><div class="tt">github.com</div></div><span class="nn">88 items</span><span class="sw"></span></div>
+              <div class="srow"><div class="g"><div class="tt">reddit.com</div></div><span class="nn">141 items</span><span class="sw on"></span></div>
+            </div>
+          </div>
+          <figcaption><span class="label">Pick</span>Choose the sites you want cleared in the settings page.</figcaption>
+        </figure>
+        <figure>
+          <div class="frame" aria-hidden="true">
+            <div style="width:100%;position:relative">
+              <div class="mini-toolbar">
+                <div class="nav"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 5 8l5 5"/></svg></div>
+                <div class="addr">facebook.com</div>
+                <div class="bigbtn" style="width:40px;height:40px;font-size:22px;border-radius:11px">🧽</div>
+              </div>
+            </div>
+          </div>
+          <figcaption><span class="label">Click</span>Click the 🧽 in your toolbar to open the box.</figcaption>
+        </figure>
+        <figure>
+          <div class="frame" aria-hidden="true">
+            <div class="dialog" style="width:250px;padding:18px 16px 16px;animation:none">
+              <div class="dtile" style="width:40px;height:40px;font-size:23px;margin-bottom:10px">🧽</div>
+              <div class="dtitle" style="font-size:15px">Scrub your history?</div>
+              <div class="dmsg" style="font-size:12px;line-height:17px;margin-bottom:14px">Permanently remove history from 2 sites (393 history items).</div>
+              <div class="dbtns"><button type="button" tabindex="-1" style="padding:8px 10px;font-size:13px">Cancel</button><button class="danger" type="button" tabindex="-1" style="padding:8px 10px;font-size:13px">Scrub</button></div>
+            </div>
+          </div>
+          <figcaption><span class="label">Scrub</span>Press Scrub to permanently remove that history.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="split">
+    <div class="wrap">
+      <div>
+        <h2 class="display">Every subdomain, too.</h2>
+        <p class="body">Pick facebook.com and Site Scrub also clears m.facebook.com and work.facebook.com. It knows that bbc.co.uk is one site, while a.github.io and b.github.io count as different sites.</p>
+        <p class="note">Use Keep to protect one subdomain you still need, because Keep always wins.</p>
+      </div>
+      <div class="shot" aria-hidden="true">
+        <div class="card">
+          <div class="srow" style="min-height:64px"><div class="g"><div class="tt" style="font-size:17px">facebook.com</div><div class="ss">3 subdomains · 1 kept</div></div><span class="nn">252 items</span><span class="sw on"></span></div>
+          <div class="srow sub"><div class="g"><div class="tt">m.facebook.com</div><div class="ss">140 items</div></div><span class="kept-note">Keep</span><span class="sw sm"></span></div>
+          <div class="srow sub"><div class="g"><div class="tt">work.facebook.com</div><div class="ss">60 items · protected</div></div><span class="kept-note">Keep</span><span class="sw sm on"></span></div>
+          <div class="srow sub"><div class="g"><div class="tt">www.facebook.com</div><div class="ss">112 items</div></div><span class="kept-note">Keep</span><span class="sw sm"></span></div>
+          <div class="srow" style="min-height:64px"><div class="g"><div class="tt" style="font-size:17px">reddit.com</div><div class="ss">3 subdomains</div></div><span class="nn">141 items</span><span class="sw on"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="split flip">
+    <div class="wrap">
+      <div>
+        <h2 class="display">Go deeper when you need to.</h2>
+        <p class="body">Advanced is off by default. When you turn it on, Site Scrub also removes cookies, cached files, and site storage, which can sign you out of those sites.</p>
+      </div>
+      <div class="shot" aria-hidden="true">
+        <div class="card">
+          <div class="seg"><span>Sites</span><span class="on">Advanced</span></div>
+          <div class="cardlbl">Also remove</div>
+          <div class="srow" style="min-height:64px"><div class="g"><div class="tt" style="font-size:17px">Cookies</div><div class="ss">Signs you out of these sites.</div></div><span class="sw on"></span></div>
+          <div class="srow" style="min-height:64px"><div class="g"><div class="tt" style="font-size:17px">Cached files</div><div class="ss">Images and pages saved to load faster.</div></div><span class="sw"></span></div>
+          <div class="srow" style="min-height:64px"><div class="g"><div class="tt" style="font-size:17px">Site storage</div><div class="ss">Can sign you out of some sites.</div></div><span class="sw"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="At a glance">
+    <div class="wrap">
+      <div class="facts-grid">
+        <div><h3>Private</h3><p>Your history never leaves the browser. No account. No tracking.</p></div>
+        <div><h3>Simple</h3><p>One click opens the box. Nothing goes until you press Scrub.</p></div>
+        <div><h3>Open</h3><p>Open source under the MIT license. Read the code anytime.</p></div>
+        <div><h3>Accessible</h3><p>Works with the keyboard and VoiceOver. Respects Reduce Motion.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="asks" id="asks">
+    <div class="wrap">
+      <h2 class="display">Each permission has a reason.</h2>
+      <p class="sub">Site Scrub asks for only what it needs, and it tells you why.</p>
+      <div class="asks-grid">
+        <div class="ask"><h3>History</h3><p>Finds and removes the history of the sites you pick.</p></div>
+        <div class="ask"><h3>Storage</h3><p>Remembers your settings in this browser.</p></div>
+        <div class="ask"><h3>This tab only</h3><p>Shows the box on the page you are on, and only after you click.</p></div>
+        <div class="ask"><h3>Notifications</h3><p>Asks on pages where the box cannot show, like brave://history.</p></div>
+        <div class="ask"><h3>Daily check</h3><p>Reads a version number from pressware.co once a day, and you can turn this off.</p></div>
+        <div class="ask opt"><h3>Browsing data</h3><p>Used only if you turn on cookies, cache, or site storage.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="install" id="install">
+    <div class="wrap">
+      <h2 class="display">Install from a zip file.</h2>
+      <p class="sub">Site Scrub loads from a folder you download, in six steps.</p>
+      <div class="install-card">
+        <ol class="steps">
+          <li>Unzip it and keep the folder.</li>
+          <li>Open brave://extensions or chrome://extensions.</li>
+          <li>Turn on Developer mode.</li>
+          <li>Click Load unpacked and choose the folder.</li>
+          <li>Pin the 🧽.</li>
+          <li>Right-click it, choose Options, and pick your sites.</li>
+        </ol>
+        <div class="dlbox">
+          <div class="tile" aria-hidden="true">🧽</div>
+          <a class="dl" href="https://github.com/tommcfarlin/site-scrub/releases/latest/download/site-scrub-1.0.0.zip">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8.5M4.5 7.5 8 11l3.5-3.5M2.5 13.5h11"/></svg>
+            site-scrub-1.0.0.zip
+          </a>
+          <p class="meta">Free · Version 1.0.0 · <a href="https://github.com/tommcfarlin/site-scrub/releases">Release notes ›</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <h2 class="display">Questions.</h2>
+      <div class="faq-list">
+        <details open><summary>Is it safe to install from a zip?</summary><p>The code is open to read, so you can check it first. You load the folder yourself, with no store in between.</p></details>
+        <details><summary>Why is it not in the Chrome Web Store?</summary><p>It is not listed there yet. The code is open to read in the meantime.</p></details>
+        <details><summary>Can I undo a scrub?</summary><p>No. Scrubbing is permanent, which is why the box always asks first.</p></details>
+        <details><summary>Will cookies sign me out?</summary><p>They can, if you turn on Advanced. Cookies and site storage can sign you out of those sites.</p></details>
+        <details><summary>Does it work in other browsers?</summary><p>It works in Brave and Chrome 102 or later. It runs on macOS, Windows, and Linux.</p></details>
+        <details><summary>How do I update?</summary><p>A dot on the icon and a banner on the settings page tell you when a new version exists. Download the new zip, unzip it over the old folder, and press reload.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+    <div class="wrap">
+        <p class="fnote">Scrubbing is permanent, and the extension always asks before it does anything.</p>
+        <span>&copy; 2026 <a href="/">Pressware, LLC</a> · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>
+        <nav aria-label="Legal">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="mailto:support@pressware.co">Contact</a>
+        </nav>
+    </div>
+</footer>
+
+<script>
+(function () {
+  // The demo: the same box and the same rules as the extension. Keep wins.
+  var DOMAINS = ["facebook.com", "reddit.com", "linkedin.com", "x.com", "twitter.com"];
+  var KEPT = ["work.facebook.com"];
+  var ROWS = [
+    ["9:42 AM", "www.facebook.com", "Facebook", "#1877f2", "f"],
+    ["9:31 AM", "m.facebook.com", "Marketplace", "#1877f2", "f"],
+    ["9:20 AM", "work.facebook.com", "Team space", "#1877f2", "f"],
+    ["9:12 AM", "github.com", "tommcfarlin/site-scrub", "#24292f", "G"],
+    ["8:58 AM", "www.reddit.com", "r/webdev", "#ff4500", "r"],
+    ["8:40 AM", "old.reddit.com", "r/chrome_extensions", "#ff4500", "r"],
+    ["8:22 AM", "www.linkedin.com", "Feed", "#0a66c2", "in"],
+    ["8:05 AM", "www.nytimes.com", "The New York Times", "#1d1d1f", "T"],
+    ["7:50 AM", "x.com", "Home", "#1d1d1f", "x"],
+    ["7:31 AM", "www.apple.com", "Mac", "#6e6e73", "A"]
+  ];
+  var hist = document.getElementById("hist"), count = document.getElementById("count");
+  var status = document.getElementById("status"), replay = document.getElementById("replay");
+  var sponge = document.getElementById("sponge"), pg = document.getElementById("pg"), win = document.getElementById("win");
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var opener = null;
+
+  function domainOf(h) { var p = h.split("."); return p.slice(-2).join("."); }
+  function isKept(h) { return KEPT.some(function (k) { return h === k || h.endsWith("." + k); }); }
+  function isScrubbed(h) { return DOMAINS.indexOf(domainOf(h)) !== -1 && !isKept(h); }
+
+  function render() {
+    hist.textContent = "";
+    ROWS.forEach(function (r) {
+      var li = document.createElement("li");
+      li.className = "hrow"; li.dataset.host = r[1];
+      var t = document.createElement("span"); t.className = "t"; t.textContent = r[0];
+      var f = document.createElement("span"); f.className = "fav"; f.style.background = r[3]; f.textContent = r[4];
+      var n = document.createElement("span"); n.className = "name"; n.textContent = r[2];
+      var s = document.createElement("small"); s.textContent = r[1]; n.appendChild(s);
+      li.append(t, f, n); hist.appendChild(li);
+    });
+    updateCount();
+  }
+  function updateCount() {
+    var n = hist.querySelectorAll(".hrow:not(.gone)").length;
+    count.textContent = n + (n === 1 ? " item" : " items");
+  }
+  function plan() {
+    var hosts = ROWS.filter(function (r) { return isScrubbed(r[1]); }).map(function (r) { return r[1]; });
+    var sites = {}; hosts.forEach(function (h) { sites[domainOf(h)] = 1; });
+    return { items: hosts.length, sites: Object.keys(sites).length, hosts: hosts };
+  }
+
+  function openDialog() {
+    if (document.getElementById("dlg")) return;
+    opener = document.activeElement;
+    sponge.classList.remove("ping");
+    var p = plan();
+    var scrim = document.createElement("div"); scrim.className = "scrim"; scrim.id = "dlg";
+    scrim.innerHTML =
+      '<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dt" aria-describedby="dm">' +
+      '<div class="dtile" aria-hidden="true">🧽</div><div class="dtitle" id="dt">Scrub your history?</div>' +
+      '<div class="dmsg" id="dm"></div><div class="dbtns"><button type="button" id="dc">Cancel</button>' +
+      '<button type="button" class="danger" id="ds">Scrub</button></div></div>';
+    scrim.querySelector("#dm").textContent = p.items === 0
+      ? "You have no sites to scrub."
+      : "Permanently remove history from " + p.sites + (p.sites === 1 ? " site" : " sites") + " (" + p.items + " history " + (p.items === 1 ? "item" : "items") + ").";
+    pg.appendChild(scrim);
+    var cancel = scrim.querySelector("#dc"), go = scrim.querySelector("#ds");
+    cancel.focus();
+    function close() { scrim.remove(); document.removeEventListener("keydown", onKey, true); if (opener) opener.focus(); }
+    function onKey(e) {
+      if (e.key === "Escape") { e.preventDefault(); close(); }
+      if (e.key === "Tab") {
+        if (e.shiftKey && document.activeElement === cancel) { e.preventDefault(); go.focus(); }
+        else if (!e.shiftKey && document.activeElement === go) { e.preventDefault(); cancel.focus(); }
+      }
+    }
+    document.addEventListener("keydown", onKey, true);
+    scrim.addEventListener("click", function (e) { if (e.target === scrim) close(); });
+    cancel.addEventListener("click", close);
+    go.addEventListener("click", function () { close(); scrub(p); });
+  }
+
+  function scrub(p) {
+    if (p.items === 0) return;
+    var splash = document.createElement("div"); splash.className = "splash"; splash.setAttribute("aria-hidden", "true"); splash.textContent = "🧽";
+    win.appendChild(splash); setTimeout(function () { splash.remove(); }, 1600);
+    hist.querySelectorAll(".hrow").forEach(function (li) {
+      if (isScrubbed(li.dataset.host)) li.classList.add("gone");
+    });
+    setTimeout(updateCount, reduce ? 0 : 360);
+    status.textContent = "Scrubbed " + p.items + " history items from " + p.sites + " sites. work.facebook.com stayed, because it is on the Keep list.";
+    replay.hidden = false;
+  }
+
+  sponge.addEventListener("click", openDialog);
+  replay.addEventListener("click", function () {
+    replay.hidden = true;
+    status.textContent = "Settings for this demo: facebook.com, reddit.com, linkedin.com, and x.com are on. work.facebook.com is kept.";
+    render(); sponge.classList.add("ping"); sponge.focus();
+  });
+  render();
+})();
+</script>
+</body>
+</html>

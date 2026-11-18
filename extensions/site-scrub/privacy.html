@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy – Site Scrub</title>
+    <meta name="description" content="Site Scrub collects no data. It removes the browsing history of sites you choose, and checks once a day for a new version number that you can turn off.">
+    <meta name="theme-color" content="#fbfbfd">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧽</text></svg>">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <header class="bar">
+        <div class="wrap">
+            <a class="brand" href="./"><i aria-hidden="true">🧽</i>Site Scrub</a>
+            <span class="spacer"></span>
+            <a class="barlink" href="terms.html">Terms</a>
+            <a class="pill" href="./#install">Download</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="doc-head">
+            <div class="wrap">
+                <div class="tile" aria-hidden="true">🧽</div>
+                <p class="eyebrow">Site Scrub for Brave and Chrome</p>
+                <h1>Privacy Policy</h1>
+                <p class="date">Last updated November 18, 2026</p>
+            </div>
+        </section>
+
+        <section class="doc" aria-labelledby="short">
+            <div class="panel">
+                <h2 id="short">The short version.</h2>
+                <p class="lead">Site Scrub doesn’t collect any data. Period.</p>
+                <div class="row"><span>Do you collect personal data?</span><b>No</b></div>
+                <div class="row"><span>Do you track usage or use analytics?</span><b>No</b></div>
+                <div class="row"><span>Do you show ads or share data with third parties?</span><b>No</b></div>
+                <div class="row"><span>Does Site Scrub connect to the internet?</span><b>Once a day, to read a version number (you can turn it off)</b></div>
+                <div class="row"><span>Does Site Scrub need special permissions?</span><b>History, plus an optional permission for cookies and site data</b></div>
+                <div class="row"><span>What does Site Scrub store?</span><b>Your settings, in your browser</b></div>
+            </div>
+        </section>
+
+        <article class="doc body">
+            <h2>Overview</h2>
+            <p>Site Scrub (“the extension”) is a Manifest V3 extension for Brave and Chrome (Chrome 102 or later), developed by Tom McFarlin (“we,” “us,” or “our”). It permanently removes the browsing history of the sites you choose, with one click on the toolbar icon. This policy explains how the extension handles your information.</p>
+
+            <h2>Information we collect</h2>
+            <p>None. The extension does not collect, store on any server, transmit, or share any personal information or usage data. Your history never leaves the browser.</p>
+
+            <h2>How the extension works</h2>
+            <p>Everything the extension does happens in your browser:</p>
+            <ul>
+                <li><b>Finds and removes history.</b> The extension reads your history through the browser’s history API only to find and remove the items for the sites you picked.</li>
+                <li><b>Asks before it scrubs.</b> It shows a confirm box on the current tab only after you click the icon. This uses the activeTab and scripting permissions. On pages where a box cannot show, such as brave://history, it uses a system notification instead.</li>
+                <li><b>Checks for updates.</b> A daily alarm runs the update check described below.</li>
+            </ul>
+
+            <h2>Data stored on your computer</h2>
+            <p>The extension keeps the following in the browser’s local storage on your computer:</p>
+            <ul>
+                <li><b>Sites you picked:</b> the sites you chose to scrub.</li>
+                <li><b>Keep list:</b> the sites you chose to protect.</li>
+                <li><b>Advanced switches:</b> whether cookies, cached files, and site storage are included.</li>
+                <li><b>Update-check switch:</b> whether Check for updates is on.</li>
+                <li><b>Newest version:</b> the newest version number the extension saw.</li>
+                <li><b>Dismissed version:</b> the version you dismissed with Later.</li>
+            </ul>
+            <p>Nothing is stored on servers, no accounts are created, and no analytics are collected.</p>
+
+            <h2>Permissions</h2>
+            <p>The extension asks for these permissions:</p>
+            <ul>
+                <li><b>History</b>, to find and remove the items for the sites you picked.</li>
+                <li><b>Storage</b>, to save your settings in your browser.</li>
+                <li><b>activeTab and scripting</b>, to show the confirm box on the current tab after you click the icon.</li>
+                <li><b>Notifications</b>, to show a system notification on pages where a box cannot show.</li>
+                <li><b>Alarms</b>, to run the daily update check.</li>
+            </ul>
+            <p>One optional permission, <b>browsingData</b>, is requested only when you turn on an Advanced option. It lets the extension remove cookies, cached files, and site storage for the sites you scrub. The extension asks for no access to the sites you visit.</p>
+
+            <h2>Network usage</h2>
+            <p>The extension makes one network request, about once a day. It is a plain read of <a href="https://pressware.co/extensions/site-scrub/version.json">https://pressware.co/extensions/site-scrub/version.json</a>, a small static file that holds the newest version number.</p>
+            <ul>
+                <li>The request carries no cookies, and the extension sends nothing about you.</li>
+                <li>The browser adds the extension’s id in the Origin header. Every copy of Site Scrub has the same id, so the id does not identify you.</li>
+                <li>Like any web request, the request shows your IP address to the web host.</li>
+                <li>We operate no server that receives data.</li>
+            </ul>
+            <p>If you turn off Check for updates in the Advanced tab, the extension makes no network requests at all.</p>
+            <p>You can download the extension from GitHub Releases or from the Site Scrub page. GitHub’s own privacy policy applies to that download, and we do not receive any information about who downloads the extension.</p>
+
+            <h2>Third-party services</h2>
+            <p>The extension does not include any third-party analytics, advertising, or tracking services.</p>
+
+            <h2>Children’s privacy</h2>
+            <p>The extension does not collect any personal information from anyone, including children under 13.</p>
+
+            <h2>Your rights</h2>
+            <p>Because we don’t collect personal data, there is nothing to access, correct, or delete. Your settings stay in your browser, and you can change them at any time from the extension’s settings.</p>
+
+            <h2>Changes to this policy</h2>
+            <p>We may update this policy from time to time. Changes will be posted on this page with a new date. Since we don’t collect any data, changes will most likely clarify our practices or reflect new legal requirements.</p>
+
+            <h2>Contact us</h2>
+            <p>Questions about this policy? Email <a href="mailto:support@pressware.co">support@pressware.co</a>.</p>
+        </article>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <span>&copy; 2026 <a href="/">Pressware, LLC</a> · <a href="https://tommcfarlin.com">Tom McFarlin</a></span>
+            <nav aria-label="Legal">
+                <a href="./">Site Scrub</a>
+                <a href="terms.html">Terms</a>
+                <a href="mailto:support@pressware.co">Contact</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

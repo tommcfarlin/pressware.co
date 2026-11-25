@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Intermediary: Practical Guitar Lessons from Open Chords to Intermediate</title>
+<meta name="author" content="Tom McFarlin">
+<meta name="description" content="Intermediary is a series of printable guitar workbooks that take players from open chords toward intermediate with practical lessons on barre chords, the fretboard, music theory, and CAGED.">
+<link rel="canonical" href="https://pressware.co/guitar/intermediary">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Intermediary: Practical Guitar Lessons from Open Chords to Intermediate">
+<meta property="og:description" content="Printable guitar workbooks for players past the basics: barre chords, the fretboard, music theory, and CAGED, with answer keys.">
+<meta property="og:url" content="https://pressware.co/guitar/intermediary">
+<meta property="og:image" content="https://pressware.co/guitar/images/intermediary-og.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#FFFFFF;--fg:#222B38;--mut:#566073;--line:#DCE7F7;--panel:#EEF3FB;--pri:#2A5DB0;--pri-ink:#2A5DB0;--acc:#E4691F;--card:#FFFFFF;--shadow:rgba(20,30,50,.16);--gridsoft:#EEF3FB;--acctext:#B04A0A}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#12161C;--fg:#E6EAF0;--mut:#A3AEC0;--line:#28344A;--panel:#18202C;--pri-ink:#8FB2F0;--card:#1B2431;--shadow:rgba(0,0,0,.5);--gridsoft:#1E2838;--acctext:#E4691F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12161C;--fg:#E6EAF0;--mut:#A3AEC0;--line:#28344A;--panel:#18202C;--pri-ink:#8FB2F0;--card:#1B2431;--shadow:rgba(0,0,0,.5);--gridsoft:#1E2838;--acctext:#E4691F;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.65 'Source Sans 3',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+a{color:var(--pri-ink)}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.12;margin:0}
+h2{font-size:clamp(30px,4.4vw,44px);color:var(--fg);margin-bottom:14px;letter-spacing:-.01em}
+h3{font-size:21px;margin-bottom:6px}
+p{margin:0 0 14px;max-width:62ch}
+.lede{font-size:20px;color:var(--mut)}
+section{padding:92px 0}
+.band{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+/* utilities and accessibility */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-60px;background:var(--pri);color:#fff;padding:10px 16px;border-radius:6px;z-index:10;font-weight:600;text-decoration:none}
+.skip:focus{top:12px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--acc);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:hover{transform:none}}
+.close{text-align:center}
+.close h2{margin-left:auto;margin-right:auto}
+.close p{margin-left:auto;margin-right:auto}
+.close .actions{justify-content:center}
+
+/* top */
+.top{background-image:linear-gradient(var(--gridsoft) 1px,transparent 1px),linear-gradient(90deg,var(--gridsoft) 1px,transparent 1px);background-size:24px 24px;border-bottom:1px solid var(--line)}
+.top-fade{background:linear-gradient(to bottom,transparent 0%,transparent 55%,var(--bg) 100%)}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0;flex-wrap:wrap}
+.brandwrap{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.by{font-size:16px;color:var(--mut)}
+.brand{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:26px;color:var(--pri-ink);text-decoration:none;letter-spacing:-.01em}
+nav{display:flex;gap:26px;align-items:center;flex-wrap:wrap;font-size:16px}
+nav a{text-decoration:none;color:var(--fg);padding:10px 2px}
+nav a.btn{padding:12px 22px}
+nav a:hover{color:var(--pri-ink)}
+.btn{display:inline-block;background:var(--pri);color:#fff;padding:14px 26px;border-radius:8px;font-weight:600;text-decoration:none;font-size:17px;border:2px solid var(--pri);transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(42,93,176,.28)}
+.btn.alt{background:transparent;color:var(--pri-ink);border-color:var(--pri-ink)}
+.btn.alt:hover{box-shadow:none;background:rgba(42,93,176,.08)}
+.hero{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center;padding:34px 0 96px}
+.hero h1 .name{display:block;font-size:clamp(52px,9vw,92px);color:var(--pri-ink);letter-spacing:-.02em}
+.hero h1 .tag{display:block;font-size:clamp(23px,3.2vw,33px);margin-top:12px;font-weight:700;letter-spacing:-.01em}
+.hero .lead{font-size:20px;margin:24px 0 12px;max-width:54ch}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 26px}
+.facts{display:flex;flex-wrap:wrap;gap:0;margin:0;padding:0;list-style:none;font-size:16px;color:var(--mut)}
+.facts li{padding:0 18px;border-left:1px solid var(--line)}
+.facts li:first-child{padding-left:0;border-left:0}
+.art{position:relative;min-height:540px}
+.art img{position:absolute;display:block;height:auto;background:#fff;border:1px solid #cfd6e2;box-shadow:0 18px 40px var(--shadow)}
+.art .p1{left:2%;top:10px;width:66%;transform:rotate(-2.2deg)}
+.art .p2{right:0;top:120px;width:58%;transform:rotate(2.6deg)}
+
+/* path */
+.pathwrap{display:grid;grid-template-columns:1.25fr .75fr;gap:64px;align-items:start}
+.mapfig{margin:48px 0 0;position:sticky;top:24px}
+.mapfig img{display:block;width:100%;height:auto;border:1px solid #cfd6e2;box-shadow:0 12px 28px var(--shadow);background:#fff}
+.mapfig figcaption{margin-top:12px;font-size:16px;color:var(--mut)}
+.path{position:relative;margin:48px 0 0;padding:0;list-style:none}
+.path::before{content:"";position:absolute;left:15px;top:14px;bottom:14px;width:3px;background:var(--pri-ink);opacity:.55}
+.step{position:relative;padding:0 0 38px 64px}
+.step:last-child{padding-bottom:0}
+.mk{position:absolute;left:4px;top:4px;width:25px;height:25px;background:var(--fg);border-radius:50%;border:3px solid var(--bg)}
+.step.start .mk{background:var(--bg);border:3px solid var(--fg)}
+.step.end .mk{background:var(--acc);border-radius:4px;border:3px solid var(--bg);width:27px;height:27px}
+.stage{display:block;font-weight:600;color:var(--acctext);font-size:16px;margin:0 0 4px}
+.step h3{margin-bottom:4px}
+.step p{margin:0;color:var(--mut);max-width:60ch}
+.step.start h3,.step.end h3{font-size:24px}
+.gap{height:10px}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
+.gal img{display:block;width:100%;height:auto;border:1px solid #cfd6e2;box-shadow:0 12px 28px var(--shadow);background:#fff}
+.gal figcaption{margin-top:14px;font-size:16px;color:var(--mut);max-width:34ch}
+.gal figcaption strong{display:block;color:var(--fg);font-size:18px;margin-bottom:2px}
+.ph{margin:56px 0 0;border:2px dashed var(--pri-ink);border-radius:10px;min-height:300px;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;color:var(--mut);background:var(--panel);font-size:17px}
+.ph strong{display:block;color:var(--fg);margin-bottom:6px;font-size:19px}
+
+/* approachable */
+.how{display:grid;grid-template-columns:1fr 1fr;gap:34px 56px;margin-top:36px}
+.how div{border-top:3px solid var(--acc);padding-top:14px}
+
+/* testimonials */
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px}
+.q{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--acc);padding:26px 28px}
+.q p{font-size:20px;line-height:1.5;color:var(--fg);max-width:none}
+.q .who{font-size:16px;color:var(--mut);margin:14px 0 0}
+.phtag{display:inline-block;font-size:14px;font-weight:600;color:var(--acctext);border:1.5px solid var(--acctext);border-radius:999px;padding:1px 10px;margin-bottom:12px}
+
+/* author */
+.author{display:grid;grid-template-columns:200px 1fr;gap:44px;align-items:start}
+.ph.sm{margin:0;min-height:200px;padding:16px;font-size:15px}
+.author h2{margin-bottom:12px}
+
+/* who */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+ul.sq{list-style:none;margin:0;padding:0}
+ul.sq li{position:relative;padding-left:24px;margin:0 0 12px;max-width:56ch}
+ul.sq li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:9px;background:var(--acc)}
+
+/* buy + sample */
+.buy{background:var(--card);border:1px solid var(--line);box-shadow:0 14px 34px var(--shadow);padding:40px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.price{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:60px;font-weight:700;line-height:1;color:var(--fg)}
+.price small{display:block;font:400 16px 'Source Sans 3',system-ui,sans-serif;color:var(--mut);margin-top:10px}
+.note{color:var(--mut);font-size:16px;margin:0}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:16px 0;max-width:780px}
+summary{cursor:pointer;font-weight:600;font-size:19px}
+details p{margin:10px 0 0}
+
+footer{padding:40px 0 64px;border-top:1px solid var(--line);color:var(--mut);font-size:16px}
+footer a{color:var(--mut)}
+
+@media (max-width:860px){
+ section{padding:64px 0}
+ .hero,.two,.how,.buy,.quotes,.gal,.pathwrap,.author{grid-template-columns:1fr}
+ .ph.sm{min-height:140px;max-width:240px}
+ .mapfig{position:static;margin-top:8px}
+ .art{min-height:0;display:grid;gap:18px;padding:8px 0}
+ .art img{position:static;width:100%!important;transform:none!important}
+ .art .p2{display:none}
+ .facts li{padding:6px 0;border-left:0;width:100%}
+ .buy{padding:28px}
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="top"><div class="top-fade"><div class="wrap">
+<header>
+  <span class="brandwrap"><a class="brand" href="/guitar/intermediary">Intermediary</a><span class="by">by Tom McFarlin</span></span>
+  <nav aria-label="Primary">
+    <a href="#path">The path</a>
+    <a href="#inside">Inside</a>
+    <a href="#sample">Free lesson</a>
+    <a href="#faq">Questions</a>
+    <a class="btn" href="#buy">Get the workbook</a>
+  </nav>
+</header>
+<div class="hero">
+  <div>
+    <h1><span class="name">Intermediary<span class="sr-only">: </span></span><span class="tag">Practical Guitar Lessons from Open Chords to Intermediate</span></h1>
+    <p class="lead">Intermediary is a series of printable guitar workbooks that take players from open chords toward intermediate with practical, step-by-step lessons on barre chords, the fretboard, music theory, and CAGED.</p>
+    <p style="max-width:54ch;color:var(--mut)">If you know a few open chords and feel stuck, this is the clear next step. Every page is short, every new word is explained, and nothing is assumed.</p>
+    <div class="actions">
+      <a class="btn" href="#buy">Get the workbook</a>
+      <a class="btn alt" href="#sample">Get a free lesson first</a>
+    </div>
+    <ul class="facts">
+      <li>Six sessions</li>
+      <li>Answer keys for every drill</li>
+      <li>Printable PDF, Letter and A4</li>
+    </ul>
+  </div>
+  <div class="art">
+    <img class="p1" width="765" height="990" fetchpriority="high" src="images/s4-1.jpg" alt="A sample page from Session 4 showing one barre chord shape moved up the neck in three chord diagrams, with a fill-in drill">
+    <img class="p2" width="765" height="990" src="images/s4-3.jpg" alt="A sample page from Session 4 comparing major and minor barre chord shapes side by side">
+  </div>
+</div>
+</div></div></div>
+
+<main id="main">
+<section id="path">
+  <div class="wrap">
+    <h2>A clear path from open chords to intermediate</h2>
+    <p class="lede">Six short sessions, in order. Each one uses what the last one taught you, so you never have to guess what to learn next.</p>
+    <div class="pathwrap">
+    <ol class="path">
+      <li class="step start"><span class="mk" aria-hidden="true"></span>
+        <span class="stage">Where you are now</span>
+        <h3>You know some open chords and feel stuck</h3>
+        <p>You can play along with a few songs. Barre chords hurt, the neck is a mystery, and theory sounds like another language.</p>
+      </li>
+      <li class="step"><span class="mk" aria-hidden="true"></span>
+        <span class="stage">Get your footing</span>
+        <h3>Session 1: Guitar Basics</h3>
+        <p>Name every part of the guitar, read the six strings in tab without mixing up top and bottom, and set up your hands comfortably.</p>
+      </li>
+      <li class="step"><span class="mk" aria-hidden="true"></span>
+        <h3>Session 2: Open Chords Review</h3>
+        <p>Know the root of each of the nine open chords, and practice clean changes between them.</p>
+      </li>
+      <li class="step"><span class="mk" aria-hidden="true"></span>
+        <h3>Session 3: The Fretboard Map</h3>
+        <p>Find any note on the first twelve frets, and see where each chord's root lives.</p>
+      </li>
+      <li class="step"><span class="mk" aria-hidden="true"></span>
+        <span class="stage">Unlock the neck</span>
+        <h3>Session 4: Barre Chords Unlocked</h3>
+        <p>Learn one shape that plays a different chord at every fret, in major and minor, and name each chord by the note under your finger.</p>
+      </li>
+      <li class="step"><span class="mk" aria-hidden="true"></span>
+        <span class="stage">Make it all connect</span>
+        <h3>Session 5: Theory</h3>
+        <p>Build the chords of a key from the major scale, and see the chord numbers that every key shares.</p>
+      </li>
+      <li class="step"><span class="mk" aria-hidden="true"></span>
+        <h3>Session 6: CAGED and the Pentatonic</h3>
+        <p>Learn your first scale as a box you can slide anywhere, and play the same chord in five places on the neck.</p>
+      </li>
+      <li class="step end"><span class="mk" aria-hidden="true"></span>
+        <span class="stage">Where you are headed</span>
+        <h3>Intermediate</h3>
+        <p>You can find your way around the neck, play barre chords, and see why chords fit together, so new songs and lessons start to make sense.</p>
+      </li>
+    </ol>
+    <figure class="mapfig"><img src="images/map.jpg" width="1104" height="976" loading="lazy" alt="A map of the six sessions in order, from Guitar Basics to CAGED and the Pentatonic, with arrows showing how Session 2 feeds into Session 3 and Session 4 into Session 6"><figcaption>The path, session by session</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="inside" class="band">
+  <div class="wrap">
+    <h2>Easy to follow, by design</h2>
+    <p class="lede">Hard ideas get a plain-English explanation first, and the detail builds from there.</p>
+    <div class="how">
+      <div><h3>The short version comes first</h3><p>Every page opens with one or two sentences that give you the idea. The detail follows.</p></div>
+      <div><h3>New words are explained once</h3><p>Each session starts with a plain-English box for any new terms, so nothing appears before it is explained.</p></div>
+      <div><h3>Drills start easy</h3><p>Rounds and levels let you begin small and add more when it feels comfortable.</p></div>
+      <div><h3>Check your own work</h3><p>Try each drill first, then use the answer keys at the back.</p></div>
+    </div>
+    <div class="gal">
+      <figure style="margin:0"><img loading="lazy" width="765" height="990" src="images/s4-1.jpg" alt="Session 4, page 1: the short version, three chord diagrams, and a drill"><figcaption><strong>Start with the short version</strong>One idea, then the detail, then a drill.</figcaption></figure>
+      <figure style="margin:0"><img loading="lazy" width="765" height="990" src="images/s4-3.jpg" alt="Session 4, page 3: major and minor barre chords side by side"><figcaption><strong>See the change, not just read it</strong>Major and minor shapes side by side, with the one changed finger marked.</figcaption></figure>
+      <figure style="margin:0"><img loading="lazy" width="765" height="990" src="images/s4-4.jpg" alt="Session 4, page 4: the barre chord ladder drill"><figcaption><strong>Drills that ramp up</strong>Start with five frets, then add more as it gets easier.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials are hidden until there are real, permitted quotes. To show them, remove this comment wrapper and replace the two Placeholder cards.
+<section id="readers">
+  <div class="wrap">
+    <h2>What early readers say</h2>
+    <p class="lede">Real feedback from players who worked through the sessions.</p>
+    
+    <div class="quotes">
+      <div class="q"><span class="phtag">Placeholder</span><p>Replace with a real quote from an early reader: one or two sentences about what became clearer.</p><p class="who">First name, and how long they have played</p></div>
+      <div class="q"><span class="phtag">Placeholder</span><p>Replace with a second real quote, ideally about how easy the lessons were to follow.</p><p class="who">First name, and how long they have played</p></div>
+    </div>
+  </div>
+</section>
+-->
+
+<section id="author">
+  <div class="wrap">
+    <div style="max-width:720px">
+      <h2>Who made this</h2>
+      <p>Hi, I'm Tom McFarlin. I've played guitar for almost thirty years, from jamming at home to playing on stage in a band, on acoustic and electric, rhythm and lead.</p>
+      <p>When I helped other players, I noticed the same parts never clicked right away: the neck, and how chord shapes connect. I started writing down how I explained them, and this workbook is the result. It's a plain-English system built on one idea: if a step feels confusing, the explanation needs fixing, not you.</p>
+    </div>
+  </div>
+</section>
+
+<section id="who" class="band">
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <h2>Who this is for</h2>
+        <ul class="sq">
+          <li>You know a handful of open chords and want to move past them.</li>
+          <li>You want to understand what you are playing, not just copy it.</li>
+          <li>You like a clear sequence you can work through with a pencil.</li>
+          <li>You teach guitar and want plain-English material for students.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Who it is not for</h2>
+        <p>If you cannot yet play open chords, start with a beginner course first. The early sessions are a refresher, not a first lesson.</p>
+        <p>If you are already comfortable with barre chords, scales, and soloing, this will mostly be review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sample">
+  <div class="wrap">
+    <h2>Get a free lesson first</h2>
+    <p class="lede">Download the first lesson from Session 4, One Shape, Every Major Chord, with its drill and answer key. It shows how every page in the workbook is built. No sign-up needed.</p>
+    <div class="actions" style="margin:20px 0 10px">
+      <a class="btn" href="downloads/free-sample-barre-chords-letter.pdf" download>Download free PDF (US Letter)</a>
+      <a class="btn alt" href="downloads/free-sample-barre-chords-a4.pdf" download>Download free PDF (A4)</a>
+    </div>
+  </div>
+</section>
+
+<section id="buy" class="band">
+  <div class="wrap">
+    <div class="buy">
+      <div>
+        <h2>Get the workbook</h2>
+        <ul class="sq">
+          <li>All six sessions, ready to print or fill in on a tablet</li>
+          <li>Answer keys for every drill</li>
+          <li>A map of the whole path and a 21-day practice streak chart</li>
+          <li>Instant PDF download for US Letter and A4 from Etsy</li>
+        </ul>
+      </div>
+      <div>
+        <!-- Replace the shop link with the direct listing URL once the listing is published -->
+        <div class="price">$12.99<small>One-time purchase on Etsy</small></div>
+        <div class="actions"><a class="btn" href="https://www.etsy.com/listing/4625590783/printable-guitar-workbook-pdf-open" rel="noopener">Buy on Etsy</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Questions</h2>
+    <details><summary>What does intermediate mean here?</summary><p>It means you are comfortable with open chords and ready to learn barre chords, the notes on the neck, and how chords fit together. It does not mean soloing or advanced technique.</p></details>
+    <details><summary>Why is it called Intermediary?</summary><p>An intermediary is a go-between. This workbook is the go-between for the beginner stage and the intermediate stage.</p></details>
+    <details><summary>Do I need to read music?</summary><p>No. Everything is done by counting frets and using the note names you learn in Session 3.</p></details>
+    <details><summary>Is it for acoustic or electric guitar?</summary><p>Both. The shapes and exercises are the same on either, and the guitar is assumed to be in standard tuning.</p></details>
+    <details><summary>Is it for complete beginners?</summary><p>Not quite. Sessions 1 and 2 are a refresher, so you should already know a few open chords. If you do not, a beginner course first will make this much easier.</p></details>
+    <details><summary>How long does it take?</summary><p>It is self-paced. Short, regular practice works better than long sessions, so a few minutes most days is plenty.</p></details>
+    <details><summary>I am left-handed. Will it work?</summary><p>Yes. The diagrams are drawn for right-handed players, and left-handed players use the same shapes with the hands mirrored.</p></details>
+    <details><summary>What do I get after I buy?</summary><p>You buy through Etsy and download the PDFs from your Etsy account (Purchases and Reviews), where they stay available. Because this is an instant digital download, Etsy does not accept returns, but if a file won't open or something is wrong, message me through Etsy or email <a href="mailto:support@pressware.co">support@pressware.co</a> and I'll make it right.</p></details>
+  </div>
+</section>
+<section id="closing" class="band close">
+  <div class="wrap">
+    <h2>Ready to take the next step?</h2>
+    <p class="lede">Start with a free lesson, or get the whole path now.</p>
+    <div class="actions">
+      <a class="btn" href="#buy">Get the workbook</a>
+      <a class="btn alt" href="#sample">Get a free lesson first</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0 0 8px">&copy; 2026 Tom McFarlin</p>
+    <p style="margin:0"><a href="privacy.html">Privacy</a> &nbsp; <a href="terms.html">Terms</a> &nbsp; <a href="mailto:support@pressware.co">Contact</a></p>
+  </div>
+</footer>
+</body>
+</html>
